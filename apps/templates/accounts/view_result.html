@@ -1,0 +1,390 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Pre Registration {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+  <div class="py-4">
+      <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
+          <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
+              <li class="breadcrumb-item">
+                  <a href="#">
+                      <svg class="icon icon-xxs" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+                  </a>
+              </li>
+              <li class="breadcrumb-item"><a href="#">AMSAI</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Pre Registration</li>
+          </ol>
+      </nav>
+      <div class="d-flex justify-content-between w-100 flex-wrap">
+          <div class="mb-3 mb-lg-0">
+              <h1 class="h4">Your Information</h1>
+              <p>Application:
+                  {% if request.session.login_info.reg_status == "Pending" %}
+                  <a class="text-danger">{{ request.session.login_info.reg_status }}</a>
+                  {% else %}
+                  <a class="text-success">{{ request.session.login_info.reg_status }}</a>
+                  {% endif %}
+              </p>
+          </div>
+      </div>
+  </div>
+
+  <div class="row">
+      <div class="col-12 mb-4">
+          <div class="card border-0 shadow components-section">
+            <!--      Header 1        -->
+              <div class="card-header py-" style="background: #F9FAFB">
+                <div class="align-content-center">
+                    <h5 class="m-0 font-weight-bold text-primary" >Personal Information</h5>
+                </div>
+              </div>
+              <div class="card-body">
+                    {% csrf_token %}
+                    {{ warn }} {{ error }}
+                  <div class="row mb-4">
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label for="">Reference No.</label>
+                              <input type="text" readonly class="form-control" value="{{ request.session.login_info.refno }}">
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                           <div class="mb-4">
+                              <label>Student ID</label>
+                              <div class="input-group">
+                                  <input type="text" readonly class="form-control" value="{{ request.session.login_info.studentid }}">
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label>Student Type</label>
+                               <input type="text" readonly class="form-control" value="{{ request.session.login_info.studenttype }}">
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-3">
+                              <label>LRN</label>
+                              <input type="text" readonly class="form-control" value="{{ request.session.login_info.lrn }}">
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label class="form-label">First Name</label>
+                              <input type="text" readonly class="form-control" value="{{ request.session.login_info.firstname }}">
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label for="">Last Name</label>
+                              <input type="text" readonly class="form-control" value="{{ request.session.login_info.lastname }}">
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label class="form-label">Middle Name</label>
+                              <input type="text" readonly class="form-control" value="{{ request.session.login_info.middlename }}">
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label for="">Suffix</label>
+                              <input type="text" readonly class="form-control" value="{{ request.session.login_info.suffix }}">
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label for="">Gender</label>
+                              <input type="text" readonly class="form-control" value="{{ request.session.login_info.gender }}">
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label for="">Date of Birth</label>
+                              <input type="text" readonly class="form-control" value="{{ request.session.login_info.birthdate }}">
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label for="">Place of Birth</label>
+                              <input type="text" readonly class="form-control" value="{{ request.session.login_info.birthplace }}">
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label for="">Address</label>
+                              <input type="text" readonly class="form-control" value="{{ request.session.login_info.address }}">
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label for="">Ethnicity</label>
+                              <input type="text" readonly class="form-control" value="{{ request.session.login_info.ethnicity }}">
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label for="">Religion</label>
+                              <input type="text" readonly class="form-control" value="{{ request.session.login_info.religion }}">
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                           <div class="mb-4">
+                              <label for="">Contact Number</label>
+                              <input type="text" readonly class="form-control" value="{{ request.session.login_info.contact }}">
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                           <div class="mb-4">
+                              <label>Email</label>
+                              <div class="input-group">
+                                  <input type="text" readonly class="form-control" value="{{ request.session.login_info.email }}">
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label>Level</label>
+                              <div class="input-group">
+                                  <input type="text" readonly class="form-control" value="{{ request.session.login_info.level }}">
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-3">
+                              <label>Strand</label>
+                              <input type="text" readonly class="form-control" value="{{ request.session.login_info.strand }}">
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label for="">Curriculum</label>
+                              <input type="text" readonly class="form-control" value="{{ request.session.login_info.curriculum }}">
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label for="">Civil Status</label>
+                              <input type="text" readonly class="form-control" value="{{ request.session.login_info.civilstatus }}">
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label for="">Cultural Minority Group</label>
+                              <input type="text" readonly class="form-control" value="{{ request.session.login_info.culturalminoritygroup }}">
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label for="">Disabilities</label>
+                              <input type="text" readonly class="form-control" value="{{ request.session.login_info.disabilities }}">
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <div class="row">
+      <div class="col-12 mb-4">
+          <div class="card border-0 shadow components-section">
+            <!--      Header 2        -->
+              <div class="card-header py-" style="background: #F9FAFB">
+                <div class="align-content-center">
+                    <h5 class="m-0 font-weight-bold text-primary" >Parents Information</h5>
+                </div>
+              </div>
+              <div class="card-body">
+                  <div class="row mb-4">
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label class="form-label">Father's Name</label>
+                              <input type="text" readonly class="form-control" value="{{ request.session.login_info.fathersname }}">
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label for="">Father's Occupation</label>
+                              <input type="text" readonly class="form-control" value="{{ request.session.login_info.fathersoccupation }}">
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label class="form-label">Father's Contact</label>
+                              <input type="text" readonly class="form-control" value="{{ request.session.login_info.fatherscontact }}">
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label for="">Mother's Name</label>
+                              <input type="text" readonly class="form-control" value="{{ request.session.login_info.mothersname }}">
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label for="">Mother's Occupation</label>
+                              <input type="text" readonly class="form-control" value="{{ request.session.login_info.mothersoccupation }}">
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label for="">Mother's Contact</label>
+                              <input type="text" readonly class="form-control" value="{{ request.session.login_info.motherscontact }}">
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="row">
+      <div class="col-12 mb-4">
+          <div class="card border-0 shadow components-section">
+            <!--      Header 2       -->
+              <div class="card-header py-" style="background: #F9FAFB">
+                <div class="align-content-center">
+                    <h5 class="m-0 font-weight-bold text-primary" >Guardians Information</h5>
+                </div>
+              </div>
+              <div class="card-body">
+                  <div class="row mb-4">
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label for="">Guardian's name</label>
+                              <input type="text" readonly class="form-control" value="{{ request.session.login_info.guardiansname }}">
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label for="">Guardian's Occupation</label>
+                              <input type="text" readonly class="form-control" value="{{ request.session.login_info.guardiansoccupation }}">
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label for="">Guardian's Contact</label>
+                              <input type="text" readonly class="form-control" value="{{ request.session.login_info.guardianscontact }}">
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="row">
+      <div class="col-12 mb-4">
+          <div class="card border-0 shadow components-section">
+            <!--      Header 4       -->
+              <div class="card-header py-" style="background: #F9FAFB">
+                <div class="align-content-center">
+                    <h5 class="m-0 font-weight-bold text-primary" >Previous School</h5>
+                </div>
+              </div>
+              <div class="card-body">
+                  <div class="row mb-4">
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label for="">Junior High School</label>
+                              <input type="text" readonly class="form-control" value="{{ request.session.login_info.junioraddress }}">
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                           <div class="mb-4">
+                              <label>JHS School Year</label>
+                              <div class="input-group">
+                                  <input type="text" readonly class="form-control" value="{{ request.session.login_info.juniorhigh }}">
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label>Senior High School</label>
+                              <div class="input-group">
+                                  <input type="text" readonly class="form-control" value="{{ request.session.login_info.senioraddress }}">
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-3">
+                              <label>SHS School Year</label>
+                              <input type="text" readonly class="form-control" value="{{ request.session.login_info.seniorhigh }}">
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label class="form-label">Technical Vocational Course</label>
+                              <input type="text" readonly class="form-control" value="{{ request.session.login_info.techvoccourse }}">
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="row">
+      <div class="col-12 mb-4">
+          <div class="card border-0 shadow components-section">
+            <!--      Header 5       -->
+              <div class="card-header py-" style="background: #F9FAFB">
+                <div class="align-content-center">
+                    <h5 class="m-0 font-weight-bold text-primary" >Requirements</h5>
+                </div>
+              </div>
+              <div class="card-body">
+                  <div class="row mb-4">
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label>Birth Certificate</label>
+                               <input type="text" readonly class="form-control" value="{{ request.session.login_info.birthcert }}">
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label>Form 137</label>
+                              <input type="text" readonly class="form-control" value="{{ request.session.login_info.form137 }}">
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label for="">Good Moral</label>
+                              <input type="text" readonly class="form-control" value="{{ request.session.login_info.goodmoral }}">
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label for="">Report Card</label>
+                              <input type="text" readonly class="form-control" value="{{ request.session.login_info.reportcard }}">
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label for="">ESC</label>
+                              <input type="text" readonly class="form-control" value="{{ request.session.login_info.esc }}">
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label for="">PSA</label>
+                              <input type="text" readonly class="form-control" value="{{ request.session.login_info.psa }}">
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label for="">2x2 ID Picture</label>
+                              <input type="text" readonly class="form-control" value="{{ request.session.login_info.number_2x2 }}">
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

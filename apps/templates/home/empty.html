@@ -1,0 +1,36 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Dashboard {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<main>
+        <section class="d-flex align-items-center justify-content-center" style="height: 500px">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 text-center d-flex align-items-center justify-content-center">
+                        <div>
+                            <img class="img-fluid w-75" src="/static/assets/img/illustrations/empty.svg" alt="404 not found">
+                            <h3 class="mt-5">
+                                Welcome <span class="fw-bolder text-primary">{{ request.session.login_info.username }}{{ request.session.login_info.lrn }}!</span>
+                            </h3>
+                            {% if request.session.login_info.reg_status == "Approve" %}
+                            <p class="lead my-4">
+                                Your registration has been approved. Please <a class="fw-bold" href="/logout/">login</a> as student.
+                            </p>
+                            <a class="btn btn-dark animate-hover" href="/amsai/login/">
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

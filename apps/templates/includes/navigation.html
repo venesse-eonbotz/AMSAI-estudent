@@ -1,0 +1,137 @@
+<nav class="navbar navbar-top navbar-expand navbar-dashboard navbar-dark ps-0 pe-2 pb-0">
+              <div class="container-fluid px-0">
+                <div class="d-flex justify-content-between w-100" id="navbarSupportedContent">
+                  <div class="d-flex align-items-center">
+                    <!-- Search form -->
+                    <form class="navbar-search form-inline" id="navbar-search-main">
+                      <div class="input-group input-group-merge search-bar">
+                          <span class="input-group-text" id="topbar-addon">
+                            <svg class="icon icon-xs" x-description="Heroicon name: solid/search" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                              <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path>
+                            </svg>
+                          </span>
+                          <input type="text" class="form-control" id="myInput" onkeyup="tableSearch()" placeholder="Search" aria-label="Search" aria-describedby="topbar-addon">
+                      </div>
+                    </form>
+                    <!-- / Search form -->
+                  </div>
+                  <!-- Navbar links -->
+                  <ul class="navbar-nav align-items-center">
+                    <li class="nav-item dropdown">
+                      {% if request.session.login_info.is_active %}
+                      <a class="nav-link text-dark notification-bell unread dropdown-toggle" data-unread-notifications="true" href="#" role="button" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
+                        <svg class="icon icon-sm text-gray-900" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"></path></svg>
+                      </a>
+                      {% endif %}
+                  <li class="nav-item dropdown ms-lg-3">
+                      <a class="nav-link dropdown-toggle pt-1 px-0" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <div class="media d-flex align-items-center">
+                          <img class="avatar rounded-circle" alt="Image placeholder" src="/static/assets/img/icons/5087579.png">
+                          <div class="media-body ms-2 text-dark align-items-center d-none d-lg-block">
+                            <span class="mb-0 font-small fw-bold text-gray-900">
+                              <strong>{{ request.session.login_info.username }}{{ request.session.login_info.lrn }}</strong>
+                            </span>
+                          </div>
+                        </div>
+                      </a>
+                    {% if request.session.login_info.is_active %}
+                      <div class="dropdown-menu dashboard-dropdown dropdown-menu-end mt-2 py-1">
+                        <a class="dropdown-item d-flex align-items-center" href="#">
+                          <svg class="dropdown-icon text-gray-400 me-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clip-rule="evenodd"></path></svg>
+                          My Profile
+                        </a>
+                        <div role="separator" class="dropdown-divider my-1"></div>
+                        <a class="dropdown-item d-flex align-items-center" href="/logout/">
+                          <svg class="dropdown-icon text-danger me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>                
+                          Logout
+                        </a>
+                      </div>
+                    {% endif %}
+                      <div class="dropdown-menu dashboard-dropdown dropdown-menu-end mt-2 py-1">
+<!--                        <a class="dropdown-item d-flex align-items-center" href="/amsai/pre-registration/">-->
+<!--                          <svg class="dropdown-icon text-gray-400 me-2" fill="currentColor" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">-->
+<!--                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path id="Path_184" data-name="Path 184" d="M57.5,41a.5.5,0,0,0-.5.5V43H47V31h2v.5a.5.5,0,0,0,.5.5h5a.5.5,0,0,0,.5-.5V31h2v.5a.5.5,0,0,0,1,0v-1a.5.5,0,0,0-.5-.5H55v-.5A1.5,1.5,0,0,0,53.5,28h-3A1.5,1.5,0,0,0,49,29.5V30H46.5a.5.5,0,0,0-.5.5v13a.5.5,0,0,0,.5.5h11a.5.5,0,0,0,.5-.5v-2A.5.5,0,0,0,57.5,41ZM50,29.5a.5.5,0,0,1,.5-.5h3a.5.5,0,0,1,.5.5V31H50Zm11.854,4.646-2-2a.5.5,0,0,0-.708,0l-6,6A.5.5,0,0,0,53,38.5v2a.5.5,0,0,0,.5.5h2a.5.5,0,0,0,.354-.146l6-6A.5.5,0,0,0,61.854,34.146ZM54,40V38.707l5.5-5.5L60.793,34.5l-5.5,5.5Zm-2,.5a.5.5,0,0,1-.5.5h-2a.5.5,0,0,1,0-1h2A.5.5,0,0,1,52,40.5Zm0-3a.5.5,0,0,1-.5.5h-2a.5.5,0,0,1,0-1h2A.5.5,0,0,1,52,37.5ZM54.5,35h-5a.5.5,0,0,1,0-1h5a.5.5,0,0,1,0,1Z" transform="translate(-46 -28)"></path> </g></svg>-->
+<!--                          Pre-registration-->
+<!--                        </a>-->
+<!--                        <a class="dropdown-item d-flex align-items-center" href="/student/register/">-->
+<!--                          <svg class="dropdown-icon text-gray-400 me-2" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">-->
+<!--                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier">-->
+<!--                            <path d="M18 9H4V8h14zm-5 3H4v1h9zm8-8v9h-1V5H2v13h9v1H1V4zm2.07 11.637l-.707-.707-5.863 5.863-2.863-2.863-.707.707 3.57 3.57z"></path><path fill="none" d="M0 0h24v24H0z"></path></g></svg>-->
+<!--                          Student Registration-->
+<!--                        </a>-->
+                        {% if request.session.login_info.mystatus %}
+                        <a class="dropdown-item d-flex align-items-center" href="/amsai/parent_registration/">
+                          <svg class="dropdown-icon text-gray-400 me-2" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier">
+                            <path d="M18 9H4V8h14zm-5 3H4v1h9zm8-8v9h-1V5H2v13h9v1H1V4zm2.07 11.637l-.707-.707-5.863 5.863-2.863-2.863-.707.707 3.57 3.57z"></path><path fill="none" d="M0 0h24v24H0z"></path></g></svg>
+                          My Registration
+                        </a>
+                        {% endif %}
+
+                        {% if request.session.login_info.userrole %}
+                        <a class="dropdown-item d-flex align-items-center" href="#">
+                          <svg class="dropdown-icon text-gray-400 me-2" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier">
+                            <path d="M18 9H4V8h14zm-5 3H4v1h9zm8-8v9h-1V5H2v13h9v1H1V4zm2.07 11.637l-.707-.707-5.863 5.863-2.863-2.863-.707.707 3.57 3.57z"></path><path fill="none" d="M0 0h24v24H0z"></path></g></svg>
+                          My Profile
+                        </a>
+                        {% endif %}
+
+                        {% if request.session.login_info.status %}
+                        <a class="dropdown-item d-flex align-items-center" href="/amsai/student_registration/result/">
+                          <svg class="dropdown-icon text-gray-400 me-2" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier">
+                            <path d="M18 9H4V8h14zm-5 3H4v1h9zm8-8v9h-1V5H2v13h9v1H1V4zm2.07 11.637l-.707-.707-5.863 5.863-2.863-2.863-.707.707 3.57 3.57z"></path><path fill="none" d="M0 0h24v24H0z"></path></g></svg>
+                          My Profile
+                        </a>
+                        {% endif %}
+                          {% if request.session.login_info == empty %}
+                          <a class="dropdown-item d-flex align-items-center" href="/logout/">
+                          <svg class="dropdown-icon text-warning me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+                          Login Portal
+                        </a>
+                          {% endif %}
+                          {% if request.session.login_info %}
+                        <div role="separator" class="dropdown-divider my-1"></div>
+                        <a class="dropdown-item d-flex align-items-center" href="/logout/">
+                          <svg class="dropdown-icon text-danger me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+                          Logout
+                        </a>
+                      </div>
+                      {% endif %}
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </nav>
+
+<script type="application/javascript">
+function tableSearch() {
+    let input, filter, table, tr, td, txtValue;
+
+    //Intialising Variables
+    input = document.getElementById("myInput");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("myTable");
+    tr = table.getElementsByTagName("tr");
+    column_length = document.getElementById('myTable').rows[0].cells.length;
+
+    for (i = 1; i < tr.length; i++) { // except (heading)
+        count_td = 0;
+        for (j = 0; j < column_length - 1; j++) {
+            td = tr[i].getElementsByTagName("td")[j];
+            if (td) {
+                if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    count_td++;
+                }
+            }
+        }
+        if (count_td > 0) {
+            tr[i].style.display = "";
+        } else {
+            tr[i].style.display = "none";
+        }
+    }
+
+}
+</script>

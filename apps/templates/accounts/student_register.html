@@ -1,0 +1,448 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Student Registration {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+  <div class="py-4">
+      <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
+          <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
+              <li class="breadcrumb-item">
+                  <a href="#">
+                      <svg class="icon icon-xxs" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+                  </a>
+              </li>
+              <li class="breadcrumb-item"><a href="#">AMSAI</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Student Registration</li>
+          </ol>
+      </nav>
+      <div class="d-flex justify-content-between w-100 flex-wrap">
+          <div class="mb-3 mb-lg-0">
+              <h1 class="h4">Registration Form</h1>
+              <p>Reminder: Refreshing the page will change your reference number. Use this to login to your account.</p>
+          </div>
+          {% if request.session.login_info.status == "Pending" %}
+          <div>
+              <a href="/amsai/student_registration/result/" class="btn btn-primary btn-outline-gray">View Result</a>
+          </div>
+          {% endif %}
+          {% if request.session.login_info.status == "Approve" %}
+          <div>
+              <a href="/amsai/student_registration/result/" class="btn btn-primary btn-outline-gray">View Result</a>
+          </div>
+          {% endif %}
+          {% if request.session.login_info.status == "Denied" %}
+          <div>
+              <a href="/amsai/student_registration/result/" class="btn btn-primary btn-outline-gray">View Result</a>
+          </div>
+          {% endif %}
+      </div>
+  </div>
+
+<form action="" method="POST" enctype="multipart/form-data">
+  <div class="row">
+      <div class="col-12 mb-4">
+          <div class="card border-0 shadow components-section">
+            <!--      Header 1        -->
+              <div class="card-header py-" style="background: #F9FAFB">
+                <div class="align-content-center">
+                    <h5 class="m-0 font-weight-bold text-primary" >Personal Information</h5>
+                </div>
+              </div>
+              <div class="card-body">
+                    {% csrf_token %}
+                    {{ warn }} {{ error }}
+                  <div class="row mb-4">
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-3">
+                              <label>LRN</label>
+                              <input type="text" class="form-control" name="lrn" required>
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label class="form-label">First Name</label>
+                              <input class="form-control" name="firstname" type="text" required>
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label for="">Last Name</label>
+                              <input type="text" name="lastname" class="form-control" required>
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label class="form-label">Middle Name</label>
+                              <input class="form-control" name="middlename" type="text" required>
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label for="">Suffix</label>
+                              <input type="text" name="suffix" class="form-control">
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label for="">Gender</label>
+                              <select class="form-control" name="gender" required>
+                                   <option selected value="New">Male</option>
+                                   <option selected value="Old">Female</option>
+                                   <option selected value="" hidden>Please select your gender</option>
+                               </select>
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label for="">Date of Birth</label>
+                              <input type="date" name="birthdate" class="form-control" required>
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label for="">Place of Birth</label>
+                              <input type="text" name="birthplace" class="form-control" required>
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label for="">Address</label>
+                              <input type="text" name="address" class="form-control" required>
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label for="">Ethnicity</label>
+                              <input type="text" name="ethnicity" class="form-control" required>
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label for="">Religion</label>
+                              <input type="text" name="religion" class="form-control" required>
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label for="">Contact Number</label>
+                              <input type="text" class="form-control" name="contact" required>
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                           <div class="mb-4">
+                              <label>Email</label>
+                              <div class="input-group">
+                                  <input class="form-control" name="email" type="text" required>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label>Level</label>
+                              <div class="input-group">
+                                  <input class="form-control" name="level" type="text">
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-3">
+                              <label>Strand</label>
+                              <input type="text" class="form-control" name="strand">
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label for="">Curriculum</label>
+                              <input type="text" name="curriculum" class="form-control">
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label for="">Civil Status</label>
+                              <input type="text" name="civilstatus" class="form-control" required>
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label for="">Cultural Minority Group</label>
+                              <input type="text" name="culturalminoritygroup" class="form-control">
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label for="">Disabilities</label>
+                              <input type="text" name="disabilities" class="form-control">
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <div class="row">
+      <div class="col-12 mb-4">
+          <div class="card border-0 shadow components-section">
+            <!--      Header 2       -->
+              <div class="card-header py-" style="background: #F9FAFB">
+                <div class="align-content-center">
+                    <h5 class="m-0 font-weight-bold text-primary" >Parents Information</h5>
+                </div>
+              </div>
+              <div class="card-body">
+                  <div class="row mb-4">
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label class="form-label">Father's Name</label>
+                              <input class="form-control" name="fathersname" type="text">
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label for="">Father's Occupation</label>
+                              <input type="text" name="fathersoccupation" class="form-control" required>
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label class="form-label">Father's Contact</label>
+                              <input class="form-control" name="fatherscontact" type="text">
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label for="">Mother's Name</label>
+                              <input type="text" name="mothersname" class="form-control" required>
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label for="">Mother's Occupation</label>
+                              <input type="text" name="mothersoccupation" class="form-control" required>
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label for="">Mother's Contact</label>
+                              <input type="text" name="motherscontact" class="form-control" required>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <div class="row">
+      <div class="col-12 mb-4">
+          <div class="card border-0 shadow components-section">
+            <!--      Header 2       -->
+              <div class="card-header py-" style="background: #F9FAFB">
+                <div class="align-content-center">
+                    <h5 class="m-0 font-weight-bold text-primary" >Guardians Information</h5>
+                </div>
+              </div>
+              <div class="card-body">
+                  <div class="row mb-4">
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label for="">Guardian's name</label>
+                              <input type="text" name="guardiansname" class="form-control" required>
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label for="">Guardian's Occupation</label>
+                              <input type="text" name="guardiansoccupation" class="form-control" required>
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label for="">Guardian's Contact</label>
+                              <input type="text" name="guardianscontact" class="form-control" required>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <div class="row">
+      <div class="col-12 mb-4">
+          <div class="card border-0 shadow components-section">
+            <!--      Header 4       -->
+              <div class="card-header py-" style="background: #F9FAFB">
+                <div class="align-content-center">
+                    <h5 class="m-0 font-weight-bold text-primary" >Previous School</h5>
+                </div>
+              </div>
+              <div class="card-body">
+                  <div class="row mb-4">
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label for="">Junior High School</label>
+                              <input type="text" class="form-control" name="junioraddress">
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                           <div class="mb-4">
+                              <label>JHS School Year</label>
+                              <div class="input-group">
+                                  <input class="form-control" name="juniorhigh" placeholder="example: 2023">
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label>Senior High School</label>
+                              <div class="input-group">
+                                  <input class="form-control" name="senioraddress" type="text">
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-3">
+                              <label>SHS School Year</label>
+                              <input type="text" class="form-control" name="seniorhigh" placeholder="example: 2023">
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label class="form-label">Technical Vocational Course</label>
+                              <input class="form-control" name="techvoccourse" type="text">
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <div class="row">
+      <div class="col-12 mb-4">
+          <div class="card border-0 shadow components-section">
+            <!--      Header 5       -->
+              <div class="card-header py-" style="background: #F9FAFB">
+                <div class="align-content-center">
+                    <h5 class="m-0 font-weight-bold text-primary" >Requirements</h5>
+                </div>
+              </div>
+              <div class="card-body">
+                  <div class="row mb-4">
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label>Birth Certificate</label>
+                               <select class="form-control" name="birthcert" required>
+                                   <option selected value="Yes">Yes</option>
+                                   <option selected value="No">No</option>
+                                   <option disabled selected value="" hidden>Select</option>
+                               </select>
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label for="">Form 137</label>
+                              <select class="form-control" name="form137" required>
+                                   <option selected value="Yes">Yes</option>
+                                   <option selected value="No">No</option>
+                                   <option disabled selected value="" hidden>Select</option>
+                               </select>
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label for="">Good Moral</label>
+                             <select class="form-control" name="goodmoral" required>
+                                   <option selected value="Yes">Yes</option>
+                                   <option selected value="No">No</option>
+                                   <option disabled selected value="" hidden>Select</option>
+                               </select>
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label for="">Report Card</label>
+                              <select class="form-control" name="reportcard" required>
+                                   <option selected value="Yes">Yes</option>
+                                   <option selected value="No">No</option>
+                                   <option disabled selected value="" hidden>Select</option>
+                               </select>
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label for="">ESC</label>
+                              <select class="form-control" name="esc" required>
+                                   <option selected value="Yes">Yes</option>
+                                   <option selected value="No">No</option>
+                                   <option disabled selected value="" hidden>Select</option>
+                               </select>
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label for="">PSA</label>
+                              <select class="form-control" name="psa" required>
+                                   <option selected value="Yes">Yes</option>
+                                   <option selected value="No">No</option>
+                                   <option disabled selected value="" hidden>Select</option>
+                               </select>
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label for="">2x2 ID Picture</label>
+                              <select class="form-control" name="number_2x2" required>
+                                   <option selected value="Yes">Yes</option>
+                                   <option selected value="No">No</option>
+                                   <option disabled selected value="" hidden>Select</option>
+                               </select>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <div class="row">
+      <div class="col-12 mb-4">
+          <div class="card border-0 shadow components-section">
+            <!--      Header 6       -->
+              <div class="card-header py-" style="background: #F9FAFB">
+                <div class="align-content-center">
+                    <h5 class="m-0 font-weight-bold text-primary" >For Login</h5>
+                </div>
+              </div>
+              <div class="card-body">
+                  <div class="row mb-4">
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label for="">Reference No.</label>
+                              <input type="text" class="form-control" value="{{ refno }}" name="refno" readonly>
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label for="">Password</label>
+                              <input type="password" name="password" class="form-control" required>
+                          </div>
+                      </div>
+                      <div class="mt-3">
+                        <button type="submit" name="submit" class="btn btn-gray-800 mt-2 animate-up-2">Submit</button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</form>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

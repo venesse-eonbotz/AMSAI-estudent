@@ -1,0 +1,535 @@
+        <nav class="navbar navbar-dark navbar-theme-primary px-4 col-12 d-lg-none" style="background: #ff6500">
+<!--        <nav class="navbar navbar-dark bg-gray-800 navbar-theme-primary px-4 col-12 d-lg-none">-->
+            <a class="navbar-brand me-lg-5" href="/">
+                <img class="navbar-brand-dark" src="/static/assets/img/logo/amsai-logo.png"/> <img class="navbar-brand-light" src="/static/assets/img/logo/amsai-logo.png" />
+            </a>
+            <div class="d-flex align-items-center">
+                <button class="navbar-toggler d-lg-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+        </nav>
+
+        <nav id="sidebarMenu" class="sidebar  d-lg-block text-white collapse" style="background: #ff6500" data-simplebar>
+<!--        <nav id="sidebarMenu" class="sidebar bg-gray-800 d-lg-block text-white collapse" style="background: #ff6500" data-simplebar>-->
+          <div class="sidebar-inner px-4 pt-3">
+            <div class="user-card d-flex d-md-none align-items-center justify-content-between justify-content-md-center pb-4">
+              <div class="d-flex align-items-center">
+                <div class="avatar-lg me-4">
+                  <img src="/static/assets/img/icons/5087579.png" class="card-img-top rounded-circle border-white"
+                    alt="Bonnie Green">
+                </div>
+                <div class="d-block">
+                  <h2 class="h5 mb-3">Hi, {{ request.session.login_info.username }}{{ request.session.login_info.lrn }}</h2>
+                  <a href="/logout/" class="btn btn-primary btn-sm d-inline-flex align-items-center">
+                    <svg class="icon icon-xxs me-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+                    Sign Out
+                  </a>
+                </div>
+              </div>
+              <div class="collapse-close d-md-none">
+                <a href="#sidebarMenu" data-bs-toggle="collapse"
+                    data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="true"
+                    aria-label="Toggle navigation">
+                    <svg class="icon icon-xs" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                  </a>
+              </div>
+            </div>
+            <style>
+              a.navs, span.navs{
+                display: block;
+                padding: 0.5rem 1rem; }
+              a.navs:hover, span.navs:hover, a.navs:focus{
+                background: #ff8540;
+                border-radius: 12px; }
+              a.navs.disabled {
+                color: #ff8540;
+                pointer-events: none;
+                cursor: default; }
+            </style>
+            <ul class="nav flex-column pt-3 pt-md-0">
+              <li class="nav-item" style="">
+                <a href="#" class="d-flex align-items-center" style="padding: 0.5rem 1rem;">
+                  <span class="sidebar-icon" >
+                    <img src="/static/assets/img/logo/amsai-logo.png" height="40" width="40">
+                  </span>
+                  <span class="mt-1 ms-1 sidebar-text">AMSAI Overview</span>
+                </a>
+              </li>
+
+              <!--      Dashboard (Parent)        -->
+              {% if request.session.login_info.mystatus == "Approve" %}
+              <li class="nav-item {% if 'dashboard' in segment %} active {% endif %}">
+                <a href="/dashboard/" class="navs">
+                  <span class="sidebar-icon">
+                    <svg class="icon icon-xs me-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path><path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path></svg>
+                  </span> 
+                  <span class="sidebar-text">Dashboard</span>
+                </a>
+              </li>
+              {% endif %}
+
+              <!--      Dashboard (Admin)        -->
+              {% if request.session.login_info.userrole %}
+              <li class="nav-item {% if 'dashboard' in segment %} active {% endif %}">
+                <a href="/dashboard/" class="navs">
+                  <span class="sidebar-icon">
+                    <svg class="icon icon-xs me-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path><path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path></svg>
+                  </span>
+                  <span class="sidebar-text">Dashboard</span>
+                </a>
+              </li>
+              {% endif %}
+
+              <!--      Dashboard (Student)        -->
+              {% if request.session.login_info.status == "Approve" %}
+              <li class="nav-item {% if 'dashboard' in segment %} active {% endif %}">
+                <a href="/dashboard/" class="navs">
+                  <span class="sidebar-icon">
+                    <svg class="icon icon-xs me-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path><path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path></svg>
+                  </span>
+                  <span class="sidebar-text">Dashboard</span>
+                </a>
+              </li>
+              {% endif %}
+
+              <!--      Dashboard (Student)        -->
+              {% if request.session.login_info.status == "Pending" %}
+              <li class="nav-item {% if 'dashboard' in segment %} active {% endif %}">
+                <a href="/amsai/" class="navs">
+                  <span class="sidebar-icon">
+                    <svg class="icon icon-xs me-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path><path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path></svg>
+                  </span>
+                  <span class="sidebar-text">Dashboard</span>
+                </a>
+              </li>
+              {% endif %}
+
+<!--              Applicant -->
+              {% if request.session.login_info.reg_status == "Approve" %}
+              <li class="nav-item {% if 'dashboard' in segment %} active {% endif %}">
+                <a href="/amsai/" class="navs">
+                  <span class="sidebar-icon">
+                    <svg class="icon icon-xs me-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path><path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path></svg>
+                  </span>
+                  <span class="sidebar-text">Dashboard</span>
+                </a>
+              </li>
+              {% endif %}
+
+
+              {% if request.session.login_info.mystatus == "Pending" %}
+              <li class="nav-item {% if 'dashboard' in segment %} active {% endif %}">
+                <a href="/amsai/parent_registration/result/" class="navs">
+                  <span class="sidebar-icon">
+                    <svg class="icon icon-xs me-2" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M3 20C5.33579 17.5226 8.50702 16 12 16C15.493 16 18.6642 17.5226 21 20M16.5 7.5C16.5 9.98528 14.4853 12 12 12C9.51472 12 7.5 9.98528 7.5 7.5C7.5 5.01472 9.51472 3 12 3C14.4853 3 16.5 5.01472 16.5 7.5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></g></svg>
+                  </span>
+                  <span class="sidebar-text">View Profile</span>
+                </a>
+              </li>
+              {% endif %}
+
+              {% if request.session.login_info.reg_status == "Pending" %}
+              <li class="nav-item {% if 'dashboard' in segment %} active {% endif %}">
+                <a href="/amsai/pre-registration/result/" class="navs">
+                  <span class="sidebar-icon">
+                    <svg class="icon icon-xs me-2" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M3 20C5.33579 17.5226 8.50702 16 12 16C15.493 16 18.6642 17.5226 21 20M16.5 7.5C16.5 9.98528 14.4853 12 12 12C9.51472 12 7.5 9.98528 7.5 7.5C7.5 5.01472 9.51472 3 12 3C14.4853 3 16.5 5.01472 16.5 7.5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></g></svg>
+                  </span>
+                  <span class="sidebar-text">View Profile</span>
+                </a>
+              </li>
+              {% endif %}
+
+              {% if request.session.login_info.status == "Pending" %}
+              <li class="nav-item {% if 'dashboard' in segment %} active {% endif %}">
+                <a href="/amsai/student_registration/result/" class="navs">
+                  <span class="sidebar-icon">
+                    <svg class="icon icon-xs me-2" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M3 20C5.33579 17.5226 8.50702 16 12 16C15.493 16 18.6642 17.5226 21 20M16.5 7.5C16.5 9.98528 14.4853 12 12 12C9.51472 12 7.5 9.98528 7.5 7.5C7.5 5.01472 9.51472 3 12 3C14.4853 3 16.5 5.01472 16.5 7.5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></g></svg>
+                  </span>
+                  <span class="sidebar-text">View Profile</span>
+                </a>
+              </li>
+              {% endif %}
+
+              {% if request.session.login_info.mystatus == "Decline" %}
+              <li class="nav-item {% if 'dashboard' in segment %} active {% endif %}">
+                <a href="/amsai/parent_registration/result/" class="navs">
+                  <span class="sidebar-icon">
+                    <svg class="icon icon-xs me-2" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M3 20C5.33579 17.5226 8.50702 16 12 16C15.493 16 18.6642 17.5226 21 20M16.5 7.5C16.5 9.98528 14.4853 12 12 12C9.51472 12 7.5 9.98528 7.5 7.5C7.5 5.01472 9.51472 3 12 3C14.4853 3 16.5 5.01472 16.5 7.5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></g></svg>
+                  </span>
+                  <span class="sidebar-text">View Profile</span>
+                </a>
+              </li>
+              {% endif %}
+
+
+              <!--       Attendance       -->
+              {% if request.session.login_info.status == "Approve" %}
+              <li class="nav-item {% if 'tables-bootstrap-' in segment %} active {% endif %}">
+                <span
+                  class="navs collapsed d-flex justify-content-between align-items-center"
+                  data-bs-toggle="collapse" data-bs-target="#submenu-attendance">
+                  <span>
+                    <span class="sidebar-icon">
+                    <svg class="icon icon-xs me-2"  fill="currentColor" viewBox="-3 0 35 35" xmlns="http://www.w3.org/2000/svg"><path d="M24.98 30.009h-23v-25h14.050l2.022-1.948-0.052-0.052h-16.020c-1.105 0-2 0.896-2 2v25c0 1.105 0.895 2 2 2h23c1.105 0 2-0.895 2-2v-14.646l-2 1.909v12.736zM30.445 1.295c-0.902-0.865-1.898-1.304-2.961-1.304-1.663 0-2.876 1.074-3.206 1.403-0.468 0.462-13.724 13.699-13.724 13.699-0.104 0.106-0.18 0.235-0.219 0.38-0.359 1.326-2.159 7.218-2.176 7.277-0.093 0.302-0.010 0.631 0.213 0.851 0.159 0.16 0.373 0.245 0.591 0.245 0.086 0 0.172-0.012 0.257-0.039 0.061-0.020 6.141-1.986 7.141-2.285 0.132-0.039 0.252-0.11 0.351-0.207 0.631-0.623 12.816-12.618 13.802-13.637 1.020-1.052 1.526-2.146 1.507-3.253-0.019-1.094-0.55-2.147-1.575-3.129zM29.076 6.285c-0.556 0.574-4.914 4.88-12.952 12.798l-0.615 0.607c-0.921 0.285-3.128 0.994-4.796 1.532 0.537-1.773 1.181-3.916 1.469-4.929 1.717-1.715 13.075-13.055 13.506-13.48 0.084-0.084 0.851-0.821 1.795-0.821 0.536 0 1.053 0.244 1.577 0.748 0.627 0.602 0.95 1.179 0.959 1.72 0.010 0.556-0.308 1.171-0.943 1.827z"></path></svg>
+                  </span>
+                    <span class="sidebar-text">Attendance</span>
+                  </span>
+                  <span class="link-arrow">
+                    <svg class="icon icon-sm" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
+                  </span>
+                </span>
+                <div class="multi-level collapse {% if 'tables-bootstrap-' in segment %} show {% endif %}"
+                  role="list" id="submenu-attendance" aria-expanded="false">
+                  <ul class="flex-column nav">
+                    <li class="nav-item {% if 'bootstrap-tables' in segment %} active {% endif %}">
+                      <a class="navs" href="/student/time/">
+                        <span class="sidebar-text">My Entry</span>
+                      </a>
+                    </li>
+<!--                    <li class="nav-item {% if 'bootstrap-tables' in segment %} active {% endif %}">-->
+<!--                      <a class="navs" href="#">-->
+<!--                        <span class="sidebar-text">My Attendance</span>-->
+<!--                      </a>-->
+<!--                    </li>-->
+                  </ul>
+                </div>
+              </li>
+              {% endif %}
+
+
+              <!--       My student      -->
+              {% if request.session.login_info.mystatus == "Approve" %}
+              <li class="nav-item {% if 'tables-bootstrap-' in segment %} active {% endif %}">
+                <span
+                  class="navs collapsed d-flex justify-content-between align-items-center"
+                  data-bs-toggle="collapse" data-bs-target="#submenu-app">
+                  <span>
+                    <span class="sidebar-icon">
+                      <svg class="icon icon-xs me-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5 4a3 3 0 00-3 3v6a3 3 0 003 3h10a3 3 0 003-3V7a3 3 0 00-3-3H5zm-1 9v-1h5v2H5a1 1 0 01-1-1zm7 1h4a1 1 0 001-1v-1h-5v2zm0-4h5V8h-5v2zM9 8H4v2h5V8z" clip-rule="evenodd"></path></svg>
+                    </span>
+                    <span class="sidebar-text">My Student</span>
+                  </span>
+                  <span class="link-arrow">
+                    <svg class="icon icon-sm" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
+                  </span>
+                </span>
+                <div class="multi-level collapse {% if 'tables-bootstrap-' in segment %} show {% endif %}"
+                  role="list" id="submenu-app" aria-expanded="false">
+                  <ul class="flex-column nav">
+                    <li class="nav-item {% if 'bootstrap-tables' in segment %} active {% endif %}">
+                      <a class="navs" href="/mystudent/list/">
+                        <span class="sidebar-text">Student Info</span>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              {% endif %}
+
+
+              <!--       My Files (Cashier)      -->
+<!--              {% if request.session.login_info.userrole == "Cashier" %}-->
+<!--              <li class="nav-item {% if 'components-' in segment %} active {% endif %}">-->
+<!--                <span-->
+<!--                  class="navs  collapsed  d-flex justify-content-between align-items-center"-->
+<!--                  data-bs-toggle="collapse" data-bs-target="#submenu-components">-->
+<!--                  <span>-->
+<!--                    <span class="sidebar-icon">-->
+<!--                      <svg class="icon icon-xs me-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M4 3a2 2 0 100 4h12a2 2 0 100-4H4z"></path><path fill-rule="evenodd" d="M3 8h14v7a2 2 0 01-2 2H5a2 2 0 01-2-2V8zm5 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>-->
+<!--                    </span>-->
+<!--                    <span class="sidebar-text">My Files</span>-->
+<!--                  </span>-->
+<!--                  <span class="link-arrow">-->
+<!--                    <svg class="icon icon-sm" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>-->
+<!--                  </span>-->
+<!--                </span>-->
+<!--                <div class="multi-level collapse {% if 'components-' in segment %} show {% endif %}" role="list"-->
+<!--                  id="submenu-components" aria-expanded="false">-->
+<!--                  <ul class="flex-column nav">-->
+<!--                    <li class="nav-item {% if 'components-buttons' in segment %} active {% endif %}">-->
+<!--                      <a class="navs" href="/soa/">-->
+<!--                        <span class="sidebar-text">SOA</span>-->
+<!--                      </a>-->
+<!--                    </li>-->
+<!--                    <li class="nav-item {% if 'components-buttons' in segment %} active {% endif %}">-->
+<!--                      <a class="navs" href="/parent/OR/">-->
+<!--                        <span class="sidebar-text">OR</span>-->
+<!--                      </a>-->
+<!--                    </li>-->
+<!--                  </ul>-->
+<!--                </div>-->
+<!--              </li>-->
+<!--              {% endif %}-->
+
+
+              <!--       My Files (Parent)      -->
+              {% if request.session.login_info.mystatus == "Approve" %}
+              <li class="nav-item {% if 'components-' in segment %} active {% endif %}">
+                <span
+                  class="navs  collapsed  d-flex justify-content-between align-items-center"
+                  data-bs-toggle="collapse" data-bs-target="#submenu-files">
+                  <span>
+                    <span class="sidebar-icon">
+                      <svg class="icon icon-xs me-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M4 3a2 2 0 100 4h12a2 2 0 100-4H4z"></path><path fill-rule="evenodd" d="M3 8h14v7a2 2 0 01-2 2H5a2 2 0 01-2-2V8zm5 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>
+                    </span>
+                    <span class="sidebar-text">My Files</span>
+                  </span>
+                  <span class="link-arrow">
+                    <svg class="icon icon-sm" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
+                  </span>
+                </span>
+                <div class="multi-level collapse {% if 'components-' in segment %} show {% endif %}" role="list"
+                  id="submenu-files" aria-expanded="false">
+                  <ul class="flex-column nav">
+                    <li class="nav-item {% if 'components-buttons' in segment %} active {% endif %}">
+                      <a class="navs" href="/parent/payment/">
+                        <span class="sidebar-text">Payment</span>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              {% endif %}
+
+
+              <!--       Approvals      -->
+              {% if request.session.login_info.userrole == "Admin" %}
+              <li class="nav-item {% if 'tables-bootstrap-' in segment %} active {% endif %}">
+                <span
+                  class="navs collapsed d-flex justify-content-between align-items-center"
+                  data-bs-toggle="collapse" data-bs-target="#submenu-admin-approval">
+                  <span>
+                    <span class="sidebar-icon">
+                    <svg class="icon icon-sm" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M8.5 12.5L10.5 14.5L15.5 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M7 3.33782C8.47087 2.48697 10.1786 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 10.1786 2.48697 8.47087 3.33782 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path> </g></svg>                    </span>
+                    <span class="sidebar-text">Approval</span>
+                  </span>
+                  <span class="link-arrow">
+                    <svg class="icon icon-sm" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
+                  </span>
+                </span>
+                <div class="multi-level collapse {% if 'tables-bootstrap-' in segment %} show {% endif %}"
+                  role="list" id="submenu-admin-approval" aria-expanded="false">
+                  <ul class="flex-column nav">
+                    <li class="nav-item {% if 'bootstrap-tables' in segment %} active {% endif %}">
+                      <a class="navs" href="/amsai/pre-registration/list/">
+                        <span class="sidebar-text">Pre-registration</span>
+                      </a>
+                    </li>
+                    <li class="nav-item {% if 'bootstrap-tables' in segment %} active {% endif %}">
+                      <a class="navs" href="/amsai/student_registration/list/">
+                        <span class="sidebar-text">Student</span>
+                      </a>
+                    </li>
+                    <li class="nav-item {% if 'bootstrap-tables' in segment %} active {% endif %}">
+                      <a class="navs" href="/registration/list/">
+                        <span class="sidebar-text">Parent</span>
+                      </a>
+                    </li>
+                    <li class="nav-item {% if 'bootstrap-tables' in segment %} active {% endif %}">
+                      <a class="navs" href="/mystudent/add/">
+                        <span class="sidebar-text">Parents' student</span>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              {% endif %}
+
+
+              <!--       Student      -->
+              {% if request.session.login_info.userrole %}
+              <li class="nav-item {% if 'tables-bootstrap-' in segment %} active {% endif %}">
+                <span
+                  class="navs collapsed d-flex justify-content-between align-items-center"
+                  data-bs-toggle="collapse" data-bs-target="#submenu-student">
+                  <span>
+                    <span class="sidebar-icon">
+                      <svg class="icon icon-xs me-2" fill="currentColor" viewBox="0 0 23 23" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12ZM11.9999 6C9.79077 6 7.99991 7.79086 7.99991 10C7.99991 12.2091 9.79077 14 11.9999 14C14.209 14 15.9999 12.2091 15.9999 10C15.9999 7.79086 14.209 6 11.9999 6ZM17.1115 15.9974C17.8693 16.4854 17.8323 17.5491 17.1422 18.1288C15.7517 19.2966 13.9581 20 12.0001 20C10.0551 20 8.27215 19.3059 6.88556 18.1518C6.18931 17.5723 6.15242 16.5032 6.91351 16.012C7.15044 15.8591 7.40846 15.7251 7.68849 15.6097C8.81516 15.1452 10.2542 15 12 15C13.7546 15 15.2018 15.1359 16.3314 15.5954C16.6136 15.7102 16.8734 15.8441 17.1115 15.9974Z" clip-rule="evenodd"></path></svg>
+                    </span>
+                    <span class="sidebar-text">Student</span>
+                  </span>
+                  <span class="link-arrow">
+                    <svg class="icon icon-sm" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
+                  </span>
+                </span>
+                <div class="multi-level collapse {% if 'tables-bootstrap-' in segment %} show {% endif %}"
+                  role="list" id="submenu-student" aria-expanded="false">
+                  <ul class="flex-column nav">
+                    <li class="nav-item {% if 'bootstrap-tables' in segment %} active {% endif %}">
+                      <a class="navs" href="/student/list/">
+                        <span class="sidebar-text">Student List</span>
+                      </a>
+                    </li>
+                    {% if request.session.login_info.userrole == "Admin" %}
+                    <li class="nav-item {% if 'bootstrap-tables' in segment %} active {% endif %}">
+                      <a class="navs" href="/student/monitor/">
+                        <span class="sidebar-text">Monitor Entry</span>
+                      </a>
+                    </li>
+                    {% endif %}
+                    <li class="nav-item {% if 'bootstrap-tables' in segment %} active {% endif %}">
+                      <a class="navs" href="/soa/">
+                        <span class="sidebar-text">SOA</span>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              {% endif %}
+
+
+              <!--       Payment      -->
+              {% if request.session.login_info.userrole %}
+              <li class="nav-item {% if 'dashboard' in segment %} active {% endif %}">
+                <a href="/parent/payment/list/" class="navs">
+                  <span class="sidebar-icon">
+                    <svg class="icon icon-xs me-2" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <rect x="3" y="6" width="18" height="13" rx="2" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></rect> <path d="M3 10H20.5" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M7 15H9" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+                  </span>
+                  <span class="sidebar-text">Payment</span>
+                </a>
+              </li>
+              {% endif %}
+
+
+              <!--       Teacher      -->
+              {% if request.session.login_info.userrole == "Admin" %}
+              <li class="nav-item {% if 'tables-bootstrap-' in segment %} active {% endif %}">
+                <span
+                  class="navs collapsed d-flex justify-content-between align-items-center"
+                  data-bs-toggle="collapse" data-bs-target="#submenu-teacher">
+                  <span>
+                    <span class="sidebar-icon">
+                      <svg class="icon icon-xs me-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5 4a3 3 0 00-3 3v6a3 3 0 003 3h10a3 3 0 003-3V7a3 3 0 00-3-3H5zm-1 9v-1h5v2H5a1 1 0 01-1-1zm7 1h4a1 1 0 001-1v-1h-5v2zm0-4h5V8h-5v2zM9 8H4v2h5V8z" clip-rule="evenodd"></path></svg>
+                    </span>
+                    <span class="sidebar-text">Teacher</span>
+                  </span>
+                  <span class="link-arrow">
+                    <svg class="icon icon-sm" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
+                  </span>
+                </span>
+                <div class="multi-level collapse {% if 'tables-bootstrap-' in segment %} show {% endif %}"
+                  role="list" id="submenu-teacher" aria-expanded="false">
+                  <ul class="flex-column nav">
+                    <li class="nav-item {% if 'bootstrap-tables' in segment %} active {% endif %}">
+                      <a class="navs" href="/teachers/list/">
+                        <span class="sidebar-text">Teachers List</span>
+                      </a>
+                    </li>
+<!--                    <li class="nav-item {% if 'bootstrap-tables' in segment %} active {% endif %}">-->
+<!--                      <a class="navs" href="#">-->
+<!--                        <span class="sidebar-text">Attendance</span>-->
+<!--                      </a>-->
+<!--                    </li>-->
+                  </ul>
+                </div>
+              </li>
+              {% endif %}
+
+
+              {% if request.session.login_info.mystatus == "Approve" %}
+              <li class="nav-item {% if 'transactions' in segment %} active {% endif %}">
+                <a href="/amsai/events/" class="navs">
+                  <span class="sidebar-icon">
+                    <svg class="icon icon-xs me-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4z"></path><path fill-rule="evenodd" d="M18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z" clip-rule="evenodd"></path></svg>
+                  </span>
+                  <span class="sidebar-text">Events</span>
+                </a>
+              </li>
+              {%  endif %}
+
+              {% if request.session.login_info.reg_status == "Approve" %}
+              <li class="nav-item {% if 'transactions' in segment %} active {% endif %}">
+                <a href="/amsai/events/" class="navs">
+                  <span class="sidebar-icon">
+                    <svg class="icon icon-xs me-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4z"></path><path fill-rule="evenodd" d="M18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z" clip-rule="evenodd"></path></svg>
+                  </span>
+                  <span class="sidebar-text">Events</span>
+                </a>
+              </li>
+              {%  endif %}
+
+              {% if request.session.login_info.status == "Approve" %}
+              <li class="nav-item {% if 'transactions' in segment %} active {% endif %}">
+                <a href="/amsai/events/" class="navs">
+                  <span class="sidebar-icon">
+                    <svg class="icon icon-xs me-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4z"></path><path fill-rule="evenodd" d="M18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z" clip-rule="evenodd"></path></svg>
+                  </span>
+                  <span class="sidebar-text">Events</span>
+                </a>
+              </li>
+              {%  endif %}
+
+              {% if request.session.login_info.userrole == "Admin" %}
+              <li class="nav-item {% if 'transactions' in segment %} active {% endif %}">
+                <a href="/amsai/events/" class="navs">
+                  <span class="sidebar-icon">
+                    <svg class="icon icon-xs me-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4z"></path><path fill-rule="evenodd" d="M18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z" clip-rule="evenodd"></path></svg>
+                  </span>
+                  <span class="sidebar-text">Events</span>
+                </a>
+              </li>
+              {%  endif %}
+
+<!--&lt;!&ndash;              {% if request.session.login_info.status == "Approve" %}&ndash;&gt;-->
+<!--              <li class="nav-item {% if 'settings' in segment %} active {% endif %}">-->
+<!--                <a href="#" class="navs">-->
+<!--                  <span class="sidebar-icon">-->
+<!--                    <svg class="icon icon-xs me-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"></path></svg>-->
+<!--                  </span>-->
+<!--                  <span class="sidebar-text">Settings</span>-->
+<!--                </a>-->
+<!--              </li>-->
+<!--              {% endif %}-->
+
+<!--              <li class="nav-item {% if 'page-' in segment %} active {% endif %}">-->
+<!--                <span-->
+<!--                  class="navs  collapsed  d-flex justify-content-between align-items-center"-->
+<!--                  data-bs-toggle="collapse" data-bs-target="#submenu-pages">-->
+<!--                  <span>-->
+<!--                    <span class="sidebar-icon">-->
+<!--                      <svg class="icon icon-xs me-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M2 5a2 2 0 012-2h8a2 2 0 012 2v10a2 2 0 002 2H4a2 2 0 01-2-2V5zm3 1h6v4H5V6zm6 6H5v2h6v-2z" clip-rule="evenodd"></path><path d="M15 7h1a2 2 0 012 2v5.5a1.5 1.5 0 01-3 0V7z"></path></svg>-->
+<!--                    </span>-->
+<!--                    <span class="sidebar-text">xx</span>-->
+<!--                  </span>-->
+<!--                  <span class="link-arrow">-->
+<!--                    <svg class="icon icon-sm" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>-->
+<!--                  </span>-->
+<!--                </span>-->
+<!--                <div class="multi-level collapse {% if 'page-' in segment %} show {% endif %} " role="list"-->
+<!--                  id="submenu-pages" aria-expanded="false">-->
+<!--                  <ul class="flex-column nav">-->
+<!--                    <li class="nav-item">-->
+<!--                      <a class="navs" href="#">-->
+<!--                        <span class="sidebar-text">xxx</span>-->
+<!--                      </a>-->
+<!--                    </li>-->
+<!--                    <li class="nav-item">-->
+<!--                      <a class="navs" href="#">-->
+<!--                        <span class="sidebar-text">xxx</span>-->
+<!--                      </a>-->
+<!--                    </li>-->
+<!--                  </ul>-->
+<!--                </div>-->
+<!--              </li>-->
+
+
+<!--              <li role="separator" class="dropdown-divider border-gray-700 mt-4 mb-3"></li>-->
+              <li role="separator" class="dropdown-divider mt-4 mb-3" style="border-color: #fdb561"></li>
+              <li class="nav-item">
+                <a href="#" target="_blank"
+                  class="navs d-flex align-items-center">
+                  <span class="sidebar-icon">
+                    <svg class="icon icon-xs me-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"></path></svg>
+                  </span>
+                  <span class="sidebar-text">Support</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </nav>

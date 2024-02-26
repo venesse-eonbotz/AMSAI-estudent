@@ -1,0 +1,439 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Pre Registration {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
+        <div class="d-block mb-4 mb-md-0">
+          <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
+              <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
+                  <li class="breadcrumb-item">
+                      <a href="#">
+                          <svg class="icon icon-xxs" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+                      </a>
+                  </li>
+                  <li class="breadcrumb-item"><a href="#">AMSAI</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">Pre Registration</li>
+              </ol>
+          </nav>
+          <h2 class="h4">Approval Form</h2>
+<!--          <p class="mb-0">xxxxxxxxxxxx.</p>-->
+        </div>
+<!--            <button class="btn btn-gray-800 d-inline-flex align-items-center dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+<!--                <svg class="icon icon-xs me-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"></path><path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd"></path></svg>-->
+<!--                Reports-->
+<!--                <svg class="icon icon-xs ms-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>-->
+<!--            </button>-->
+            <div class="dropdown-menu dashboard-dropdown dropdown-menu-start mt-2 py-1">
+                <a class="dropdown-item d-flex align-items-center" href="#">
+                    <svg class="dropdown-icon text-gray-400 me-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M4 3a2 2 0 100 4h12a2 2 0 100-4H4z"></path><path fill-rule="evenodd" d="M3 8h14v7a2 2 0 01-2 2H5a2 2 0 01-2-2V8zm5 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>
+                    SOA
+                </a>
+                <div role="separator" class="dropdown-divider my-1"></div>
+                <a class="dropdown-item d-flex align-items-center" href="#">
+                    <svg class="dropdown-icon text-gray-800 me-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"></path><path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd"></path></svg>
+                    All Reports
+                </a>
+            </div>
+        </div>
+
+  <form method="post" action="" enctype="multipart/form-data" >
+  {% csrf_token %}
+  {{ warn }} {{ error }}
+  <div class="row">
+      <div class="col-12 mb-4">
+          <div class="card border-0 shadow components-section">
+            <!--      Header 1        -->
+              <div class="card-header py-" style="background: #F9FAFB">
+                <div class="align-content-center">
+                    <h5 class="m-0 font-weight-bold text-primary" >Personal Information</h5>
+                </div>
+              </div>
+              <div class="card-body">
+                  <div class="row mb-4">
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label for="">Reference No.</label>
+                              <input type="text" name="refno" readonly class="form-control" value="{{ query.refno }}">
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                           <div class="mb-4">
+                              <label>Student ID</label>
+                              <div class="input-group">
+                                  <input type="text" name="studentid" readonly class="form-control" value="{{ query.studentid }}">
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label>Student Type</label>
+                               <input type="text" name="studenttype" readonly class="form-control" value="{{ query.studenttype }}">
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-3">
+                              <label>LRN</label>
+                              <input type="text" name="lrn" readonly class="form-control" value="{{ query.lrn }}">
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label class="form-label">First Name</label>
+                              <input type="text" name="firstname" readonly class="form-control" value="{{ query.firstname }}">
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label for="">Last Name</label>
+                              <input type="text" name="lastname" readonly class="form-control" value="{{ query.lastname }}">
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label class="form-label">Middle Name</label>
+                              <input type="text" name="middlename" readonly class="form-control" value="{{ query.middlename }}">
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label for="">Suffix</label>
+                              <input type="text" name="suffix" readonly class="form-control" value="{{ query.suffix }}">
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label for="">Gender</label>
+                              <input type="text" name="gender" readonly class="form-control" value="{{ query.gender }}">
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label for="">Date of Birth</label>
+                              <input type="text" name="birthdate" readonly class="form-control" value="{{ query.birthdate }}">
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label for="">Place of Birth</label>
+                              <input type="text" name="birthplace" readonly class="form-control" value="{{ query.birthplace }}">
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label for="">Address</label>
+                              <input type="text" name="address" readonly class="form-control" value="{{ query.address }}">
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label for="">Ethnicity</label>
+                              <input type="text" name="ethnicity" readonly class="form-control" value="{{ query.ethnicity }}">
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label for="">Religion</label>
+                              <input type="text" name="religion" readonly class="form-control" value="{{ query.religion }}">
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                           <div class="mb-4">
+                              <label for="">Contact Number</label>
+                              <input type="text" name="contact" readonly class="form-control" value="{{ query.contact }}">
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                           <div class="mb-4">
+                              <label>Email</label>
+                              <div class="input-group">
+                                  <input type="text" name="email" readonly class="form-control" value="{{ query.email }}">
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label>Level</label>
+                              <div class="input-group">
+                                  <input type="text" name="level" readonly class="form-control" value="{{ query.level }}">
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-3">
+                              <label>Strand</label>
+                              <input type="text" name="strand" readonly class="form-control" value="{{ query.strand }}">
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label for="">Curriculum</label>
+                              <input type="text" name="curriculum" readonly class="form-control" value="{{ query.curriculum }}">
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label for="">Civil Status</label>
+                              <input type="text" name="civilstatus" readonly class="form-control" value="{{ query.civilstatus }}">
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label for="">Cultural Minority Group</label>
+                              <input type="text" name="culturalminoritygroup" readonly class="form-control" value="{{ query.culturalminoritygroup }}">
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label for="">Disabilities</label>
+                              <input type="text" name="disabilities" readonly class="form-control" value="{{ query.disabilities }}">
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <div class="row">
+      <div class="col-12 mb-4">
+          <div class="card border-0 shadow components-section">
+            <!--      Header 2        -->
+              <div class="card-header py-" style="background: #F9FAFB">
+                <div class="align-content-center">
+                    <h5 class="m-0 font-weight-bold text-primary" >Parents Information</h5>
+                </div>
+              </div>
+              <div class="card-body">
+                  <div class="row mb-4">
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label class="form-label">Father's Name</label>
+                              <input type="text" name="fathersname" readonly class="form-control" value="{{ query.fathersname }}">
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label for="">Father's Occupation</label>
+                              <input type="text" name="fathersoccupation" readonly class="form-control" value="{{ query.fathersoccupation }}">
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label class="form-label">Father's Contact</label>
+                              <input type="text" name="fatherscontact" readonly class="form-control" value="{{ query.fatherscontact }}">
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label for="">Mother's Name</label>
+                              <input type="text" name="mothersname" readonly class="form-control" value="{{ query.mothersname }}">
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label for="">Mother's Occupation</label>
+                              <input type="text" name="mothersoccupation" readonly class="form-control" value="{{ query.mothersoccupation }}">
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label for="">Mother's Contact</label>
+                              <input type="text" name="motherscontact" readonly class="form-control" value="{{ query.motherscontact }}">
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="row">
+      <div class="col-12 mb-4">
+          <div class="card border-0 shadow components-section">
+            <!--      Header 2       -->
+              <div class="card-header py-" style="background: #F9FAFB">
+                <div class="align-content-center">
+                    <h5 class="m-0 font-weight-bold text-primary" >Guardians Information</h5>
+                </div>
+              </div>
+              <div class="card-body">
+                  <div class="row mb-4">
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label for="">Guardian's name</label>
+                              <input type="text" name="guardiansname" readonly class="form-control" value="{{ query.guardiansname }}">
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label for="">Guardian's Occupation</label>
+                              <input type="text" name="guardiansoccupation" readonly class="form-control" value="{{ query.guardiansoccupation }}">
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label for="">Guardian's Contact</label>
+                              <input type="text" name="guardianscontact" readonly class="form-control" value="{{ query.guardianscontact }}">
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="row">
+      <div class="col-12 mb-4">
+          <div class="card border-0 shadow components-section">
+            <!--      Header 4       -->
+              <div class="card-header py-" style="background: #F9FAFB">
+                <div class="align-content-center">
+                    <h5 class="m-0 font-weight-bold text-primary" >Previous School</h5>
+                </div>
+              </div>
+              <div class="card-body">
+                  <div class="row mb-4">
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label for="">Junior High School</label>
+                              <input type="text" name="junioraddress" readonly class="form-control" value="{{ query.junioraddress }}">
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                           <div class="mb-4">
+                              <label>JHS School Year</label>
+                              <div class="input-group">
+                                  <input type="text" name="juniorhigh" readonly class="form-control" value="{{ query.juniorhigh }}">
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label>Senior High School</label>
+                              <div class="input-group">
+                                  <input type="text" name="senioraddress" readonly class="form-control" value="{{ query.senioraddress }}">
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-3">
+                              <label>SHS School Year</label>
+                              <input type="text" name="seniorhigh" readonly class="form-control" value="{{ query.seniorhigh }}">
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label class="form-label">Technical Vocational Course</label>
+                              <input type="text" name="techvoccourse" readonly class="form-control" value="{{ query.techvoccourse }}">
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="row">
+      <div class="col-12 mb-4">
+          <div class="card border-0 shadow components-section">
+            <!--      Header 5       -->
+              <div class="card-header py-" style="background: #F9FAFB">
+                <div class="align-content-center">
+                    <h5 class="m-0 font-weight-bold text-primary" >Requirements</h5>
+                </div>
+              </div>
+              <div class="card-body">
+                  <div class="row mb-4">
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label>Birth Certificate</label>
+                               <input type="text" name="birthcert" readonly class="form-control" value="{{ query.birthcert }}">
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label>Form 137</label>
+                              <input type="text" name="form137" readonly class="form-control" value="{{ query.form137 }}">
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label for="">Good Moral</label>
+                              <input type="text" name="goodmoral" readonly class="form-control" value="{{ query.goodmoral }}">
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label for="">Report Card</label>
+                              <input type="text" name="reportcard" readonly class="form-control" value="{{ query.reportcard }}">
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label for="">ESC</label>
+                              <input type="text" name="esc" readonly class="form-control" value="{{ query.esc }}">
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label for="">PSA</label>
+                              <input type="text" name="psa" readonly class="form-control" value="{{ query.psa }}">
+                          </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label for="">2x2 ID Picture</label>
+                              <input type="text" name="number_2x2" readonly class="form-control" value="{{ query.number_2x2 }}">
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="row">
+      <div class="col-12 mb-4">
+          <div class="card border-0 shadow components-section">
+            <!--      Header 5       -->
+              <div class="card-header py-" style="background: #F9FAFB">
+                <div class="align-content-center">
+                    <h5 class="m-0 font-weight-bold text-primary" >Approval</h5>
+                </div>
+              </div>
+              <div class="card-body">
+                  <div class="row mb-4">
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-4">
+                              <label for="">Reference No.</label>
+                              <input type="text" name="refno" readonly class="form-control" value="{{ query.refno }}">
+                          </div>
+                      </div>
+                      <input type="text" name="password" readonly class="form-control" value="{{ query.password }}" hidden="">
+
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="form-group">
+                                <label>Status</label>
+                                <select class="form-select" name="reg_status" type="text" required>
+                                    <option selected value="Approve">Approve</option>
+                                    <option selected value="Decline">Decline</option>
+                                    <option selected value="Pending">Pending</option>
+                                    <option disabled selected value="" hidden>Select</option>
+                                </select>
+                            </div>
+                      </div>
+                  </div>
+                  <div class="mt-3">
+                        <button type="submit" class="btn btn-gray-800 mt-2 animate-up-2">Approve</button>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  </form>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}
