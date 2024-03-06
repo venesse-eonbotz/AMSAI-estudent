@@ -965,7 +965,7 @@ class Student(models.Model):
         return str(self.registerid)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'student'
 
 

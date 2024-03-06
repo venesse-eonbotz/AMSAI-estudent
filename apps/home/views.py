@@ -4,17 +4,17 @@ Copyright (c) 2019 - present AppSeed.us
 """
 
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from django.template import loader
-from django.urls import reverse
 from apps.home.models import Parent, Student, Teachers, StudentPrereg, Soa, Clocking, ParentMystudent
 from pay.models import Payment, Paymentor
 from soa.models import File
 from event.models import Events
+from django.db.models import Q
 from .forms import FileForm
 # from payment.views import Payment
-import datetime, random, string, csv
+from django.core.paginator import Paginator
+import datetime, random, string, csv, secrets
 
 
 # @login_required(login_url="/amsai/login/")
@@ -241,29 +241,65 @@ def approveRegistration(request, nid):
         users = Parent.objects.get(id=nid)
         return render(request, 'parent/registration_approval.html', {'users': users})
     if request.method == 'POST':
-        Parent.objects.filter(id=nid).update(mystatus=request.POST.get('status'))
+        random_chars = ''.join(random.choices(string.ascii_uppercase + string.digits, k=8))
+        username = f"{random_chars}"
+        alphabet = string.ascii_letters + string.digits
+        password = ''.join(secrets.choice(alphabet) for i in range(15))
+        Parent.objects.filter(id=nid).update(username=username, password=password, mystatus=request.POST.get('status'))
         return redirect('/registration/list/')
 
+from django.db.models import Count
 def studentList(request):
+    # query = request.GET.get('query')
+    # if query:
+    #     users = Student.objects.filter(lrn__contains=query)
+    # else:
+    #     users = Student.objects.filter(lrn__contains=query)
+    users = Student.objects.filter(lrn__isnull=False, lastname__isnull=False).order_by("lastname")
+    paginator = Paginator(users, 15)
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+    if users:
+        data = {"users": users}
+        return render(request, 'student/student_list.html', locals())
+    else:
+        return render(request, 'parent/student_list.html', locals())
+
+def searchBar(request):
     if request.method == 'GET':
-        users = Student.objects.all()
-        if users:
-            data = {"users": users}
-            return render(request, 'student/student_list.html', locals())
+        query = request.GET.get('query')
+        if query:
+            page_obj = Student.objects.filter(lastname__icontains=query) | Student.objects.filter(lrn__icontains=query)
+            return render(request, 'student/student_list.html', {'page_obj': page_obj})
+        elif query == "":
+            page_obj = Student.objects.all()
+            return render(request, 'student/student_list.html', {'page_obj': page_obj})
         else:
-            return render(request, 'parent/student_list.html', locals())
+            warn = {"warn": "No information to show"}
+            return render(request, 'student/student_list.html', warn)
 
 
 def dashboard(request):
-    student = Student.objects.all()
-    event = Events.objects.all()
-    entry = Clocking.objects.filter(date=datetime.datetime.now().date())
-    count = len(student)
-    event = len(event)
+    count = len(Student.objects.all())
+    event = len(Events.objects.all())
     date = datetime.datetime.now().date()
-    entry = len(entry)
-    return render(request, 'home/dashboard.html', {'count': count, 'event': event,
-                                                   'date': date, 'entry': entry})
+    entry = len(Clocking.objects.filter(date=datetime.datetime.now().date()))
+    prereg = len(StudentPrereg.objects.filter(reg_status="Pending"))
+    student = len(Student.objects.filter(status="Pending")) + len(Student.objects.filter(status__isnull=True))
+    parent = len(Parent.objects.filter(mystatus="Pending"))
+    mystudent = len(ParentMystudent.objects.filter(status="Pending"))
+    pay = len(Payment.objects.all()) - len(Paymentor.objects.all())
+    soa = len(Student.objects.all()) - len(File.objects.all())
+    sum = prereg + student + parent + mystudent + pay + soa
+    image_slider = Events.objects.filter(status=1)
+    if image_slider:
+        for obj in image_slider:
+            events = Events.objects.get(id=obj.id)
+            obj.events = events
+            obj.events.description = obj.events.description[:200] + "..."
+    return render(request, 'home/dashboard.html', {'count': count, 'event': event, 'parent': parent,
+                                                   'date': date, 'entry': entry, 'prereg': prereg, 'student': student,
+                                                   'mystudent': mystudent, 'pay': pay, 'soa': soa, 'sum': sum })
 
 
 def clocking(request):
@@ -446,7 +482,9 @@ def approveStudentreg(request, nid):
         return render(request, 'admin/student_registration_approve.html', {'query': query})
     if request.method == "POST":
         status = request.POST.get('status')
-        Student.objects.filter(registerid=nid).update(status=status)
+        alphabet = string.ascii_letters + string.digits
+        password = ''.join(secrets.choice(alphabet) for i in range(15))
+        Student.objects.filter(registerid=nid).update(password=password, status=status)
         return redirect('/amsai/student_registration/list/')
 
 

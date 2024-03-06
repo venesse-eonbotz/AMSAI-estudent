@@ -9,10 +9,10 @@
 
     <div class="py-4">
         <div class="dropdown">
-            <button class="btn btn-primary d-inline-flex align-items-center me-2 dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <svg class="icon icon-xs me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
-                New Task
-            </button>
+<!--            <button class="btn btn-primary d-inline-flex align-items-center me-2 dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+<!--                <svg class="icon icon-xs me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>-->
+<!--                New Task-->
+<!--            </button>-->
             <div class="dropdown-menu dashboard-dropdown dropdown-menu-start mt-2 py-1">
                 <a class="dropdown-item d-flex align-items-center" href="#">
                     <svg class="dropdown-icon text-gray-400 me-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M8 9a3 3 0 100-6 3 3 0 000 6zM8 11a6 6 0 016 6H2a6 6 0 016-6zM16 7a1 1 0 10-2 0v1h-1a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V7z"></path></svg>
@@ -167,78 +167,60 @@
                         <div class="card-header">
                             <div class="row align-items-center">
                                 <div class="col">
-                                    <h2 class="fs-5 fw-bold mb-0">Page visits</h2>
+                                    <h2 class="fs-5 fw-bold mb-0">Events</h2>
                                 </div>
                                 <div class="col text-end">
                                     <a href="#" class="btn btn-sm btn-primary">See all</a>
                                 </div>
                             </div>
                         </div>
-                        <div class="table-responsive">
-                            <table class="table align-items-center table-flush">
-                                <thead class="thead-light">
-                                <tr>
-                                    <th class="border-bottom" scope="col">Page name</th>
-                                    <th class="border-bottom" scope="col">Page Views</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <th class="text-gray-900" scope="row">
-                                        /amsai/dashboard/
-                                    </th>
-                                    <td class="fw-bolder text-gray-500">
-                                        3,225
-                                    </td>
-<!--                                    <td class="fw-bolder text-gray-500">-->
-<!--                                        $20-->
-<!--                                    </td>-->
-<!--                                    <td class="fw-bolder text-gray-500">-->
-<!--                                        <div class="d-flex">-->
-<!--                                            <svg class="icon icon-xs text-danger me-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 5.414V17a1 1 0 11-2 0V5.414L6.707 7.707a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>-->
-<!--                                            42,55%-->
-<!--                                        </div>-->
-<!--                                    </td>-->
-                                </tr>
-                                <tr>
-                                    <th class="text-gray-900" scope="row">
-                                        /amsai/events/
-                                    </th>
-                                    <td class="fw-bolder text-gray-500">
-                                        2,987
-                                    </td>
-<!--                                    <td class="fw-bolder text-gray-500">-->
-<!--                                        0-->
-<!--                                    </td>-->
-<!--                                    <td class="fw-bolder text-gray-500">-->
-<!--                                        <div class="d-flex">-->
-<!--                                            <svg class="icon icon-xs text-success me-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M14.707 12.293a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 111.414-1.414L9 14.586V3a1 1 0 012 0v11.586l2.293-2.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>-->
-<!--                                            43,24%-->
-<!--                                        </div>-->
-<!--                                    </td>-->
-                                </tr>
-                                <tr>
-                                    <th class="text-gray-900" scope="row">
-                                        /amsai/student/AM-in/
-                                    </th>
-                                    <td class="fw-bolder text-gray-500">
-                                        1,483
-                                    </td>
-<!--                                    <td class="fw-bolder text-gray-500">-->
-<!--                                        $19-->
-<!--                                    </td>-->
-<!--                                    <td class="fw-bolder text-gray-500">-->
-<!--                                        <div class="d-flex">-->
-<!--                                            <svg class="icon icon-xs text-success me-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M14.707 12.293a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 111.414-1.414L9 14.586V3a1 1 0 012 0v11.586l2.293-2.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>-->
-<!--                                            26,12%-->
-<!--                                        </div>-->
-<!--                                    </td>-->
-                                </tr>
-                                </tbody>
-                            </table>
+                        <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+                            <div class="carousel-indicators">
+                                <a type="button" style="color: whitesmoke" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
+                                    aria-current="true" aria-label="Slide 1"></a>
+                                <a type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
+                                    aria-label="Slide 2"></a>
+                                <a type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"
+                                    aria-label="Slide 3"></a>
+                            </div>
+                            <div class="carousel-inner">
+                                {% for object in image_slider%}
+                                <div class="carousel-item {% if forloop.counter0 == 0 %}active{% endif %}">
+                                    <img src="{{object.events.image.url}}" height="400px"  style="width:900px; object-fit: cover; opacity: 0.8" alt="">
+                                    <div class="carousel-caption">
+    <!--                                    <h4 style="background: #0f0f0f; opacity: 0.5;" class="animate__animated-->
+    <!--                                    {% if forloop.counter0 == 0 %}-->
+    <!--                                    animate__fadeInDown-->
+    <!--                                    {% endif %}-->
+    <!--                                    ">{{object.title}}</h4>-->
+                                        <h3 style="margin-top: 500px; color: whitesmoke" class="">{{object.events.title}}</h3>
+                                        <p href="{{object.title}}" class="button animate__animated animate__zoomIn mt-3 py-3 px-5 btn font-weight-bold" style="color: whitesmoke">{{object.events.description}}</p>
+                                        <p style="font-size: small">{{object.events.date}}</p>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            <a class="carousel-control dot" href="#carouselExampleCaptions" style="float: left" role="button" data-slide="prev">
+                                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true">
+                                    <svg version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" xml:space="preserve" fill="#ffffff"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <style type="text/css"> .st0{fill:#ffffff;} </style> <g> <polygon class="st0" points="277.919,132.921 154.839,256 277.919,379.072 318.552,338.438 236.122,256 318.552,173.562 "></polygon></path> </g> </g></svg>
+                                </span>
+                            </a>
+                            <a class="carousel-control dot" href="#carouselExampleCaptions" style="float: right;" role="button" data-slide="next">
+                                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true">
+                                    <svg version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" xml:space="preserve" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <style type="text/css"> .st0{fill:#ffffff;} </style> <g> <polygon class="st0" points="193.447,173.562 275.877,256 193.447,338.438 234.081,379.08 357.161,256 234.081,132.928 "></polygon></path> </g> </g></svg>
+                                </span>
+                            </a>
                         </div>
                     </div>
                 </div>
+                    <style>
+                        .dot {
+                          cursor: pointer;
+                          height: 50px;
+                          width: 50px;
+                          z-index:99; position:relative; top:-200px;
+                        }
+                    </style>
 <!--                <div class="col-12 col-xxl-6 mb-4">-->
 <!--                    <div class="card border-0 shadow">-->
 <!--                        <div class="card-header border-bottom d-flex align-items-center justify-content-between">-->
@@ -352,6 +334,21 @@
 <!--                    </div>-->
 <!--                </div>-->
                 <div class="col-12 col-xxl-6 mb-4">
+                    {% for object in image_slider%}
+                                <div class="carousel-item">
+                                    <img src="{{object.events.image.url}}" height="400px"  style="width:900px; object-fit: cover; opacity: 0.8" alt="">
+                                    <div class="carousel-caption">
+    <!--                                    <h4 style="background: #0f0f0f; opacity: 0.5;" class="animate__animated-->
+    <!--                                    {% if forloop.counter0 == 0 %}-->
+    <!--                                    animate__fadeInDown-->
+    <!--                                    {% endif %}-->
+    <!--                                    ">{{object.title}}</h4>-->
+                                        <h3 style="margin-top: 500px; color: whitesmoke" class="">{{object.events.title}}</h3>
+                                        <p href="{{object.title}}" class="button animate__animated animate__zoomIn mt-3 py-3 px-5 btn font-weight-bold" style="color: whitesmoke">{{object.events.description}}</p>
+                                        <p style="font-size: small">{{object.events.date}}</p>
+                                    </div>
+                                </div>
+                                {% endfor %}
 <!--                    <div class="card border-0 shadow">-->
 <!--                        <div class="card-header border-bottom d-flex align-items-center justify-content-between">-->
 <!--                            <h2 class="fs-5 fw-bold mb-0">Progress track</h2>-->
@@ -438,8 +435,8 @@
 <!--                        <div class="d-block">-->
 <!--                            <div class="h6 fw-normal text-gray mb-2">Total orders</div>-->
 <!--                            <h2 class="h3 fw-extrabold">452</h2>-->
-<!--                            <div class="small mt-2">                               -->
-<!--                                <span class="fas fa-angle-up text-success"></span>                                   -->
+<!--                            <div class="small mt-2">-->
+<!--                                <span class="fas fa-angle-up text-success"></span>-->
 <!--                                <span class="text-success fw-bold">18.2%</span>-->
 <!--                            </div>-->
 <!--                        </div>-->
@@ -459,62 +456,113 @@
 <!--                    </div>-->
 <!--                </div>-->
 <!--            </div>-->
-<!--            <div class="col-12 px-0 mb-4">-->
-<!--                <div class="card border-0 shadow">-->
-<!--                    <div class="card-body">-->
-<!--                        <div class="d-flex align-items-center justify-content-between border-bottom pb-3">-->
-<!--                            <div>-->
-<!--                                <div class="h6 mb-0 d-flex align-items-center">-->
-<!--                                    <svg class="icon icon-xs text-gray-500 me-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM4.332 8.027a6.012 6.012 0 011.912-2.706C6.512 5.73 6.974 6 7.5 6A1.5 1.5 0 019 7.5V8a2 2 0 004 0 2 2 0 011.523-1.943A5.977 5.977 0 0116 10c0 .34-.028.675-.083 1H15a2 2 0 00-2 2v2.197A5.973 5.973 0 0110 16v-2a2 2 0 00-2-2 2 2 0 01-2-2 2 2 0 00-1.668-1.973z" clip-rule="evenodd"></path></svg>-->
-<!--                                    Global Rank-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                            <div>-->
-<!--                                <a href="#" class="d-flex align-items-center fw-bold">-->
-<!--                                    #755-->
-<!--                                    <svg class="icon icon-xs text-gray-500 ms-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 3a1 1 0 000 2v8a2 2 0 002 2h2.586l-1.293 1.293a1 1 0 101.414 1.414L10 15.414l2.293 2.293a1 1 0 001.414-1.414L12.414 15H15a2 2 0 002-2V5a1 1 0 100-2H3zm11.707 4.707a1 1 0 00-1.414-1.414L10 9.586 8.707 8.293a1 1 0 00-1.414 0l-2 2a1 1 0 101.414 1.414L8 10.414l1.293 1.293a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>-->
-<!--                                </a>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        <div class="d-flex align-items-center justify-content-between border-bottom py-3">-->
-<!--                            <div>-->
-<!--                                <div class="h6 mb-0 d-flex align-items-center">-->
-<!--                                    <svg class="icon icon-xs text-gray-500 me-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 6a3 3 0 013-3h10a1 1 0 01.8 1.6L14.25 8l2.55 3.4A1 1 0 0116 13H6a1 1 0 00-1 1v3a1 1 0 11-2 0V6z" clip-rule="evenodd"></path></svg>-->
-<!--                                    Country Rank-->
-<!--                                </div>-->
+            <div class="col-12 px-0 mb-4">
+                <div class="card border-0 shadow">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center justify-content-between border-bottom pb-3">
+                            <div>
+                                <div class="h6 mb-0 d-flex align-items-center">
+<!--                                    <svg class="icon icon-xs text-gray-500 me-2" fill="currentColor" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">-->
+<!--                                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M182.99 146.2h585.14v402.29h73.14V73.06H109.84v877.71H512v-73.14H182.99z" fill="#000000"></path><path d="M256.13 219.34h438.86v73.14H256.13zM256.13 365.63h365.71v73.14H256.13zM256.13 511.91h219.43v73.14H256.13zM731.55 585.06c-100.99 0-182.86 81.87-182.86 182.86s81.87 182.86 182.86 182.86c100.99 0 182.86-81.87 182.86-182.86s-81.86-182.86-182.86-182.86z m0 292.57c-60.5 0-109.71-49.22-109.71-109.71 0-60.5 49.22-109.71 109.71-109.71 60.5 0 109.71 49.22 109.71 109.71 0.01 60.49-49.21 109.71-109.71 109.71z" fill="#0F1F3C"></path><path d="M758.99 692.08h-54.86v87.27l69.39 68.76 38.61-38.96-53.14-52.66z" fill="#0F1F3C"></g></path>                                    </svg>-->
+                                    <h5>Pending Approvals</h5>
+                                </div>
+                            </div>
+                            <div>
+                                <a href="#" class="d-flex align-items-center fw-bold">
+                                    {{ sum }}
+                                    <svg class="icon icon-xs text-gray-500 ms-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 3a1 1 0 000 2v8a2 2 0 002 2h2.586l-1.293 1.293a1 1 0 101.414 1.414L10 15.414l2.293 2.293a1 1 0 001.414-1.414L12.414 15H15a2 2 0 002-2V5a1 1 0 100-2H3zm11.707 4.707a1 1 0 00-1.414-1.414L10 9.586 8.707 8.293a1 1 0 00-1.414 0l-2 2a1 1 0 101.414 1.414L8 10.414l1.293 1.293a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-between border-bottom py-3">
+                            <div>
+                                <div class="h6 mb-0 d-flex align-items-center">
+                                    <svg class="icon icon-xs text-gray-500 me-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 6a3 3 0 013-3h10a1 1 0 01.8 1.6L14.25 8l2.55 3.4A1 1 0 0116 13H6a1 1 0 00-1 1v3a1 1 0 11-2 0V6z" clip-rule="evenodd"></path></svg>
+                                    Pre-Registration
+                                </div>
+                                <div class="small card-stats">
+                                    New Applicants
+                                    <svg class="icon icon-xs text-success" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clip-rule="evenodd"></path></svg>
+                                </div>
+                            </div>
+                            <div>
+                                <a href="#" class="d-flex align-items-center fw-bold">
+                                    {{ prereg }}
+                                    <svg class="icon icon-xs text-gray-500 ms-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 3a1 1 0 000 2v8a2 2 0 002 2h2.586l-1.293 1.293a1 1 0 101.414 1.414L10 15.414l2.293 2.293a1 1 0 001.414-1.414L12.414 15H15a2 2 0 002-2V5a1 1 0 100-2H3zm11.707 4.707a1 1 0 00-1.414-1.414L10 9.586 8.707 8.293a1 1 0 00-1.414 0l-2 2a1 1 0 101.414 1.414L8 10.414l1.293 1.293a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-between pt-3 border-bottom py-3">
+                            <div>
+                                <div class="h6 mb-0 d-flex align-items-center">
+                                    <svg class="icon icon-xs text-gray-500 me-2" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5 9.5C5 7.01472 7.01472 5 9.5 5C11.9853 5 14 7.01472 14 9.5C14 11.9853 11.9853 14 9.5 14C7.01472 14 5 11.9853 5 9.5Z" fill="currentColor"></path> <path d="M14.3675 12.0632C14.322 12.1494 14.3413 12.2569 14.4196 12.3149C15.0012 12.7454 15.7209 13 16.5 13C18.433 13 20 11.433 20 9.5C20 7.567 18.433 6 16.5 6C15.7209 6 15.0012 6.2546 14.4196 6.68513C14.3413 6.74313 14.322 6.85058 14.3675 6.93679C14.7714 7.70219 15 8.5744 15 9.5C15 10.4256 14.7714 11.2978 14.3675 12.0632Z" fill="currentColor"></path> <path fill-rule="evenodd" clip-rule="evenodd" d="M4.64115 15.6993C5.87351 15.1644 7.49045 15 9.49995 15C11.5112 15 13.1293 15.1647 14.3621 15.7008C15.705 16.2847 16.5212 17.2793 16.949 18.6836C17.1495 19.3418 16.6551 20 15.9738 20H3.02801C2.34589 20 1.85045 19.3408 2.05157 18.6814C2.47994 17.2769 3.29738 16.2826 4.64115 15.6993Z" fill="currentColor"></path> <path d="M14.8185 14.0364C14.4045 14.0621 14.3802 14.6183 14.7606 14.7837V14.7837C15.803 15.237 16.5879 15.9043 17.1508 16.756C17.6127 17.4549 18.33 18 19.1677 18H20.9483C21.6555 18 22.1715 17.2973 21.9227 16.6108C21.9084 16.5713 21.8935 16.5321 21.8781 16.4932C21.5357 15.6286 20.9488 14.9921 20.0798 14.5864C19.2639 14.2055 18.2425 14.0483 17.0392 14.0008L17.0194 14H16.9997C16.2909 14 15.5506 13.9909 14.8185 14.0364Z" fill="currentColor"></path>                                    </svg>
+                                    Students
+                                </div>
 <!--                                <div class="small card-stats">-->
-<!--                                    Philippines-->
+<!--                                    ggg-->
 <!--                                    <svg class="icon icon-xs text-success" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clip-rule="evenodd"></path></svg>-->
 <!--                                </div>-->
-<!--                            </div>-->
-<!--                            <div>-->
-<!--                                <a href="#" class="d-flex align-items-center fw-bold">-->
-<!--                                    #32-->
-<!--                                    <svg class="icon icon-xs text-gray-500 ms-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 3a1 1 0 000 2v8a2 2 0 002 2h2.586l-1.293 1.293a1 1 0 101.414 1.414L10 15.414l2.293 2.293a1 1 0 001.414-1.414L12.414 15H15a2 2 0 002-2V5a1 1 0 100-2H3zm11.707 4.707a1 1 0 00-1.414-1.414L10 9.586 8.707 8.293a1 1 0 00-1.414 0l-2 2a1 1 0 101.414 1.414L8 10.414l1.293 1.293a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>-->
-<!--                                </a>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        <div class="d-flex align-items-center justify-content-between pt-3">-->
-<!--                            <div>-->
-<!--                                <div class="h6 mb-0 d-flex align-items-center">-->
-<!--                                    <svg class="icon icon-xs text-gray-500 me-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4l2 2h4a2 2 0 012 2v1H8a3 3 0 00-3 3v1.5a1.5 1.5 0 01-3 0V6z" clip-rule="evenodd"></path><path d="M6 12a2 2 0 012-2h8a2 2 0 012 2v2a2 2 0 01-2 2H2h2a2 2 0 002-2v-2z"></path></svg>-->
-<!--                                    Category Rank-->
-<!--                                </div>-->
-<!--                                <div class="small card-stats">-->
-<!--                                    Computers Electronics > Technology-->
-<!--                                    <svg class="icon icon-xs text-success" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clip-rule="evenodd"></path></svg>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                            <div>-->
-<!--                                <a href="#" class="d-flex align-items-center fw-bold">-->
-<!--                                    #11-->
-<!--                                    <svg class="icon icon-xs text-gray-500 ms-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 3a1 1 0 000 2v8a2 2 0 002 2h2.586l-1.293 1.293a1 1 0 101.414 1.414L10 15.414l2.293 2.293a1 1 0 001.414-1.414L12.414 15H15a2 2 0 002-2V5a1 1 0 100-2H3zm11.707 4.707a1 1 0 00-1.414-1.414L10 9.586 8.707 8.293a1 1 0 00-1.414 0l-2 2a1 1 0 101.414 1.414L8 10.414l1.293 1.293a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>-->
-<!--                                </a>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
+                            </div>
+                            <div>
+                                <a href="#" class="d-flex align-items-center fw-bold">
+                                    {{ student }}
+                                    <svg class="icon icon-xs text-gray-500 ms-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 3a1 1 0 000 2v8a2 2 0 002 2h2.586l-1.293 1.293a1 1 0 101.414 1.414L10 15.414l2.293 2.293a1 1 0 001.414-1.414L12.414 15H15a2 2 0 002-2V5a1 1 0 100-2H3zm11.707 4.707a1 1 0 00-1.414-1.414L10 9.586 8.707 8.293a1 1 0 00-1.414 0l-2 2a1 1 0 101.414 1.414L8 10.414l1.293 1.293a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-between pt-3 border-bottom py-3">
+                            <div>
+                                <div class="h6 mb-0 d-flex align-items-center">
+                                    <svg class="icon icon-xs text-gray-500 me-2" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M18.5 19.5L20 21M11 21H5.6C5.03995 21 4.75992 21 4.54601 20.891C4.35785 20.7951 4.20487 20.6422 4.10899 20.454C4 20.2401 4 19.9601 4 19.4V17.6841C4 17.0485 4 16.7306 4.04798 16.4656C4.27087 15.2344 5.23442 14.2709 6.46558 14.048C6.5425 14.0341 6.6237 14.0242 6.71575 14.0172C6.94079 14 7.05331 13.9914 7.20361 14.0026C7.35983 14.0143 7.4472 14.0297 7.59797 14.0722C7.74302 14.1131 8.00429 14.2315 8.52682 14.4682C9.13692 14.7446 9.8015 14.9218 10.5 14.9795M19 17.5C19 18.8807 17.8807 20 16.5 20C15.1193 20 14 18.8807 14 17.5C14 16.1193 15.1193 15 16.5 15C17.8807 15 19 16.1193 19 17.5ZM15 7C15 9.20914 13.2091 11 11 11C8.79086 11 7 9.20914 7 7C7 4.79086 8.79086 3 11 3C13.2091 3 15 4.79086 15 7Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                    </svg>
+                                    Parent
+                                </div>
+                                <div class="small card-stats">
+                                    Student Under -- {{ mystudent }}
+                                    <svg class="icon icon-xs text-success" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clip-rule="evenodd"></path></svg>
+                                </div>
+                            </div>
+                            <div>
+                                <a href="#" class="d-flex align-items-center fw-bold">
+                                    {{ parent }}
+                                    <svg class="icon icon-xs text-gray-500 ms-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 3a1 1 0 000 2v8a2 2 0 002 2h2.586l-1.293 1.293a1 1 0 101.414 1.414L10 15.414l2.293 2.293a1 1 0 001.414-1.414L12.414 15H15a2 2 0 002-2V5a1 1 0 100-2H3zm11.707 4.707a1 1 0 00-1.414-1.414L10 9.586 8.707 8.293a1 1 0 00-1.414 0l-2 2a1 1 0 101.414 1.414L8 10.414l1.293 1.293a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-between pt-3 border-bottom py-3">
+                            <div>
+                                <div class="h6 mb-0 d-flex align-items-center">
+                                    <svg class="icon icon-xs text-gray-500 me-2" fill="currentColor" viewBox="0 0 38 38" xmlns="http://www.w3.org/2000/svg">
+                                        <g id="Icon-Set-Filled" sketch:type="MSLayerGroup" transform="translate(-416.000000, -777.000000)" fill="currentColor"><path d="M437,785 L423,785 C422.447,785 422,784.553 422,784 C422,783.448 422.447,783 423,783 L437,783 C437.553,783 438,783.448 438,784 C438,784.553 437.553,785 437,785 L437,785 Z M437,790.978 L423,790.978 C422.447,790.978 422,790.529 422,789.978 C422,789.425 422.447,788.978 423,788.978 L437,788.978 C437.553,788.978 438,789.425 438,789.978 C438,790.529 437.553,790.978 437,790.978 L437,790.978 Z M437,797 L423,797 C422.447,797 422,796.553 422,796 C422,795.447 422.447,795 423,795 L437,795 C437.553,795 438,795.447 438,796 C438,796.553 437.553,797 437,797 L437,797 Z M440,777 L420,777 C417.791,777 416,778.791 416,781 L416,809 L417.867,809 L422,806 L426,809 L430,806 L434,809 L438,806 L442.134,809 L444,809 L444,781 C444,778.791 442.209,777 440,777 L440,777 Z" id="receipt" sketch:type="MSShapeGroup"></g> </path>                                    </svg>
+                                    Payment OR
+                                </div>
+                            </div>
+                            <div>
+                                <a href="#" class="d-flex align-items-center fw-bold">
+                                    {{ pay }}
+                                    <svg class="icon icon-xs text-gray-500 ms-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 3a1 1 0 000 2v8a2 2 0 002 2h2.586l-1.293 1.293a1 1 0 101.414 1.414L10 15.414l2.293 2.293a1 1 0 001.414-1.414L12.414 15H15a2 2 0 002-2V5a1 1 0 100-2H3zm11.707 4.707a1 1 0 00-1.414-1.414L10 9.586 8.707 8.293a1 1 0 00-1.414 0l-2 2a1 1 0 101.414 1.414L8 10.414l1.293 1.293a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-between pt-3">
+                            <div>
+                                <div class="h6 mb-0 d-flex align-items-center">
+                                    <svg class="icon icon-xs text-gray-500 me-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4l2 2h4a2 2 0 012 2v1H8a3 3 0 00-3 3v1.5a1.5 1.5 0 01-3 0V6z" clip-rule="evenodd"></path><path d="M6 12a2 2 0 012-2h8a2 2 0 012 2v2a2 2 0 01-2 2H2h2a2 2 0 002-2v-2z"></path></svg>
+                                   SOA
+                                </div>
+                            </div>
+                            <div>
+                                <a href="#" class="d-flex align-items-center fw-bold">
+                                    {{ soa }}
+                                    <svg class="icon icon-xs text-gray-500 ms-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 3a1 1 0 000 2v8a2 2 0 002 2h2.586l-1.293 1.293a1 1 0 101.414 1.414L10 15.414l2.293 2.293a1 1 0 001.414-1.414L12.414 15H15a2 2 0 002-2V5a1 1 0 100-2H3zm11.707 4.707a1 1 0 00-1.414-1.414L10 9.586 8.707 8.293a1 1 0 00-1.414 0l-2 2a1 1 0 101.414 1.414L8 10.414l1.293 1.293a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 <!--            <div class="col-12 px-0">-->
 <!--                <div class="card border-0 shadow">-->
 <!--                    <div class="card-body">-->

@@ -68,7 +68,7 @@ def preRegistration(request):
             warn = {'warn': "Please enter your Student ID if you are a student in this institution."}
             return render(request, 'accounts/pre-registration.html', {"refno": refno, "form": form} | warn)
         if form.is_valid():
-            user = StudentPrereg.objects.create(studentid=studentid, firstname=firstname, middlename=middlename, lrn=lrn,
+            StudentPrereg.objects.create(studentid=studentid, firstname=firstname, middlename=middlename, lrn=lrn,
                                                 lastname=lastname, suffix=suffix, gender=gender, birthdate=birthdate,
                                                 birthplace=birthplace, religion=religion, ethnicity=ethnicity, strand=strand,
                                                 email=email, level=level, curriculum=curriculum, contact=contact,
@@ -95,8 +95,6 @@ def registerParent(request):
     if request.method == 'GET':
         return render(request, 'accounts/parents_register.html', {"form": form})
     if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
         firstname = request.POST.get('firstname')
         lastname = request.POST.get('lastname')
         middlename = request.POST.get('middlename')
@@ -104,11 +102,11 @@ def registerParent(request):
         dateofbirth = request.POST.get('dateofbirth')
         dateregistered = datetime.datetime.today().date()
         status = "Pending"  # Default value
-        user = Parent.objects.filter(username=username)
+        user = Parent.objects.filter(lastname=lastname, firstname=firstname)
         if len(user) != 0:
             return render(request, 'accounts/parents_register.html', {'errors': 'User already exist.', 'form': form})
-        Parent.objects.create(username=username, firstname=firstname, lastname=lastname, middlename=middlename,
-                              email=email, dateregistered=dateregistered, dateofbirth=dateofbirth, password=password,
+        Parent.objects.create(firstname=firstname, lastname=lastname, middlename=middlename,
+                              email=email, dateregistered=dateregistered, dateofbirth=dateofbirth,
                               mystatus=status)
         return redirect('/amsai/login/')
 
@@ -321,6 +319,13 @@ def parentResult(request):
 
 def studentResult(request):
     return render(request, 'student/registration_result.html')
+
+
+def index(request):
+    return render(request,'home/dashboard.html')
+
+def empty(request):
+    return render(request, 'home/empty.html')
 
 def logout(request):
     request.session.clear()

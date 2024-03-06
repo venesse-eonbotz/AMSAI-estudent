@@ -73,6 +73,9 @@ urlpatterns = [
     path('dashboard/', views.dashboard, name="dashboard"),
     path('amsai/', views.empty),
 
+    # search
+    path('mystudent/list/search/', views.searchBar, name="search"),
+
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

@@ -474,22 +474,7 @@
         font-weight: bold;
     }
 </style>
-<script>
-      function myFunction() {
-         const txt = document.getElementById("input").value;
-         console.log(txt);
-         const txtLen = txt.length;
-         console.log(txtLen);
-         if (txtLen<3) {
-            document.getElementById("demo").innerHTML = "Must be atleast 3 characters";
-         } else {
-            document.getElementById("demo").innerHTML = "Input OK";
-         }
-      }
 
-      var commentForm = document.getElementById('form');
-      commentForm.removeAttribute('novalidate');
-   </script>
 
 {% if messages %}
      {% for message in messages %}

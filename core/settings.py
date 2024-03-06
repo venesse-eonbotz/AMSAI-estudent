@@ -13,18 +13,18 @@ BASE_DIR = Path(__file__).parent
 CORE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = config('SECRET_KEY', default='AMSAI_s3!cr3t!k3y!')
-SECRET_KEY = os.environ.get("SECRET_KEY")
+SECRET_KEY = config('SECRET_KEY', default='AMSAI_s3!cr3t!k3y!')
+# SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=True, cast=bool)
 
 # load production server from .env
-# ALLOWED_HOSTS = ['127.0.0.1']
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(" ")
+ALLOWED_HOSTS = ['127.0.0.1']
+# ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(" ")
+
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -37,7 +37,6 @@ INSTALLED_APPS = [
     'pay',
     'soa',
     'event',
-    'library',
     'captcha',
     'django_recaptcha',
 ]
@@ -101,8 +100,8 @@ DATABASES = {
 
 # DATABASES["default"] = dj_database_url.parse("postgres://amsaismsdbv1_8wlu_user:mnuVaKoW8VjVEsIu3ujcPj4Dbf5SwZV1@dpg-cne2fn2cn0vc73f90qh0-a.oregon-postgres.render.com/amsaismsdbv1_8wlu")
 
-database_url = os.environ.get('DATABASE_URL')
-DATABASES['default'] = dj_database_url.parse(database_url)
+# database_url = os.environ.get('DATABASE_URL')
+# DATABASES['default'] = dj_database_url.parse(database_url)
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators

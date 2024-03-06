@@ -50,20 +50,20 @@
   </div>
 
   <div class="card card-body border-0 shadow table-wrapper table-responsive">
-      <table class="table table-hover" id="example" data-filter-control="true" data-show-search-clear-button="true">
+      <table class="table table-hover" id="userTable" data-filter-control="true" data-show-search-clear-button="true">
           <thead>
               <tr>
 <!--                  <th class="border-gray-200">#</th>-->
-                  <th class="border-gray-200">RefNo</th>
-                  <th class="border-gray-200">Name</th>
-                  <th class="border-gray-200">Student Type</th>
-                  <th class="border-gray-200">Student ID</th>
-                  <th class="border-gray-200">LRN</th>
-                  <th class="border-gray-200">Gender</th>
-                  <th class="border-gray-200">Contact</th>
-                  <th class="border-gray-200">Email</th>
-                  <th class="border-gray-200">Status</th>
-                  <th class="border-gray-200">Action</th>
+                  <th class="border-gray-200 no-sort">RefNo</th>
+                  <th class="border-gray-200 no-sort">Name</th>
+                  <th class="border-gray-200 no-sort">Student Type</th>
+                  <th class="border-gray-200 no-sort">Student ID</th>
+                  <th class="border-gray-200 no-sort">LRN</th>
+                  <th class="border-gray-200 no-sort">Gender</th>
+                  <th class="border-gray-200 no-sort">Contact</th>
+                  <th class="border-gray-200 no-sort">Email</th>
+                  <th class="border-gray-200 no-sort">Status</th>
+                  <th class="border-gray-200 no-sort">Action</th>
               </tr>
           </thead>
           <tbody>
@@ -94,34 +94,6 @@
               {% endfor %}
           </tbody>
       </table>
-      <div class="card-footer px-3 border-0 d-flex flex-column flex-lg-row align-items-center justify-content-between">
-          <nav aria-label="Page navigation example">
-              <ul class="pagination mb-0">
-                  <li class="page-item">
-                      <a class="page-link" href="#">Previous</a>
-                  </li>
-                  <li class="page-item">
-                      <a class="page-link" href="#">1</a>
-                  </li>
-                  <li class="page-item active">
-                      <a class="page-link" href="#">2</a>
-                  </li>
-                  <li class="page-item">
-                      <a class="page-link" href="#">3</a>
-                  </li>
-                  <li class="page-item">
-                      <a class="page-link" href="#">4</a>
-                  </li>
-                  <li class="page-item">
-                      <a class="page-link" href="#">5</a>
-                  </li>
-                  <li class="page-item">
-                      <a class="page-link" href="#">Next</a>
-                  </li>
-              </ul>
-          </nav>
-          <div class="fw-normal small mt-4 mt-lg-0">Showing <b>5</b> out of <b>25</b> entries</div>
-      </div>
   </div>
 
   <!-- Modal Content -->
@@ -153,6 +125,30 @@
           </div>
       </div>
   </div>
+<style>
+    .dataTable > thead > tr > th[class*="sort"]:before,
+    .dataTable > thead > tr > th[class*="sort"]:after {
+        content: "" !important;
+    }
+    .no-sort { pointer-events: none!important; cursor: default!important; }
+    select-form-sm {
+        width: 500px;
+    }
+</style>
+
+
+<!--<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+<script>
+  $(document).ready(function() {
+    $('#userTable').DataTable();
+  });W
+</script>
 
 {% endblock content %}
 
