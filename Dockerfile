@@ -15,4 +15,4 @@ RUN pip install -r requirements.txt
 
 COPY .. /app
 
-ENTRYPOINT [ "gunicorn", "drpc.wsgi"]
+ENTRYPOINT [ "gunicorn", "core.wsgi"]
