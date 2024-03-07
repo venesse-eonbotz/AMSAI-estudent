@@ -41,7 +41,20 @@
 <script src="/static/assets/js/volt.js"></script>
 <script src="/static/assets/js/table.js"></script>
 
-<script src="/static/assets/vendor/datatables/jquery.dataTables.min.js' %} "></script>
-<script src="/static/assets/vendor/datatables/dataTables.bootstrap4.min.js' %}"></script>
-<script src="/static/assets/js/demo/datatables-demo.js' %}"></script>
+<!--<script src="/static/assets/vendor/datatables/jquery.dataTables.min.js' %} "></script>-->
+<!--<script src="/static/assets/vendor/datatables/dataTables.bootstrap4.min.js' %}"></script>-->
+<!--<script src="/static/assets/js/demo/datatables-demo.js' %}"></script>-->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap4.min.css">
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap4.min.js"></script>
+
+<script>
+  $(document).ready(function() {
+    var dataTable = $('#userTable').dataTable();
+    $("#searching").keyup(function() {
+        dataTable.fnFilter(this.value);
+    });
+  })
+
+</script>
 

@@ -35,9 +35,10 @@
           </div>
       </div>
         {% endif %}
+<!--        <input id="myInput" type="text" placeholder="Search..">-->
   </div>
 
-    <div class="row" style="overflow:scroll;">
+    <div class="row" style="overflow:scroll;" id="eventtitle" data-filter-control="true" data-show-search-clear-button="true">
         {% for obj in item %}
         <div class="col-12 col-lg-6" style="padding-bottom: 15px">
             <div class="card border-0 shadow">
@@ -73,6 +74,24 @@
 
     </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+    jQuery("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    jQuery("#eventtitle *").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+</script>
+<!--<script>-->
+<!--  $(document).ready(function() {-->
+<!--    var dataTable = $('#eventtitle')-->
+<!--    $("#myInput").keyup(function() {-->
+<!--        dataTable.fnFilter(this.value);-->
+<!--    });-->
+<!--  })-->
+
+<!--</script>-->
 {% endblock content %}
 
 <!-- Specific Page JS goes HERE  -->
