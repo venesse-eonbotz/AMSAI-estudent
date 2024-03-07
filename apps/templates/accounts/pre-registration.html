@@ -56,11 +56,9 @@
                     {{ warn }} {{ error }}
                   <div class="row mb-4">
                       <div class="col-lg-4 col-sm-6">
-                           <div class="mb-4">
-                              <label>Student ID</label>
-                              <div class="input-group">
-                                  <input class="form-control" name="studentid" type="text" placeholder="If applicable">
-                              </div>
+                          <div class="mb-3">
+                              <label>LRN</label>
+                              <input type="text" class="form-control" name="lrn" required />
                           </div>
                       </div>
                       <div class="col-lg-4 col-sm-6">
@@ -71,12 +69,6 @@
                                    <option selected value="Old">Old Student</option>
                                    <option selected value="" hidden>Please select student type</option>
                                </select>
-                          </div>
-                      </div>
-                      <div class="col-lg-4 col-sm-6">
-                          <div class="mb-3">
-                              <label>LRN</label>
-                              <input type="text" class="form-control" name="lrn" required />
                           </div>
                       </div>
                       <div class="col-lg-4 col-sm-6">
@@ -444,13 +436,13 @@
                               <input type="text" class="form-control" value="{{ refno }}" name="refno" readonly>
                           </div>
                       </div>
-                      <div class="col-lg-4 col-sm-6">
-                          <div class="mb-4">
-                              <label for="">Password</label>
-                              <input type="password" name="password" class="form-control" required>
+<!--                      <div class="col-lg-4 col-sm-6">-->
+<!--                          <div class="mb-4">-->
+<!--                              <label for="">Password</label>-->
+<!--                              <input type="password" name="password" class="form-control" required>-->
 
-                          </div>
-                      </div>
+<!--                          </div>-->
+<!--                      </div>-->
                       <div class="col-lg-4 col-sm-6">
                           <div class="mb-4">
                               <label>Validation</label>
@@ -493,7 +485,7 @@
                   <div class="modal-body">
                       {% if message.tags == 'success' %}
                       <p>Your Reference number: <a class="font-weight-bold" style="user-select: text; color: #4e73df; text-decoration: underline">{{ message }}</a>.</p>
-                      <p>Please show this to Registrar from Registration and use this to login your account.</p>
+                      <p>Please show this to Registrar during registration.</p>
                       {% endif %}
                       {% if message.tags == 'error' %}
                       <p>{{ message }} Please try again.</p>
@@ -501,7 +493,7 @@
                   </div>
                   <div class="modal-footer">
                       {% if message.tags == 'success' %}
-                      <a type="button" class="btn btn-secondary" href="/amsai/login/">Sign IN</a>
+                      <a type="button" class="btn btn-secondary" href="/amsai/pre-registration/">OKAY</a>
                       {% endif %}
                       <a type="button" class="btn btn-link text-gray-600 ms-auto" href="/amsai/pre-registration/" data-bs-dismiss="notif">Close</a>
                   </div>

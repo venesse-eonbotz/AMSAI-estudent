@@ -7,8 +7,8 @@ from django.urls import path
 from .views import (registerParent, login, logout, preRegistration, viewResult, parentResult,
                     registerStudent, studentResult)
 from apps.home import views
-from soa.views import Soa,uploadSoa
-from event.views import event, uploadEvent, refreshEvent
+from soa.views import Soa, uploadSoa
+from event.views import event, uploadEvent, refreshEvent, dashboard
 from django.conf import settings
 from django.conf.urls.static import static
 # from home.forms import UploadView
@@ -70,7 +70,7 @@ urlpatterns = [
 
     # navs
     path('table/', views.table, name="table"),
-    path('dashboard/', views.dashboard, name="dashboard"),
+    path('dashboard/', dashboard),
     path('amsai/', views.empty),
 
     # search

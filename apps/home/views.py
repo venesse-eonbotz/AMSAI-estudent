@@ -10,7 +10,6 @@ from apps.home.models import Parent, Student, Teachers, StudentPrereg, Soa, Cloc
 from pay.models import Payment, Paymentor
 from soa.models import File
 from event.models import Events
-from django.db.models import Q
 from .forms import FileForm
 # from payment.views import Payment
 from django.core.paginator import Paginator
@@ -279,27 +278,23 @@ def searchBar(request):
             return render(request, 'student/student_list.html', warn)
 
 
-def dashboard(request):
-    count = len(Student.objects.all())
-    event = len(Events.objects.all())
-    date = datetime.datetime.now().date()
-    entry = len(Clocking.objects.filter(date=datetime.datetime.now().date()))
-    prereg = len(StudentPrereg.objects.filter(reg_status="Pending"))
-    student = len(Student.objects.filter(status="Pending")) + len(Student.objects.filter(status__isnull=True))
-    parent = len(Parent.objects.filter(mystatus="Pending"))
-    mystudent = len(ParentMystudent.objects.filter(status="Pending"))
-    pay = len(Payment.objects.all()) - len(Paymentor.objects.all())
-    soa = len(Student.objects.all()) - len(File.objects.all())
-    sum = prereg + student + parent + mystudent + pay + soa
-    image_slider = Events.objects.filter(status=1)
-    if image_slider:
-        for obj in image_slider:
-            events = Events.objects.get(id=obj.id)
-            obj.events = events
-            obj.events.description = obj.events.description[:200] + "..."
-    return render(request, 'home/dashboard.html', {'count': count, 'event': event, 'parent': parent,
-                                                   'date': date, 'entry': entry, 'prereg': prereg, 'student': student,
-                                                   'mystudent': mystudent, 'pay': pay, 'soa': soa, 'sum': sum })
+# def dashboard(request):
+#     count = len(Student.objects.all())
+#     event = len(Events.objects.all())
+#     date = datetime.datetime.now().date()
+#     entry = len(Clocking.objects.filter(date=datetime.datetime.now().date()))
+#     prereg = len(StudentPrereg.objects.filter(reg_status="Pending"))
+#     student = len(Student.objects.filter(status="Pending")) + len(Student.objects.filter(status__isnull=True))
+#     parent = len(Parent.objects.filter(mystatus="Pending"))
+#     mystudent = len(ParentMystudent.objects.filter(status="Pending"))
+#     pay = len(Payment.objects.all()) - len(Paymentor.objects.all())
+#     soa = len(Student.objects.all()) - len(File.objects.all())
+#     sum = prereg + student + parent + mystudent + pay + soa
+#     item = Payment.objects.all()
+#     return render(request, 'home/dashboard.html', {'count': count, 'event': event, 'parent': parent,
+#                                                    'date': date, 'entry': entry, 'prereg': prereg, 'student': student,
+#                                                    'mystudent': mystudent, 'pay': pay, 'soa': soa, 'sum': sum,
+#                                                    'item': item})
 
 
 def clocking(request):

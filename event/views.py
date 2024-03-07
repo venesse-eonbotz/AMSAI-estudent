@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 import datetime
-# from datetime import datetime
+from apps.home.models import *
+from pay.models import *
+from soa.models import *
 import time
 from .models import Events
 
@@ -41,3 +43,20 @@ def refreshEvent(request):
     return redirect('/amsai/events/')
 
 
+def dashboard(request):
+    count = len(Student.objects.all())
+    event = len(Events.objects.all())
+    date = datetime.datetime.now().date()
+    entry = len(Clocking.objects.filter(date=datetime.datetime.now().date()))
+    prereg = len(StudentPrereg.objects.filter(reg_status="Pending"))
+    student = len(Student.objects.filter(status="Pending")) + len(Student.objects.filter(status__isnull=True))
+    parent = len(Parent.objects.filter(mystatus="Pending"))
+    mystudent = len(ParentMystudent.objects.filter(status="Pending"))
+    pay = len(Payment.objects.all()) - len(Paymentor.objects.all())
+    soa = len(Student.objects.all()) - len(File.objects.all())
+    sum = prereg + student + parent + mystudent + pay + soa
+    item = Events.objects.all()
+    return render(request, 'home/dashboard.html', {'count': count, 'event': event, 'parent': parent,
+                                                   'date': date, 'entry': entry, 'prereg': prereg, 'student': student,
+                                                   'mystudent': mystudent, 'pay': pay, 'soa': soa, 'sum': sum,
+                                                   'item': item})
