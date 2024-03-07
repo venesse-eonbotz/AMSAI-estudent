@@ -1,18 +1,18 @@
-FROM python:3.9
+FROM python:3.12.1-slim-bullseye
+LABEL authors="EonBotz 5"
+WORKDIR /app
 
-COPY . .
-
-# set environment variables
-ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
+ENV PYTHONDONTWRITEBYTECODE 1
 
-# install python dependencies
+# install system dependencies
+RUN apt-get update
+
+# install dependencies
 RUN pip install --upgrade pip
-RUN pip install --no-cache-dir -r requirements.txt
+COPY ../requirements.txt /app/
+RUN pip install -r requirements.txt
 
-# running migrations
-RUN python manage.py migrate
+COPY .. /app
 
-# gunicorn
-CMD ["gunicorn", "--config", "gunicorn-cfg.py", "core.wsgi"]
-
+ENTRYPOINT [ "gunicorn", "drpc.wsgi"]
