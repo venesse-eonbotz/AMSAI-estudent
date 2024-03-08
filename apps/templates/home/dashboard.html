@@ -38,29 +38,8 @@
             </div>
         </div>
     </div>
+{% if request.session.login_info %}
     <div class="row">
-<!--        <div class="col-12 mb-4">-->
-<!--            <div class="card bg-yellow-100 border-0 shadow">-->
-<!--                <div class="card-header d-sm-flex flex-row align-items-center flex-0">-->
-<!--                    <div class="d-block mb-3 mb-sm-0">-->
-<!--                        <div class="fs-5 fw-normal mb-2">Sales Value</div>-->
-<!--                        <h2 class="fs-3 fw-extrabold">$10,567</h2>-->
-<!--                        <div class="small mt-2"> -->
-<!--                            <span class="fw-normal me-2">Yesterday</span>                              -->
-<!--                            <span class="fas fa-angle-up text-success"></span>                                   -->
-<!--                            <span class="text-success fw-bold">10.57%</span>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div class="d-flex ms-auto">-->
-<!--                        <a href="#" class="btn btn-secondary text-dark btn-sm me-2">Month</a>-->
-<!--                        <a href="#" class="btn btn-dark btn-sm me-3">Week</a>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="card-body p-2">-->
-<!--                    <div class="ct-chart-sales-value ct-double-octave ct-series-g"></div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
         <div class="col-12 col-sm-6 col-xl-4 mb-4">
             <div class="card border-0 shadow">
                 <div class="card-body">
@@ -159,21 +138,12 @@
             </div>
         </div>
     </div>
+{% endif %}
     <div class="row">
         <div class="col-12 col-xl-8">
             <div class="row">
                 <div class="col-12 mb-4">
                     <div class="card border-0 shadow">
-<!--                        <div class="card-header">-->
-<!--                            <div class="row align-items-center">-->
-<!--                                <div class="col">-->
-<!--                                    <h2 class="fs-5 fw-bold mb-0">Events</h2>-->
-<!--                                </div>-->
-<!--                                <div class="col text-end">-->
-<!--                                    <a href="#" class="btn btn-sm btn-primary">See all</a>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
                         <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
 <!--                          <div class="carousel-indicators">-->
 <!--                            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>-->
@@ -210,6 +180,7 @@
                 </div>
             </div>
         </div>
+        {% if request.session.login_info.userrole %}
         <div class="col-12 col-xl-4">
             <div class="col-12 px-0 mb-4">
                 <div class="card border-0 shadow">
@@ -319,6 +290,51 @@
                 </div>
             </div>
         </div>
+        {% endif %}
+        {% if request.session.login_info.lrn %}
+        <div class="col-12 col-xl-4">
+            <div class="col-12 px-0 mb-4">
+                <div class="card border-0 shadow">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center justify-content-between border-bottom pb-3">
+                            <div>
+                                <div class="h6 mb-0 d-flex align-items-center">
+<!--                                    <svg class="icon icon-xs text-gray-500 me-2" fill="currentColor" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">-->
+<!--                                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M182.99 146.2h585.14v402.29h73.14V73.06H109.84v877.71H512v-73.14H182.99z" fill="#000000"></path><path d="M256.13 219.34h438.86v73.14H256.13zM256.13 365.63h365.71v73.14H256.13zM256.13 511.91h219.43v73.14H256.13zM731.55 585.06c-100.99 0-182.86 81.87-182.86 182.86s81.87 182.86 182.86 182.86c100.99 0 182.86-81.87 182.86-182.86s-81.86-182.86-182.86-182.86z m0 292.57c-60.5 0-109.71-49.22-109.71-109.71 0-60.5 49.22-109.71 109.71-109.71 60.5 0 109.71 49.22 109.71 109.71 0.01 60.49-49.21 109.71-109.71 109.71z" fill="#0F1F3C"></path><path d="M758.99 692.08h-54.86v87.27l69.39 68.76 38.61-38.96-53.14-52.66z" fill="#0F1F3C"></g></path>                                    </svg>-->
+                                    <h5>Information</h5>
+                                </div>
+                            </div>
+                            <div>
+<!--                                <a href="#" class="d-flex align-items-center fw-bold">-->
+<!--                                    {{ sum }}-->
+<!--                                    <svg class="icon icon-xs text-gray-500 ms-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 3a1 1 0 000 2v8a2 2 0 002 2h2.586l-1.293 1.293a1 1 0 101.414 1.414L10 15.414l2.293 2.293a1 1 0 001.414-1.414L12.414 15H15a2 2 0 002-2V5a1 1 0 100-2H3zm11.707 4.707a1 1 0 00-1.414-1.414L10 9.586 8.707 8.293a1 1 0 00-1.414 0l-2 2a1 1 0 101.414 1.414L8 10.414l1.293 1.293a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>-->
+<!--                                </a>-->
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-between border-bottom py-3">
+                            <div>
+                                <div class="h6 mb-0 d-flex align-items-center">
+                                <hr class="sidebar-divider">
+                                <div class="d-block">
+                                    <div class="d-flex align-items-center me-5">
+                                        <div class="d-block">
+                                            Welcome! <br>Your reference number: <input name="refno" style="border: none; background:none; outline: none; width: 30%" value="{{ request.session.login_info.refno }}" readonly>
+                                            <br>Check application status
+                                            {% if request.session.login_info %}
+                                            <a class="" href="/check_application/{{ request.session.login_info.refno }}/">here</a>.
+                                            {% else %}
+                                            <a class="" href="/error/">here</a>.
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
     </div>
 
 {% endblock content %}
