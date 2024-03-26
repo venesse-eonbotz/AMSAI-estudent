@@ -15,7 +15,7 @@ class Events(models.Model):
     venue = models.CharField(max_length=45, blank=True, null=True)
     # date = models.CharField(max_length=255, blank=True, null=True)
     date = models.DateTimeField(max_length=45, blank=True, null=True)
-    description = models.CharField(max_length=255, blank=True, null=True)
+    description = models.CharField(max_length=500, blank=True, null=True)
     image = models.ImageField(upload_to=eventpath, blank=True, null=True)
     manager = models.CharField(max_length=100, blank=True, null=True)
     attendees = models.CharField(max_length=100, blank=True, null=True)
