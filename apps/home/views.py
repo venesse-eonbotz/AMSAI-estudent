@@ -2,19 +2,24 @@
 """
 Copyright (c) 2019 - present AppSeed.us
 """
-
+import time
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from apps.home.models import Parent, Student, Teachers, StudentPrereg, Soa, Clocking, ParentMystudent
+from apps.home.models import *
 from pay.models import Payment, Paymentor
+from settings.models import *
 from soa.models import File
 from event.models import Events
 from .forms import FileForm
 # from payment.views import Payment
 from django.core.paginator import Paginator
 import datetime, random, string, csv, secrets
+from twilio.rest import Client
 
+account_sid = 'ACa3ded3cd0b39b0efe288198c34e401de'
+auth_token = '5047729895bfaeea2b9f3ad01051640f'
+client = Client(account_sid, auth_token)
 
 # @login_required(login_url="/amsai/login/")
 def index(request):
@@ -23,38 +28,52 @@ def index(request):
 def empty(request):
     return render(request, 'home/empty.html')
 
-
-def table(request):
-    if request.method == 'GET':
-        query = ParentMystudent.objects.all()
-        if query:
-            for obj in query:
-                # parent = ParentMystudent.objects.all()
-                # request.session['login_info'] = {'id': parent.id}
-                student = Student.objects.get(registerid=obj.mystudent_id)
-                obj.student = student
-            return render(request, 'parent/my_student.html', {'query': query})
-        else:
-            return render(request, 'parent/my_student.html')
+# def table(request):
+#     if request.method == 'GET':
+#         query = ParentMystudent.objects.all()
+#         if query:
+#             for obj in query:
+#                 # parent = ParentMystudent.objects.all()
+#                 # request.session['login_info'] = {'id': parent.id}
+#                 student = Student.objects.get(registerid=obj.mystudent_id)
+#                 obj.student = student
+#             return render(request, 'parent/my_student.html', {'query': query})
+#         else:
+#             return render(request, 'parent/my_student.html')
 
 
 def mystudentlist(request):
-    if request.method == 'GET':
-        query = ParentMystudent.objects.filter(parent=request.session['login_info'].get('id'))
-        mystudent = Student.objects.all()
-        if query:
-            for obj in query:
-                student = Student.objects.get(registerid=obj.mystudent_id)
-                obj.student = student
-        return render(request, 'parent/my_student.html', {'query': query, 'mystudent': mystudent})
+    query = ParentMystudent.objects.filter(parent=request.session['login_info'].get('id'))
+    mystudent = Student.objects.all()
+    if query:
+        for obj in query:
+            student = Student.objects.get(registerid=obj.mystudent_id)
+            obj.student = student
+    return render(request, 'parent/my_student.html', {'query': query, 'mystudent': mystudent})
 
 
 def addStudent(request):
-    registerid = request.POST.get('registerid')
-    parent = request.session['login_info'].get('id')
-    status = "Pending"
-    ParentMystudent.objects.create(mystudent_id=registerid, parent_id=parent, status=status)
-    return redirect('/mystudent/list/')
+    if request.method == 'GET':
+        return render(request, 'parent/mystudent_add.html')
+    if request.method == 'POST':
+        lrn = request.POST.get('lrn')
+        parent = request.session['login_info'].get('id')
+        status = "Pending"
+        try:
+            student = Student.objects.get(lrn=lrn)
+        except Exception as e:
+            print(e)
+            query = ParentMystudent.objects.filter(parent=request.session['login_info'].get('id'))
+            mystudent = Student.objects.all()
+            if query:
+                for obj in query:
+                    student = Student.objects.get(registerid=obj.mystudent_id)
+                    obj.student = student
+            warn = 'Invalid LRN number.'
+            return render(request, 'parent/my_student.html', {'query': query, 'mystudent': mystudent, 'warn': warn})
+
+        ParentMystudent.objects.create(mystudent_id=student.registerid, parent_id=parent, status=status)
+        return redirect('/mystudent/list/')
 
 
 def listMystudent(request):
@@ -164,7 +183,6 @@ def ORParentsView(request, nid):
         return render(request, 'payment/or_view.html')
 
 
-
 def soa(request):
     if request.method == 'GET':
         query = File.objects.all()
@@ -264,19 +282,6 @@ def studentList(request):
     else:
         return render(request, 'parent/student_list.html', locals())
 
-def searchBar(request):
-    if request.method == 'GET':
-        query = request.GET.get('query')
-        if query:
-            page_obj = Student.objects.filter(lastname__icontains=query) | Student.objects.filter(lrn__icontains=query)
-            return render(request, 'student/student_list.html', {'page_obj': page_obj})
-        elif query == "":
-            page_obj = Student.objects.all()
-            return render(request, 'student/student_list.html', {'page_obj': page_obj})
-        else:
-            warn = {"warn": "No information to show"}
-            return render(request, 'student/student_list.html', warn)
-
 
 # def dashboard(request):
 #     count = len(Student.objects.all())
@@ -299,7 +304,7 @@ def searchBar(request):
 
 def clocking(request):
     if request.method == 'GET':
-        query = Clocking.objects.filter(student=request.session.get('login_info')["registerid"])
+        query = EntryMonitoring.objects.filter(student=request.session.get('login_info')["registerid"]).order_by('-id')
         if query:
             data = {"query": query}
             return render(request, 'student/clocking.html', data)
@@ -309,7 +314,7 @@ def clocking(request):
 
 
 def check_attendance(request, nid):
-    query = Clocking.objects.filter(student=nid).order_by('-date')
+    query = EntryMonitoring.objects.filter(student=nid).order_by('-date')
     if query:
         for obj in query:
             student = Student.objects.get(registerid=obj.student_id)
@@ -319,13 +324,74 @@ def check_attendance(request, nid):
 
 def monitor(request):
     if request.method == 'GET':
-        query = Clocking.objects.all()
-        if query:
-            data = {"query": query}
-            return render(request, 'student/clocking.html', data)
+        query = EntryMonitoring.objects.all().order_by('-date')
+        return render(request, 'student/clocking.html', {'query': query})
+
+
+def clocking_interface(request):
+    date = datetime.datetime.now().date()
+    item = Events.objects.all()
+    if request.method == 'GET':
+        return render(request, 'student/clocking_interface.html', {'date': date, 'item': item})
+    if request.method == 'POST':
+        date = datetime.datetime.today().date()
+        value = request.POST.get('registerid')
+        clockin = datetime.datetime.now().time().strftime('%I:%M %p')
+        clockout = datetime.datetime.now().time().strftime('%I:%M %p')
+        data = EntryMonitoring.objects.filter(student=value, date=date, clockout=None).exists()
+        event = Events.objects.all()
+        if data:
+            try:
+                check = Student.objects.get(registerid=value)
+            except Exception as e:
+                print(e)
+                warn = 'Invalid Student ID.'
+                return render(request, 'student/clocking_interface.html', {'date': date, 'event': event, 'warn': warn})
+            if check:
+                unmasked = str(check.lrn)
+                unmasked1 = str(check.lastname)
+                unmasked2 = str(check.firstname)
+                check.lrn = len(unmasked[:-4]) * "*" + unmasked[-2:]
+                check.lastname = len(unmasked1[:-4]) * "*" + unmasked1[-2:]
+                check.firstname = len(unmasked2[:-4]) * "*" + unmasked2[-2:]
+            if len(EntryMonitoring.objects.filter(student=value, date=date)) == 1:
+                message = client.messages.create(
+                    from_='+19893680649',
+                    body=f'DATE: {date}, {clockin} \n {check.lrn} left school premises.',
+                    to='+639456678590'
+                )
+                print(message.body)
+                EntryMonitoring.objects.filter(student=value, date=date, clockout=None).update(clockout=clockout)
+                return render(request, 'student/clocking_interface.html', {'event': event, 'check': check})
+            else:
+                EntryMonitoring.objects.filter(student=value, date=date, clockout=None).update(clockout=clockout)
+                return render(request, 'student/clocking_interface.html', {'event': event, 'check': check})
         else:
-            data = {"query": query}
-            return render(request, 'student/clocking.html', data)
+            try:
+                check = Student.objects.get(registerid=value)
+            except Exception as e:
+                print(e)
+                warn = 'Invalid Student ID.'
+                return render(request, 'student/clocking_interface.html', {'date': date, 'event': event, 'warn': warn})
+            if check:
+                unmasked = str(check.lrn)
+                unmasked1 = str(check.lastname)
+                unmasked2 = str(check.firstname)
+                check.lrn = len(unmasked[:-4]) * "*" + unmasked[-2:]
+                check.lastname = len(unmasked1[:-4]) * "*" + unmasked1[-2:]
+                check.firstname = len(unmasked2[:-4]) * "*" + unmasked2[-2:]
+            if len(EntryMonitoring.objects.filter(student=value, date=date)) == 0:
+                EntryMonitoring.objects.create(student_id=check.registerid, date=date, clockin=clockin, clockout=None)
+                message = client.messages.create(
+                    from_='+19893680649',
+                    body=f'DATE: {date}, {clockout} \n {check.lrn} entered school premises.',
+                    to='+639456678590'
+                )
+                print(message.body)
+                return render(request, 'student/clocking_interface.html', {'event': event, 'check': check})
+            else:
+                EntryMonitoring.objects.create(student_id=check.registerid, date=date, clockin=clockin, clockout=None)
+                return render(request, 'student/clocking_interface.html', {'event': event, 'check': check})
 
 def clockinAM(request):
     user = Student.objects.get(registerid=request.session['login_info'].get('registerid'))
@@ -341,6 +407,12 @@ def clockinAM(request):
         return render(request, 'student/clocking.html', data | warn)
     else:
         if inam <= amtime:
+            message = client.messages.create(
+                from_='+19893680649',
+                body=f'LRN number:{user} entered on {date} {inam}',
+                to='+639456678590'
+            )
+            print(message.body)
             Clocking.objects.create(student=user, date=date, inam=inam, outam=am, inpm=am, outpm=am)
             return redirect('/student/time/')
         else:
@@ -348,6 +420,7 @@ def clockinAM(request):
             data = {"query": query}
             warn = {"warn": 'Cannot time you in.'}
             return render(request, 'student/clocking.html', data | warn)
+
 
 def clockoutAM(request):
     user = Student.objects.get(registerid=request.session['login_info'].get('registerid'))
@@ -357,6 +430,12 @@ def clockoutAM(request):
     am = "--"
     clock = Clocking.objects.filter(student=user, date=date, outam=am).exists()
     if clock and outam <= outtime:
+        message = client.messages.create(
+            from_='+19893680649',
+            body=f'LRN number:{user} entered on {date} {outam}',
+            to='+639456678590'
+        )
+        print(message.body)
         Clocking.objects.filter(student=user, date=date).update(outam=outam)
         return redirect('/student/time/')
     else:
@@ -385,8 +464,20 @@ def clockinPM(request):
             return render(request, 'student/clocking.html', data | warn)
     else:
         if inpm >= pmtime:
-            Clocking.objects.create(student=user, date=date, inpm=inpm, inam=pm, outam=pm, outpm=pm)
-            return redirect('/student/time/')
+            if Clocking.objects.filter(student=user, date=date).exists():
+                query = Clocking.objects.filter(student=user)
+                data = {"query": query}
+                warn = {"warn": 'Cannot time you in.'}
+                return render(request, 'student/clocking.html', data | warn)
+            else:
+                message = client.messages.create(
+                    from_='+19893680649',
+                    body=f'LRN number:xxxx entered on {date} {inpm}',
+                    to='+639456678590'
+                )
+                print(message.body)
+                Clocking.objects.create(student=user, date=date, inpm=inpm, inam=pm, outam=pm, outpm=pm)
+                return redirect('/student/time/')
         else:
             query = Clocking.objects.filter(student=user)
             data = {"query": query}
@@ -398,7 +489,6 @@ def clockinPM(request):
 def clockoutPM(request):
     user = Student.objects.get(registerid=request.session['login_info'].get('registerid'))
     date = datetime.datetime.now().date()
-    inpm = datetime.datetime.now().time()
     outpm = datetime.datetime.now().time()
     pmtime = datetime.time(12, 00)
     pm = "--"
@@ -406,6 +496,12 @@ def clockoutPM(request):
     if clock:
         if outpm >= pmtime:
             Clocking.objects.filter(student=user, date=date).update(outpm=outpm)
+            message = client.messages.create(
+                from_='+19893680649',
+                body=f'LRN number:xxxx entered on {date} {outpm}',
+                to='+639456678590'
+            )
+            print(message.body)
             return redirect('/student/time/')
         else:
             query = Clocking.objects.filter(student=user)
@@ -557,4 +653,3 @@ def approvePrereg(request, nid):
         else:
             StudentPrereg.objects.filter(registerid=nid).update(reg_status=reg_status)
             return redirect('/amsai/pre-registration/list/')
-

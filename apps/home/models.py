@@ -266,6 +266,13 @@ class DjangoSession(models.Model):
         db_table = 'django_session'
 
 
+class EntryMonitoring(models.Model):
+    student = models.ForeignKey('Student', models.DO_NOTHING)
+    clockin = models.CharField(max_length=50, blank=True, null=True)
+    clockout = models.CharField(max_length=50, blank=True, null=True)
+    date = models.DateField(null=False)
+
+
 class Feestructure(models.Model):
     structureid = models.AutoField(db_column='structureID', primary_key=True)  # Field name made lowercase.
     structurename = models.CharField(db_column='structureName', max_length=250, blank=True, null=True)  # Field name made lowercase.
