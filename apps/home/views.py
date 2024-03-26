@@ -76,6 +76,10 @@ def addStudent(request):
         return redirect('/mystudent/list/')
 
 
+def removeMyStudent(request, nid):
+    ParentMystudent.objects.get(id=nid).delete()
+    return redirect('/mystudent/list/')
+
 def listMystudent(request):
     if request.method == 'GET':
         query = ParentMystudent.objects.all()
