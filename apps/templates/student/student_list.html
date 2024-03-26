@@ -37,12 +37,10 @@
       <table class="table table-hover paginated-table" id="userTable" data-filter-control="true" data-show-search-clear-button="true">
           <thead>
               <tr>
-<!--                  <th class="border-gray-200">#</th>-->
                   <th class="border-gray-200">LRN</th>
                   <th class="border-gray-200">Name</th>
                   <th class="border-gray-200">Grade</th>
                   <th class="border-gray-200">Progam</th>
-<!--                  <th class="border-gray-200">xx</th>-->
                   <th class="border-gray-200">Action</th>
               </tr>
           </thead>
@@ -50,16 +48,14 @@
               <!-- Item -->
               {% for obj in page_obj %}
               <tr>
-<!--                  <td><a href="#" class="fw-bold"></a></td>-->
                   <td><span class="fw-normal">{{ obj.lrn }}</span></td>
                   <td><span class="fw-normal">{{ obj.lastname }}{{ obj.firstname }}</span></td>
                   <td><span class="fw-normal">{{ obj.level }}</span></td>
                   <td><span class="fw-bold">{{ obj.strand }}</span></td>
-<!--                  <td><span class="fw-bold text-success">{{ obj.dateregistered }}</span></td>-->
                   <td>
                           <a class="rounded-top" href="/soa/upload/{{ obj.registerid }}/">Upload SOA</a>
-<!--                          <a class="" href="#"><span class="fas fa-edit me-2"></span>Edit</a>-->
-                          <a class="text-danger rounded-bottom" href="#"><span class="fas fa-trash-alt me-2"></span>Remove</a>
+                          <a class="text-danger rounded-bottom" href="/mystudent/{{ obj.id }}/remove/"><span class="fas fa-trash-alt me-2"></span>Remove</a>
+
                   </td>
               </tr>
               {% endfor %}
@@ -70,10 +66,8 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-
 {% endblock content %}
 
 <!-- Specific Page JS goes HERE  -->
 {% block javascripts %}
-
 {% endblock javascripts %}
