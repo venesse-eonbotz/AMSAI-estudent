@@ -34,6 +34,7 @@ urlpatterns = [
 
     #parent
     path('mystudent/list/', views.mystudentlist),
+    path('mystudent/<int:nid>/remove/', views.removeMyStudent),
     path('mystudent/<nid>/attendance/', views.check_attendance),
     path('amsai/parent_registration/', registerParent),
     path('amsai/parent_registration/result/', parentResult),
