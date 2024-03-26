@@ -8,7 +8,7 @@ from .views import (registerParent, login, logout, preRegistration, viewResult, 
                     registerStudent, studentResult)
 from apps.home import views
 from soa.views import Soa, uploadSoa
-from event.views import event, uploadEvent, refreshEvent, dashboard
+from event.views import event, uploadEvent, refreshEvent, dashboard, editEvent
 from django.conf import settings
 from django.conf.urls.static import static
 # from home.forms import UploadView
@@ -58,9 +58,10 @@ urlpatterns = [
     path('soa/upload/<int:nid>/', uploadSoa),
     path('amsai/events/', event),
     path('amsai/events/add/', uploadEvent),
+    path('amsai/events/<int:nid>/edit/', editEvent),
     path('amsai/events/refresh/', refreshEvent),
     path('student/monitor/', views.monitor),
-    path('mystudent/add/', views.listMystudent),
+    path('mystudent/add/', views.addStudent),
     path('mystudent/add/<int:nid>/approve/', views.approveMystudent),
     path('amsai/student_list/export/', views.exportStudentList),
 
@@ -69,12 +70,18 @@ urlpatterns = [
     path('registration/approval/<int:nid>/',  views.approveRegistration),
 
     # navs
-    path('table/', views.table, name="table"),
+    # path('table/', views.table, name="table"),
     path('dashboard/', dashboard),
     path('amsai/', views.empty),
 
     # search
-    path('mystudent/list/search/', views.searchBar, name="search"),
+    # path('mystudent/list/search/', views.searchBar, name="search"),
+
+    # new interface for clocking
+    path('amsai/clocking_interface/', views.clocking_interface),
+
+    # settings
+    # path('amsai/prereg_setings/', views.preregSettings)
 
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
