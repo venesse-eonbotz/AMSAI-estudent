@@ -1,0 +1,106 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Settings {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
+      <div class="d-block mb-4 mb-md-0">
+          <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
+              <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
+                  <li class="breadcrumb-item">
+                      <a href="#">
+                          <svg class="icon icon-xxs" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+                      </a>
+                  </li>
+                  <li class="breadcrumb-item"><a href="#">AMSAI</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">Settings</li>
+              </ol>
+          </nav>
+          <h2 class="h4">Pre-registration Settings</h2>
+<!--          <p class="mb-0">.</p>-->
+      </div>
+      <div class="btn-toolbar mb-2 mb-md-0">
+<!--          <a href="#" class="btn btn-sm btn-gray-800 d-inline-flex align-items-center">-->
+<!--              <svg class="icon icon-xs me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>-->
+<!--              Add Student-->
+<!--          </a>-->
+          {% if count == 0 %}
+          <div class="btn-group ms-2 ms-lg-3">
+              <a type="button" class="btn btn-sm btn-outline-gray-600" data-bs-toggle="modal" data-bs-target="#modal-form"><svg class="icon icon-xs me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+              Add Date</a>
+          </div>
+          {% endif %}
+      </div>
+  </div>
+
+  <div class="card card-body border-0 shadow table-wrapper table-responsive">
+      <table class="table table-hover" id="userTable" data-filter-control="true" data-show-search-clear-button="true">
+          <thead>
+              <tr>
+                  <th class="border-gray-200">Access Date</th>
+                  <th class="border-gray-200">Close</th>
+                  <th class="border-gray-200">Option</th>
+              </tr>
+          </thead>
+          <tbody>
+              <!-- Item -->
+              {% for obj in settings %}
+              <tr>
+                  <td><span class="fw-normal">{{ obj.date_open }}</span></td>
+                  <td><span class="fw-normal">{{ obj.date_close }}</span></td>
+                  <td>
+                      <a class="text-danger rounded-bottom" href="/amsai/prereg_settings/{{ obj.id }}/delete/"><span class="fas fa-trash-alt me-2"></span>Remove</a>
+                  </td>
+              </tr>
+              {% endfor %}
+          </tbody>
+      </table>
+      <div class="card-footer px-3 border-0 d-flex flex-column flex-lg-row align-items-center justify-content-between">
+      </div>
+  </div>
+
+  <div class="modal fade" id="modal-form" tabindex="-1" role="dialog" aria-labelledby="modal-form" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+              <div class="modal-body p-0">
+                  <div class="card p-3 p-lg-4">
+                      <button type="button" class="btn-close ms-auto" data-bs-dismiss="modal" aria-label="Close"></button>
+                      <div class="text-center text-md-center mb-4 mt-md-0">
+                          <h1 class="mb-0 h4">Pre-registration Access Date</h1>
+                          {{ warn }}
+                      </div>
+                      <form action="/amsai/prereg_settings/" method="post" class="mt-4">
+                          {% csrf_token %}
+                          <div class="form-group mb-4">
+                              <label for="">Acces Date</label>
+                              <div class="input-group">
+                                  <input type="datetime-local" placeholder="Select a date" class="form-control" name="date_open" required>
+                              </div>
+                          </div>
+                          <div class="form-group mb-4">
+                              <label for="">Date Close</label>
+                              <div class="input-group">
+                                  <input type="datetime-local" placeholder="Select a date" class="form-control" name="date_close" required>
+                              </div>
+                          </div>
+                          <div class="d-grid">
+                              <button type="submit" class="btn btn-gray-800">Submit</button>
+                          </div>
+                      </form>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

@@ -38,13 +38,16 @@
 <!--        <input id="myInput" type="text" placeholder="Search..">-->
   </div>
 
-    <div class="row" style="overflow:scroll;" id="eventtitle" data-filter-control="true" data-show-search-clear-button="true">
+
+  <div class="row user-select-none">
+    <div class="row" style="" id="eventtitle" data-filter-control="true" data-show-search-clear-button="true">
         {% for obj in item %}
         <div class="col-12 col-lg-6" style="padding-bottom: 15px">
             <div class="card border-0 shadow">
                 <div class="card-header border-gray-100 d-flex justify-content-between align-items-center">
                     <h2 class="h5 mb-0">{{ obj.title }}</h2>
-                    <a href="#"
+                    {% if request.session.login_info.userrole %}
+                    <a href="/amsai/events/{{ obj.id }}/edit/"
                         class="d-inline-flex align-items-center">
                         <svg class="icon icon-xxs me-2" fill="currentColor" viewBox="0 0 20 20"
                             xmlns="http://www.w3.org/2000/svg">
@@ -53,10 +56,11 @@
                                 clip-rule="evenodd"></path>
                         </svg>
                     </a>
+                    {% endif %}
                 </div>
                 <div class="card-body">
-                    <div><img src="{{ obj.image.url }}" alt=""></div>
-                    <div><i style="float: right; font-size: small" >Date Posted: {{ obj.date_posted }}</i></br></div>
+                    <div><img src="{{ obj.image.url }}" style="height:300px; width: 100%; object-fit: cover; opacity: 0.8" alt=""></div>
+                    <div><i style="float: right; font-size: small" >Date Posted: {{ obj.date_posted | date }}</i></br></div>
 <!--                    <div><span class="fw-bolder">WHEN:</span> Date: {{ obj.date|date:"F d, Y" }} </br> Time: {{ obj.date|date:"H:i" }}</div>-->
                     <div><span class="fw-bolder">WHEN:</span> Date: {{ obj.date }}</div>
                     <div><span class="fw-bolder">WHERE:</span> {{ obj.venue }}</div>

@@ -1,0 +1,182 @@
+{% extends "layouts/base-fullscreen.html" %}
+
+{% block title %} Dashboard {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<div style="margin-left: 2%; margin-right: 2%; margin-top: 2%">
+{% if item %}
+    <div class="col-12 col-xl-12" style="width: 1300px;">
+        <div class="row">
+            <div class="col-12 mb-4">
+                <form method="post" class="visually-hidden" name="form" action="/amsai/clocking_interface/" style="margin: 0">
+                {% csrf_token %}
+                <input style="outline: none; border: none; background: none; width: 2px; height: 2px" id="registerid" name="registerid" type="text" value="" autofocus required>
+                </form>
+                <div class="card border-0 shadow">
+                    <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
+                      <div class="carousel-inner">
+                        {% for obj in item %}
+                        <div class="carousel-item {% if forloop.counter0 == 0 %}active{% endif %}" data-bs-interval="18000">
+                          <img src="{{obj.image.url}}" class="d-block w-100"  height="600px"  style="width:900px; height: 700px; object-fit: cover; opacity: 0.8" alt="">
+                          <div class="carousel-caption d-none d-md-block" style="background-color:rgba(0, 0, 0, 0.3); transition-duration: 2s; left:0; right: 0;">
+                            <h5>{{ obj.title }}</h5>
+                            <p style="color: whitesmoke">{{ obj.description }}</p>
+                          </div>
+                        </div>
+                        {% endfor %}
+                      </div>
+                      <a class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+                        <span class="" aria-hidden="true" style="width: 200px;">
+                            <svg class="icon" fill="currentColor" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><polygon class="st0" points="277.919,132.921 154.839,256 277.919,379.072 318.552,338.438 236.122,256 318.552,173.562 "></polygon></path> </g></svg>
+                        </span>
+                        <span class="visually-hidden">Previous</span>
+                      </a>
+                      <a class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+                         <span class="" aria-hidden="true" style="width: 200px;">
+                            <svg width="200px" height="200px" class="icon" fill="currentColor" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <style type="text/css"> .st0{fill:#ffffff;} </style> <g> <polygon class="st0" points="193.447,173.562 275.877,256 193.447,338.438 234.081,379.08 357.161,256 234.081,132.928 "></polygon></path> </g></svg>
+                        </span>
+                        <span class="visually-hidden">Next</span>
+                      </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}
+
+{% if check %}
+    <div class="row">
+        <div class="col-12 col-sm-6 col-xl-4 mb-4">
+            <div class="card border-0 shadow">
+                <div class="card-body pb-11">
+                    <div class="row d-block d-xl-flex align-items-center">
+                        <form method="post" name="form" action="/amsai/clocking_interface/" class="mt-7">
+                            {% csrf_token %}
+                            <div class="card-body pb-4 text-center">
+                                <img src="/static/assets/img/icons/5087579.png" class="avatar-xl rounded-circle mx-auto mt-n7 mb-4" style="width: 80%; height: 80%">
+                                <h4 class="h4">
+                                    <input  style="outline: none; border: none; background: none; width: 2px; height: 2px" class="visually-hidden" id="registerid" name="registerid" type="text" value="" autofocus>
+                                    {{ check.lrn }}
+                                </h4>
+                                <h5 class="fw-normal">
+                                    {{ check.lastname }}, {{ check.firstname }}
+                                </h5>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-sm-6 col-xl-8 mb-4">
+            <div class="card border-0 shadow">
+                <div id="carouselExample" class="carousel carousel-dark slide" data-bs-ride="carousel">
+                  <div class="carousel-inner">
+                    {% for obj in event %}
+                    <div class="carousel-item {% if forloop.counter0 == 0 %}active{% endif %}" data-bs-interval="3000">
+                      <img src="{{obj.image.url}}" class="d-block w-100"  height=""  style="width:900px; height:705px; object-fit: cover; opacity: 0.8" alt="">
+                      <div class="carousel-caption d-none d-md-block" style="background-color:rgba(0, 0, 0, 0.3); transition-duration: 2s; left:0; right: 0;">
+                        <h5>{{ obj.title }}</h5>
+                        <p style="color: whitesmoke">{{ obj.description }}</p>
+                      </div>
+                    </div>
+                    {% endfor %}
+                  </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            // reload
+            setTimeout(function(){
+                window.location.href = 'http://127.0.0.1:9000/amsai/clocking_interface/';
+            }, 10000);
+        </script>
+    </div>
+{% endif %}
+
+{% if warn %}
+    <div class="row">
+        <div class="col-12 col-sm-6 col-xl-4 mb-4">
+            <div class="card border-0 shadow">
+                <div class="card-body pb-11">
+                    <div class="row d-block d-xl-flex align-items-center">
+                        <form method="post" name="form" action="/amsai/clocking_interface/" class="mt-7">
+                            {% csrf_token %}
+                            <div class="card-body pb-4 text-center">
+                                <img src="/static/assets/img/icons/5087579.png" class="avatar-xl rounded-circle mx-auto mt-n7 mb-4" style="width: 80%; height: 80%">
+                                <h4 class="h4">
+                                    <input  style="outline: none; border: none; background: none; width: 2px; height: 2px" class="visually-hidden" id="registerid" name="registerid" type="text" value="" autofocus>
+                                    ALERT!
+                                </h4>
+                                <h5 class="fw-normal">
+                                    {{ warn }}
+                                </h5>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-sm-6 col-xl-8 mb-4">
+            <div class="card border-0 shadow">
+                <div id="carouselExample1" class="carousel carousel-dark slide" data-bs-ride="carousel">
+                  <div class="carousel-inner">
+                    {% for obj in event %}
+                    <div class="carousel-item {% if forloop.counter0 == 0 %}active{% endif %}" data-bs-interval="3000">
+                      <img src="{{obj.image.url}}" class="d-block w-100"  height=""  style="width:900px; height:705px; object-fit: cover; opacity: 0.8" alt="">
+                      <div class="carousel-caption d-none d-md-block" style="background-color:rgba(0, 0, 0, 0.3); transition-duration: 2s; left:0; right: 0;">
+                        <h5>{{ obj.title }}</h5>
+                        <p style="color: whitesmoke">{{ obj.description }}</p>
+                      </div>
+                    </div>
+                    {% endfor %}
+                  </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            // reload
+            setTimeout(function(){
+                window.location.href = 'http://127.0.0.1:9000/amsai/clocking_interface/';
+            }, 10000);
+        </script>
+    </div>
+{% endif %}
+</div>
+
+<script>
+    // submit form automatically for time in
+    var check = document.forms["form"]["registerid"].value;
+    if (check==="" || check === null){
+        void(0)
+    }
+    else{
+        document.clocking.submit();
+    }
+
+    // live time
+    var span = document.getElementById('clock');
+
+    function time() {
+      var d = new Date();
+      var s = d.getSeconds();
+      var m = d.getMinutes();
+      var h = d.getHours();
+      var ampm = h >= 12 ? ' pm' : ' am';
+      h = h % 12;
+      h = h ? h : 12;
+
+      span.textContent =
+        ("0" + h).substr(-2) + ":" + ("0" + m).substr(-2) + ":" + ("0" + s).substr(-2) + ampm;
+    }
+
+    setInterval(time, 1000);
+</script>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

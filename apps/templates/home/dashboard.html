@@ -7,24 +7,25 @@
 
 {% block content %}
 
-    <div class="py-4">
+    <div class="py-4 user-select-none">
       <div class="d-block mb-4 mb-md-0">
           <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
               <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
                   <li class="breadcrumb-item">
-                      <a href="#">
+                      <a href="/amsai/dashboard/">
                           <svg class="icon icon-xxs" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
                       </a>
                   </li>
-                  <li class="breadcrumb-item"><a href="#">AMSAI</a></li>
+                  <li class="breadcrumb-item">AMSAI</li>
                   <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
               </ol>
           </nav>
           <h2 class="h4">Dashboard</h2>
+           Welcome to AMSAI's Dashboard!
       </div>
     </div>
-{% if request.session.login_info.userrole %}
-    <div class="row">
+{% if request.session.login_info.userrole == "Admin" %}
+    <div class="row user-select-none">
         <div class="col-12 col-sm-6 col-xl-4 mb-4">
             <div class="card border-0 shadow">
                 <div class="card-body">
@@ -124,7 +125,7 @@
         </div>
     </div>
 {% endif %}
-    <div class="row">
+    <div class="row user-select-none">
         <div class="col-12 col-xl-8">
             <div class="row">
                 <div class="col-12 mb-4">
@@ -138,10 +139,10 @@
                           <div class="carousel-inner">
                             {% for obj in item %}
                             <div class="carousel-item {% if forloop.counter0 == 0 %}active{% endif %}" data-bs-interval="10000">
-                              <img src="{{obj.image.url}}" class="d-block w-100"  height="400px"  style="width:900px; object-fit: cover; opacity: 0.8" alt="">
-                              <div class="carousel-caption d-none d-md-block">
+                              <img src="{{obj.image.url}}" class="d-block w-100"  height="450px"  style="width:900px; object-fit: cover; opacity: 0.8" alt="">
+                              <div class="carousel-caption d-none d-md-block" style="background-color:rgba(0, 0, 0, 0.3); transition-duration: 2s; left:0; right: 0;">
                                 <h5>{{ obj.title }}</h5>
-                                <p>{{ obj.description }}</p>
+                                <p style="color: whitesmoke">{{ obj.description }}</p>
                               </div>
                             </div>
                             {% endfor %}
@@ -185,6 +186,7 @@
                                 </a>
                             </div>
                         </div>
+                        {% if request.session.login_info.userrole == "Admin" or request.session.login_info.userrole == "Registrar" %}
                         <div class="d-flex align-items-center justify-content-between border-bottom py-3">
                             <div>
                                 <div class="h6 mb-0 d-flex align-items-center">
@@ -242,6 +244,8 @@
                                 </a>
                             </div>
                         </div>
+                        {% endif %}
+                        {% if request.session.login_info.userrole == "Admin" or request.session.login_info.userrole == "Cashier" %}
                         <div class="d-flex align-items-center justify-content-between pt-3 border-bottom py-3">
                             <div>
                                 <div class="h6 mb-0 d-flex align-items-center">
@@ -271,46 +275,49 @@
                                 </a>
                             </div>
                         </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>
         </div>
         {% endif %}
-        {% if request.session.login_info.lrn_no %}
-        <div class="col-12 col-xl-4">
-            <div class="col-12 px-0 mb-4">
+
+        {% if request.session.login_info.registerid or request.session.login_info.username %}
+        <div class="col-12 col-xl-4 user-select-none">
+            <div class="col-12">
                 <div class="card border-0 shadow">
+                    <div class="card-header border-bottom">
+                        <h2 class="fs-5 fw-bold mb-1">Events</h2>
+                    </div>
                     <div class="card-body">
-                        <div class="d-flex align-items-center justify-content-between border-bottom pb-3">
-                            <div>
-                                <div class="h6 mb-0 d-flex align-items-center">
-<!--                                    <svg class="icon icon-xs text-gray-500 me-2" fill="currentColor" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">-->
-<!--                                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M182.99 146.2h585.14v402.29h73.14V73.06H109.84v877.71H512v-73.14H182.99z" fill="#000000"></path><path d="M256.13 219.34h438.86v73.14H256.13zM256.13 365.63h365.71v73.14H256.13zM256.13 511.91h219.43v73.14H256.13zM731.55 585.06c-100.99 0-182.86 81.87-182.86 182.86s81.87 182.86 182.86 182.86c100.99 0 182.86-81.87 182.86-182.86s-81.86-182.86-182.86-182.86z m0 292.57c-60.5 0-109.71-49.22-109.71-109.71 0-60.5 49.22-109.71 109.71-109.71 60.5 0 109.71 49.22 109.71 109.71 0.01 60.49-49.21 109.71-109.71 109.71z" fill="#0F1F3C"></path><path d="M758.99 692.08h-54.86v87.27l69.39 68.76 38.61-38.96-53.14-52.66z" fill="#0F1F3C"></g></path>                                    </svg>-->
-                                    <h5>Information</h5>
+                        {% for obj in event_list %}
+                        {% if forloop.counter0 == 0 %}
+                        <div class="row align-items-center d-block d-sm-flex border-bottom pb-4 mb-4">
+                        {% endif %}
+                        {% if forloop.counter0 == 1 %}
+                        <div class="row d-block d-sm-flex align-items-center">
+                        {% endif %}
+                            <div class="col-auto mb-3 mb-sm-0">
+                                <div class="calendar d-flex">
+                                    <span class="calendar-month text-uppercase" style="background: #ff6500">{{ obj.date | date:'b' }}</span>
+                                    <span class="calendar-day py-2">{{ obj.date | date:'d' }}</span>
                                 </div>
                             </div>
-                            <div>
-<!--                                <a href="#" class="d-flex align-items-center fw-bold">-->
-<!--                                    {{ sum }}-->
-<!--                                    <svg class="icon icon-xs text-gray-500 ms-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 3a1 1 0 000 2v8a2 2 0 002 2h2.586l-1.293 1.293a1 1 0 101.414 1.414L10 15.414l2.293 2.293a1 1 0 001.414-1.414L12.414 15H15a2 2 0 002-2V5a1 1 0 100-2H3zm11.707 4.707a1 1 0 00-1.414-1.414L10 9.586 8.707 8.293a1 1 0 00-1.414 0l-2 2a1 1 0 101.414 1.414L8 10.414l1.293 1.293a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>-->
-<!--                                </a>-->
+                            <div class="col">
+                                <a href="../calendar.html"><h3 class="h6 mb-1">{{ obj.title }}</h3></a>
+                                <div class="small fw-bold">Time: <span class="text-uppercase">{{ obj.date | time }}</span></div>
+                                <span class="small fw-bold">Place: {{ obj.venue }}</span>
                             </div>
                         </div>
-                        <div class="d-flex align-items-center justify-content-between border-bottom py-3">
-                            <div>
-                                <div class="h6 mb-0 d-flex align-items-center">
-                                <hr class="sidebar-divider">
-                                <div class="d-block">
-                                    <div class="d-flex align-items-center me-5">
-                                        <div class="d-block">
-                                            Welcome student {{ request.session.login_info.lrn }}!
-<!--                                            <br>View Profile-->
-<!--                                            <a class="link-indigo" href="/check_application/{{ request.session.login_info.refno }}/">here</a>.-->
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        {% endfor %}
+                    </div>
+                    <div class="card-footer border-top bg-gray-50">
+                        <a class="fw-bold d-flex align-items-center justify-content-center" href="/amsai/events/">
+                            <svg class="icon icon-xs me-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path>
+                                <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"></path>
+                            </svg>
+                        See all</a>
                     </div>
                 </div>
             </div>
