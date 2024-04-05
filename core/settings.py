@@ -1,8 +1,3 @@
-# -*- encoding: utf-8 -*-
-"""
-Copyright (c) 2019 - present AppSeed.us
-"""
-
 import os
 from decouple import config
 from unipath import Path
@@ -49,7 +44,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-
 ]
 
 ROOT_URLCONF = 'core.urls'
@@ -127,8 +121,6 @@ TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
-# USE_L10N = True
-
 USE_TZ = True
 
 TIME_INPUT_FORMATS = ['%I:%M %p',]
@@ -136,7 +128,6 @@ SESSION_COOKIE_AGE = 60 * 60 # 60 minutes
 
 #############################################################
 # SRC: https://devcenter.heroku.com/articles/django-assets
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 STATIC_ROOT = os.path.join(CORE_DIR, 'staticfiles')
