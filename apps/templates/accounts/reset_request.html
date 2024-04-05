@@ -1,0 +1,110 @@
+{% extends "layouts/base-fullscreen.html" %}
+
+{% block title %} Change Password {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    <main>
+        <section class="vh-lg-100 mt-5 mt-lg-0 bg-soft d-flex align-items-center">
+            <div class="container">
+                <p class="text-center">
+
+                </p>
+                <div class="row justify-content-center form-bg-image" data-background-lg="/static/assets/img/illustrations/signins.svg">
+                    <div class="col-12 d-flex align-items-center justify-content-center">
+                        <div class="bg-white shadow border-0 rounded border-light p-4 p-lg-5 w-100 fmxw-500">
+                            <div class="text-center text-md-center mb-4 mt-md-0">
+                                <h3>Reset Password</h3>
+                                <p></p>
+                                <p>
+                                    <span style="color: #be2617">{{ errors }}</span>
+                                    <span style="color: #fc1b05">{{ warn }}</span>
+                                </p>
+                            </div>
+                            <style>
+
+                            </style>
+                            <form method="post" action="" class="mt-4">
+                                {% csrf_token %}
+                                <!-- Form -->
+                                <div class="form-group mb-4">
+                                    <label>Email</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">
+                                            <span class="fas fa-envelope"></span>
+                                        </span>
+                                        <input type="text" name="email" class="form-control" placeholder="Email" required>
+<!--                                        <input type="checkbox" onclick="myFunction()">Show Password-->
+                                    </div>
+                                </div>
+                                <input type="text" name="code" class="form-control" value="{{ code }}" placeholder="Code" hidden="">
+
+                                <!-- End of Form -->
+                                <div class="d-grid">
+                                    <button type="submit" class="btn btn-secondary">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <script>
+            function onChange() {
+              const password = document.querySelector('input[name=pass1]');
+              const confirm = document.querySelector('input[name=pass2]');
+              if (confirm.value === password.value) {
+                confirm.setCustomValidity('');
+              } else {
+                confirm.setCustomValidity('Passwords do not match');
+              }
+            }
+
+
+            // function myFunction() {
+            //   let check = document.getElementById('check')
+            //   let password = document.getElementById('pass1')
+            //   let confirm = document.getElementById('pass2')
+            //   if (password.type === "password") {
+            //     password.type = "text";
+            //   } else {
+            //     password.type = "password";
+            //   }
+            //   if (confirm.type === "password") {
+            //     confirm.type = "text";
+            //   } else {
+            //     confirm.type = "password";
+            //   }
+            // }
+        </script>
+
+        <style>
+                div.notif{position: fixed; z-index: 1; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgb(24, 24, 24); background-color: rgba(0,0,0,0.4)}
+        </style>
+        {% for message in messages %}
+            <div class="notif" id="modal" tabindex="-1" role="dialog" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered" role="document">
+                      <div class="modal-content">
+                          <div class="modal-header">
+                              <h2 class="h6 modal-title">Session Timeout!</h2>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="message {{ message.tags }}">
+                            {{ message }}
+                          </div>
+                          <div class="modal-footer">
+                              <a type="button" class="btn btn-secondary" href="/amsai/login/">Sign IN</a>
+                          </div>
+                      </div>
+                  </div>
+                </div>
+        {% endfor %}
+    </main>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

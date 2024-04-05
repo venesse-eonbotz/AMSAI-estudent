@@ -78,7 +78,7 @@
                                               Remember me
                                             </label>
                                         </div>
-                                        <div><a href="#" class="small text-right">Lost password?</a></div>
+                                        <div><a href="/amsai/reset_password/" class="small text-right">Forgot password?</a></div>
                                     </div>
                                 </div>
                                 <div class="d-grid">
@@ -95,6 +95,28 @@
                 </div>
             </div>
         </section>
+
+        <style>
+                div.notif{position: fixed; z-index: 1; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgb(24, 24, 24); background-color: rgba(0,0,0,0.4)}
+        </style>
+        {% for message in messages %}
+            <div class="notif" id="modal" tabindex="-1" role="dialog" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered" role="document">
+                      <div class="modal-content">
+                          <div class="modal-header">
+                              <h2 class="h6 modal-title">Session Timeout!</h2>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="message {{ message.tags }}">
+                            {{ message }}
+                          </div>
+                          <div class="modal-footer">
+                              <a type="button" class="btn btn-secondary" href="/amsai/login/">Sign IN</a>
+                          </div>
+                      </div>
+                  </div>
+                </div>
+        {% endfor %}
     </main>
 
 {% endblock content %}

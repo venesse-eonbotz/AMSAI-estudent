@@ -22,11 +22,8 @@
       <div class="d-flex justify-content-between w-100 flex-wrap">
           <div class="mb-3 mb-lg-0">
               <h1 class="h4">Add Event Form</h1>
+              <span class="text-danger">{{ warn }} {{ error }}</span>
           </div>
-<!--          <div>-->
-<!--              <a href="#" class="btn btn-outline-gray">-->
-<!--                  <i class="far fa-question-circle me-1"></i> Forms Docs</a>-->
-<!--          </div>-->
       </div>
   </div>
 
@@ -36,7 +33,6 @@
               <div class="card-body">
                   <form action="" method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
-                    {{ warn }} {{ error }}
                   <div class="row mb-4">
                       <div class="col-lg-4 col-sm-6">
                           <!-- Form -->

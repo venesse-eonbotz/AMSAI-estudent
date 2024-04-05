@@ -22,27 +22,26 @@
           </nav>
           <h2 class="h4">Events</h2>
       </div>
-        {% if request.session.login_info.userrole == "Admin" %}
-      <div class="btn-toolbar mb-2 mb-md-0">
-          <div class="btn-group ms-2 ms-lg-3">
-              <a href="/amsai/events/add/" class="btn btn-outline-primary">
-                  <svg class="icon icon-xs me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-                  </svg>
-                  Add Events</a>
-              <a href="/amsai/events/refresh/" class="btn btn-outline-primary">
-                  Refresh</a>
-          </div>
-      </div>
-        {% endif %}
-<!--        <input id="myInput" type="text" placeholder="Search..">-->
-  </div>
+      {% if request.session.login_info.userrole == "Admin" %}
+          <div class="btn-toolbar mb-2 mb-md-0">
+              <div class="btn-group ms-2 ms-lg-3">
+                  <a href="/amsai/events/add/" class="btn btn-outline-primary">
+                      <svg class="icon icon-xs me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                      </svg>
+                      Add Events</a>
+                  <a href="/amsai/events/refresh/" class="btn btn-outline-primary">
+                      Refresh</a>
+              </div>
+        </div>
+      {% endif %}
+    </div>
 
 
-  <div class="row user-select-none">
+  <div class="user-select-none">
     <div class="row" style="" id="eventtitle" data-filter-control="true" data-show-search-clear-button="true">
         {% for obj in item %}
-        <div class="col-12 col-lg-6" style="padding-bottom: 15px">
+        <div class="container-new col-12 col-lg-6" style="padding-bottom: 15px">
             <div class="card border-0 shadow">
                 <div class="card-header border-gray-100 d-flex justify-content-between align-items-center">
                     <h2 class="h5 mb-0">{{ obj.title }}</h2>
@@ -61,7 +60,6 @@
                 <div class="card-body">
                     <div><img src="{{ obj.image.url }}" style="height:300px; width: 100%; object-fit: cover; opacity: 0.8" alt=""></div>
                     <div><i style="float: right; font-size: small" >Date Posted: {{ obj.date_posted | date }}</i></br></div>
-<!--                    <div><span class="fw-bolder">WHEN:</span> Date: {{ obj.date|date:"F d, Y" }} </br> Time: {{ obj.date|date:"H:i" }}</div>-->
                     <div><span class="fw-bolder">WHEN:</span> Date: {{ obj.date }}</div>
                     <div><span class="fw-bolder">WHERE:</span> {{ obj.venue }}</div>
                     <div><span class="fw-bolder">WHO:</span> {{ obj.attendees }}</div>
@@ -75,8 +73,13 @@
             </div>
         </div>
         {% endfor %}
-
     </div>
+  </div>
+<style>
+    .container-new{
+      display: flex;
+    }
+</style>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
@@ -86,16 +89,17 @@
       $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
     });
   });
-</script>
-<!--<script>-->
-<!--  $(document).ready(function() {-->
-<!--    var dataTable = $('#eventtitle')-->
-<!--    $("#myInput").keyup(function() {-->
-<!--        dataTable.fnFilter(this.value);-->
-<!--    });-->
-<!--  })-->
 
-<!--</script>-->
+    let magicGrid = new MagicGrid({
+      container: '.row',
+      animate: true,
+      gutter: 30,
+      static: true,
+      useMin: true
+    });
+
+    magicGrid.listen();
+</script>
 {% endblock content %}
 
 <!-- Specific Page JS goes HERE  -->

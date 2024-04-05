@@ -5,7 +5,7 @@ Copyright (c) 2019 - present AppSeed.us
 
 from django.urls import path
 from .views import (registerParent, login, logout, preRegistration, viewResult, parentResult,
-                    registerStudent, studentResult)
+                    registerStudent, studentResult, changePassword, reset_request, input_code, forgotPassword)
 from apps.home import views
 from soa.views import Soa, uploadSoa
 from event.views import event, uploadEvent, refreshEvent, dashboard, editEvent
@@ -17,6 +17,10 @@ urlpatterns = [
     # authentication
     path('amsai/login/', login, name="login"),
     # path('register/', register_user, name="register"),
+    path('amsai/reset_password/', reset_request),
+    path('amsai/reset_password/code/', input_code),
+    path('amsai/forgot_password/', forgotPassword),
+    path('amsai/first_login/changepass/', changePassword),
     path('amsai/pre-registration/', preRegistration),
     path('amsai/pre-registration/result/', viewResult),
     path('register/parent/', registerParent, name="parent_register"),
@@ -52,6 +56,8 @@ urlpatterns = [
     path('parent/OR/<int:nid>/', views.uploadOR),
     path('parent/OR/', views.ORList),
     path('amsai/pre-registration/list/', views.preregList),
+    path('amsai/pre-registration/new/', views.preregNew),
+    path('amsai/pre-registration/old/', views.preregOld),
     path('amsai/student_registration/list/', views.studentReglist),
     path('amsai/pre-registration/list/<int:nid>/update/', views.approvePrereg),
     path('amsai/student_registration/list/<int:nid>/update/', views.approveStudentreg),
@@ -62,9 +68,10 @@ urlpatterns = [
     path('amsai/events/<int:nid>/edit/', editEvent),
     path('amsai/events/refresh/', refreshEvent),
     path('student/monitor/', views.monitor),
-    path('mystudent/add/', views.addStudent),
-    path('mystudent/add/<int:nid>/approve/', views.approveMystudent),
+    path('mystudent/add/', views.approveMystudent),
+    path('mystudent/add/<nid>/approve/', views.approveMystudent),
     path('amsai/student_list/export/', views.exportStudentList),
+    path('amsai/parent_student_list/', views.listMystudent),
 
     # approval
     path('registration/list/',  views.registrationList),
@@ -72,7 +79,7 @@ urlpatterns = [
 
     # navs
     # path('table/', views.table, name="table"),
-    path('dashboard/', dashboard),
+    path('amsai/dashboard/', dashboard),
     path('amsai/', views.empty),
 
     # search
@@ -83,6 +90,14 @@ urlpatterns = [
 
     # settings
     # path('amsai/prereg_setings/', views.preregSettings)
+
+    #export
+    path('amsai/pre-registration/list/export/', views.exportPrereg),
+    path('amsai/pre-registration/new/export/', views.exportPreregNew),
+    path('amsai/pre-registration/old/export/', views.exportPreregOld),
+
+    # error
+    path('amsai/page-unavailable/', views.pageUnavailable)
 
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

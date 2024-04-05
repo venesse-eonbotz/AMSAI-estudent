@@ -99,8 +99,8 @@
                           <div class="mb-4">
                               <label class="required" for="">Gender</label>
                               <select class="form-select" name="gender" required>
-                                   <option selected value="New">Male</option>
-                                   <option selected value="Old">Female</option>
+                                   <option selected value="Male">Male</option>
+                                   <option selected value="Female">Female</option>
                                    <option selected value="" hidden>Please select your gender</option>
                                </select>
                           </div>
@@ -476,7 +476,7 @@
                       {% if message.tags == 'error' %}
                       <h2 class="h6 modal-title text-danger">Warning!</h2>
                       {% endif %}
-                      <button type="button" class="btn-close" data-bs-dismiss="notif" href="/amsai/pre-registration/" aria-label="Close"></button>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal-default" href="/amsai/pre-registration/" aria-label="Close"></button>
                   </div>
                   <div class="modal-body">
                       {% if message.tags == 'success' %}
@@ -489,9 +489,9 @@
                   </div>
                   <div class="modal-footer">
                       {% if message.tags == 'success' %}
-                      <a type="button" class="btn btn-secondary" href="/amsai/pre-registration/">OKAY</a>
+                      <a type="button" class="btn btn-secondary" href="/amsai/pre-registration/" data-bs-dismiss="modal-default">OKAY</a>
                       {% endif %}
-                      <a type="button" class="btn btn-link text-gray-600 ms-auto" href="/amsai/pre-registration/" data-bs-dismiss="notif">Close</a>
+                      <a type="button" class="btn btn-link text-gray-600 ms-auto" href="/amsai/pre-registration/" data-bs-dismiss="modal-default">Close</a>
                   </div>
               </div>
           </div>
@@ -499,21 +499,21 @@
      {% endfor %}
 {% endif %}
 {% if warn %}
-    <div class="warn" id="" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="notif" id="modal" tabindex="-1" role="dialog" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered" role="document">
               <div class="modal-content">
                   <div class="modal-header">
                       <h2 class="h6 modal-title">Warning!</h2>
-                      <button type="button" class="btn-close" data-bs-dismiss="warn" href="/amsai/pre-registration/" aria-label="Close"></button>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <div class="modal-body">
-                      <p>{{ warn }} Change student type and leave student ID blank if not applicable.</p>
+                      <p>{{ warn }}</p>
                   </div>
                   <div class="modal-footer">
                       {% if message.tags == 'success' %}
                       <a type="button" class="btn btn-secondary" href="/amsai/login/">Sign IN</a>
                       {% endif %}
-                      <a type="button" class="btn btn-link text-gray-600 ms-auto" href="/amsai/pre-registration/" data-bs-dismiss="warn">Close</a>
+                      <button type="button" class="btn btn-link text-gray-600 ms-auto" data-bs-dismiss="modal">Close</button>
                   </div>
               </div>
           </div>

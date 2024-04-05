@@ -18,10 +18,11 @@
                       </a>
                   </li>
                   <li class="breadcrumb-item"><a href="#">AMSAI</a></li>
-                  <li class="breadcrumb-item active" aria-current="page">Pre Registration</li>
+                  <li class="breadcrumb-item" aria-current="page">Pre Registration</li>
+                  <li class="breadcrumb-item active" aria-current="page">Old Students</li>
               </ol>
           </nav>
-          <h2 class="h4">Pre-registration List</h2>
+          <h2 class="h4">Pre Registration</h2>
           <p><a class="hover:underline" href="/amsai/pre-registration/list/">All Students</a>, <a class="hover:underline" href="/amsai/pre-registration/new/">New Students</a>, <a class="hover:underline" href="/amsai/pre-registration/old/">Old Students</a>.</p>
       </div>
       <div class="btn-toolbar mb-2 mb-md-0">
@@ -84,36 +85,7 @@
   </div>
 
   <!-- Modal Content -->
-<!--  <div class="modal fade" id="modal-form" tabindex="-1" role="dialog" aria-labelledby="modal-form" aria-hidden="true">-->
-<!--      <div class="modal-dialog modal-dialog-centered" role="document">-->
-<!--          <div class="modal-content">-->
-<!--              <div class="modal-body p-0">-->
-<!--                  <div class="card p-3 p-lg-4">-->
-<!--                      <button type="button" class="btn-close ms-auto" data-bs-dismiss="modal" aria-label="Close"></button>-->
-<!--                      <div class="text-center text-md-center mb-4 mt-md-0">-->
-<!--                          <h1 class="mb-0 h4">Alert!</h1>-->
-<!--                      </div>-->
-<!--                      <form action="" class="mt-4" >-->
-<!--                          &lt;!&ndash; Form &ndash;&gt;-->
-<!--                          <div class="form-group mb-4 text-center justify-content-center">-->
-<!--                              <label class="r">Are you sure you want to approve this registration?</label>-->
-<!--                              <div class="input-group">-->
-<!--                                  <input name="pre_reg" class="form-control" value="Approve">-->
-<!--                              </div>-->
-<!--                          </div>-->
-<!--                          &lt;!&ndash; End of Form &ndash;&gt;-->
-<!--                          <div class="d-grid justify-content-center">-->
-<!--                              <button type="submit" class="btn btn-gray-800" style="width: 120px; display: inline;">Yes</button>-->
-<!--&lt;!&ndash;                              <button type="submit" class="btn btn-gray-800" style="width: 120px; display: inline-block;">Close</button>&ndash;&gt;-->
-<!--                          </div>-->
-<!--                      </form>-->
-<!--                  </div>-->
-<!--              </div>-->
-<!--          </div>-->
-<!--      </div>-->
-<!--  </div>-->
-
-    <div class="modal fade" id="modal-form" tabindex="-1" role="dialog" aria-labelledby="modal-form" aria-hidden="true">
+  <div class="modal fade" id="modal-form" tabindex="-1" role="dialog" aria-labelledby="modal-form" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered" role="document">
               <div class="modal-content">
                   <div class="modal-body p-0">
@@ -122,7 +94,7 @@
                           <div class="text-center text-md-center mb-4 mt-md-0">
                               <h1 class="mb-0 h4">Export Settings</h1>
                           </div>
-                          <form action="/amsai/pre-registration/list/export/" method="POST">
+                          <form action="/amsai/pre-registration/old/export/" method="POST">
                               {% csrf_token %}
                               <!-- Form -->
                               <div class="form-group mb-4">

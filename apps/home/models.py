@@ -169,7 +169,7 @@ class Clocking(models.Model):
     outam = models.CharField(db_column='outAM', max_length=20, blank=True, null=True)  # Field name made lowercase.
     inpm = models.CharField(db_column='inPM', max_length=20, blank=True, null=True)  # Field name made lowercase.
     outpm = models.CharField(db_column='outPM', max_length=20, blank=True, null=True)  # Field name made lowercase.
-    date = models.CharField(db_column='date',  max_length=20, blank=True, null=True)
+    date = models.DateField(db_column='date',  max_length=20, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -534,7 +534,7 @@ class Parent(models.Model):
     lastname = models.CharField(max_length=20, blank=True, null=True)
     dateofbirth = models.CharField(max_length=20, blank=True, null=True)
     email = models.CharField(max_length=30, blank=True, null=True)
-    dateregistered = models.CharField(max_length=20, blank=True, null=True)
+    dateregistered = models.DateField(max_length=10, blank=True, null=True)
     password = models.CharField(max_length=45, blank=True, null=True)
     mystatus = models.CharField(max_length=45, blank=True, null=True)
 
@@ -967,6 +967,7 @@ class Student(models.Model):
     dateregistered = models.CharField(db_column='DateRegistered', max_length=255, blank=True, null=True)  # Field name made lowercase.
     password = models.CharField(max_length=45, blank=True, null=True)
     status = models.CharField(max_length=45, blank=True, null=True)
+    last_login = models.BooleanField(max_length=5, blank=False, null=False, default=0)
 
     def __str__(self):
         return str(self.registerid)
@@ -1032,7 +1033,7 @@ class StudentPrereg(models.Model):
     esc = models.CharField(db_column='ESC', max_length=10, blank=True, null=True)  # Field name made lowercase.
     psa = models.CharField(db_column='PSA', max_length=10, blank=True, null=True)  # Field name made lowercase.
     number_2x2 = models.CharField(db_column='2x2', max_length=10, blank=True, null=True)  # Field renamed because it wasn't a valid Python identifier.
-    dateregistered = models.CharField(db_column='DateRegistered', max_length=10, blank=True, null=True)  # Field name made lowercase.
+    dateregistered = models.DateField(db_column='DateRegistered', max_length=10, blank=True, null=True)  # Field name made lowercase.
     password = models.CharField(max_length=10, blank=True, null=True)
     reg_status = models.CharField(max_length=10, blank=True, null=True)
 

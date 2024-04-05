@@ -3,22 +3,17 @@
 Copyright (c) 2019 - present AppSeed.us
 """
 import time
-from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from apps.home.models import *
 from pay.models import Payment, Paymentor
-from settings.models import *
 from soa.models import File
 from event.models import Events
-from .forms import FileForm
-# from payment.views import Payment
-from django.core.paginator import Paginator
 import datetime, random, string, csv, secrets
 from twilio.rest import Client
 
-account_sid = 'ACa3ded3cd0b39b0efe288198c34e401de'
-auth_token = '5047729895bfaeea2b9f3ad01051640f'
+account_sid = 'AC4e437002042e19f5ec0ee34ab255dfa8'
+auth_token = '5591067702d42e5ca20946c5a50e93d8'
 client = Client(account_sid, auth_token)
 
 # @login_required(login_url="/amsai/login/")
@@ -27,19 +22,6 @@ def index(request):
 
 def empty(request):
     return render(request, 'home/empty.html')
-
-# def table(request):
-#     if request.method == 'GET':
-#         query = ParentMystudent.objects.all()
-#         if query:
-#             for obj in query:
-#                 # parent = ParentMystudent.objects.all()
-#                 # request.session['login_info'] = {'id': parent.id}
-#                 student = Student.objects.get(registerid=obj.mystudent_id)
-#                 obj.student = student
-#             return render(request, 'parent/my_student.html', {'query': query})
-#         else:
-#             return render(request, 'parent/my_student.html')
 
 
 def mystudentlist(request):
@@ -54,6 +36,11 @@ def mystudentlist(request):
 
 def addStudent(request):
     if request.method == 'GET':
+        try:
+            request.session['login_info']
+        except Exception as e:
+            print(e)
+            return redirect('/amsai/login/')
         return render(request, 'parent/mystudent_add.html')
     if request.method == 'POST':
         lrn = request.POST.get('lrn')
@@ -82,6 +69,11 @@ def removeMyStudent(request, nid):
 
 def listMystudent(request):
     if request.method == 'GET':
+        try:
+            request.session['login_info']
+        except Exception as e:
+            print(e)
+            return redirect('/amsai/login/')
         query = ParentMystudent.objects.all()
         if query:
             for obj in query:
@@ -94,32 +86,24 @@ def listMystudent(request):
 
 def approveMystudent(request, nid):
     if request.method == 'GET':
+        try:
+            request.session['login_info']
+        except Exception as e:
+            print(e)
+            return redirect('/amsai/login/')
         query = ParentMystudent.objects.get(id=nid)
         return render(request, 'admin/addstudent_approve.html', {'query': query})
     if request.method == 'POST':
         ParentMystudent.objects.filter(id=nid).update(status=request.POST.get('status'))
-        return redirect('/mystudent/add/')
-
-
-# def mySOA(request):
-#     if request.method == 'GET':
-#         query = Soa.objects.filter(parentid=request.session['login_info'].get('id'))
-#         if query:
-#             data = {"query": query}
-#             return render(request, 'parent/my_soa.html', data)
-#         else:
-#             return render(request, 'parent/my_soa.html'
-
-
-# def myPayment(request):
-#     if request.method == 'GET':
-#         query = PaymentUpload.objects.all()
-#         return render(request, 'admin/payment_list.html', {'query': query})
-#     else:
-#         return render(request, 'admin/payment_list.html')
+        return redirect('/amsai/parent_student_list/')
 
 
 def paymentList(request):
+    try:
+        request.session['login_info']
+    except Exception as e:
+        print(e)
+        return redirect('/amsai/login/')
     item = Payment.objects.filter(parent=request.session.get('login_info')["id"])
     if item:
         for obj in item:
@@ -130,6 +114,12 @@ def paymentList(request):
 
 def uploadPayment(request):
     if request.method == "POST":
+        try:
+            request.session['login_info']
+        except Exception as e:
+            print(e)
+            return redirect('/amsai/login/')
+
         item = Payment()
         item.amount = request.POST.get('amount')
         item.refno = request.POST.get('refno')
@@ -153,6 +143,11 @@ def uploadPayment(request):
 
 def uploadOR(request, nid):
     if request.method == 'GET':
+        try:
+            request.session['login_info']
+        except Exception as e:
+            print(e)
+            return redirect('/amsai/login/')
         query = Payment.objects.get(id=nid)
         return render(request, 'payment/or_upload.html', {'query': query})
     if request.method == "POST":
@@ -172,14 +167,22 @@ def uploadOR(request, nid):
             return render(request, 'payment/or_upload.html', {'warn': warn})
 
 
-
-
 def ORList(request):
     query = Paymentor.objects.all()
+    try:
+        request.session['login_info']
+    except Exception as e:
+        print(e)
+        return redirect('/amsai/login/')
     return render(request, 'payment/or_view.html', {'query': query})
 
 
 def ORParentsView(request, nid):
+    try:
+        request.session['login_info']
+    except Exception as e:
+        print(e)
+        return redirect('/amsai/login/')
     try:
         item = Paymentor.objects.filter(payment=nid)
         return render(request, 'payment/or_view.html', {'item': item})
@@ -190,6 +193,11 @@ def ORParentsView(request, nid):
 def soa(request):
     if request.method == 'GET':
         query = File.objects.all()
+        try:
+            request.session['login_info']
+        except Exception as e:
+            print(e)
+            return redirect('/amsai/login/')
         if query:
             for obj in query:
                 student = Student.objects.get(registerid=obj.studentid_id)
@@ -200,6 +208,11 @@ def soa(request):
 
 
 def adminPayment(request):
+    try:
+        request.session['login_info']
+    except Exception as e:
+        print(e)
+        return redirect('/amsai/login/')
     item = Payment.objects.all().order_by('-id')
     if item:
         for obj in item:
@@ -209,6 +222,11 @@ def adminPayment(request):
 
 
 def parentSoa(request, nid):
+    try:
+        request.session['login_info']
+    except Exception as e:
+        print(e)
+        return redirect('/amsai/login/')
     query = File.objects.filter(studentid=nid)
     if query:
         for obj in query:
@@ -217,9 +235,13 @@ def parentSoa(request, nid):
     return render(request, 'parent/view_soa.html', {'query': query})
 
 
-
 def soa_upload(request):
     if request.method == 'GET':
+        try:
+            request.session['login_info']
+        except Exception as e:
+            print(e)
+            return redirect('/amsai/login/')
         student = Student.objects.all()
         return render(request, 'admin/soa_upload.html', {'student': student})
     if request.method == 'POST':
@@ -240,6 +262,11 @@ def soa_upload(request):
 
 def teacherlist(request):
     if request.method == 'GET':
+        try:
+            request.session['login_info']
+        except Exception as e:
+            print(e)
+            return redirect('/amsai/login/')
         users = Teachers.objects.all()
         if users:
             data = {"users": users}
@@ -249,7 +276,13 @@ def teacherlist(request):
 
 def registrationList(request):
     if request.method == 'GET':
-        users = Parent.objects.all()
+        try:
+            request.session['login_info']
+        except Exception as e:
+            print(e)
+            return redirect('/amsai/login/')
+
+        users = Parent.objects.all().order_by('dateregistered')
         if users:
             data = {"users": users}
             return render(request, 'parent/registration_list.html', locals())
@@ -259,55 +292,45 @@ def registrationList(request):
 
 def approveRegistration(request, nid):
     if request.method == 'GET':
+        try:
+            request.session['login_info']
+        except Exception as e:
+            print(e)
+            return redirect('/amsai/login/')
+
         users = Parent.objects.get(id=nid)
         return render(request, 'parent/registration_approval.html', {'users': users})
     if request.method == 'POST':
         random_chars = ''.join(random.choices(string.ascii_uppercase + string.digits, k=8))
         username = f"{random_chars}"
         alphabet = string.ascii_letters + string.digits
-        password = ''.join(secrets.choice(alphabet) for i in range(15))
+        password = ''.join(secrets.choice(alphabet) for i in range(8))
         Parent.objects.filter(id=nid).update(username=username, password=password, mystatus=request.POST.get('status'))
         return redirect('/registration/list/')
 
-from django.db.models import Count
+
 def studentList(request):
-    # query = request.GET.get('query')
-    # if query:
-    #     users = Student.objects.filter(lrn__contains=query)
-    # else:
-    #     users = Student.objects.filter(lrn__contains=query)
-    users = Student.objects.filter(lrn__isnull=False, lastname__isnull=False).order_by("lastname")
-    paginator = Paginator(users, 15)
-    page_number = request.GET.get("page")
-    page_obj = paginator.get_page(page_number)
-    if users:
-        data = {"users": users}
+    try:
+        request.session['login_info']
+    except Exception as e:
+        print(e)
+        return redirect('/amsai/login/')
+    student = Student.objects.filter(lrn__isnull=False, lastname__isnull=False).order_by("lastname")
+    if student:
+        data = {"student": student}
         return render(request, 'student/student_list.html', locals())
     else:
         return render(request, 'parent/student_list.html', locals())
 
 
-# def dashboard(request):
-#     count = len(Student.objects.all())
-#     event = len(Events.objects.all())
-#     date = datetime.datetime.now().date()
-#     entry = len(Clocking.objects.filter(date=datetime.datetime.now().date()))
-#     prereg = len(StudentPrereg.objects.filter(reg_status="Pending"))
-#     student = len(Student.objects.filter(status="Pending")) + len(Student.objects.filter(status__isnull=True))
-#     parent = len(Parent.objects.filter(mystatus="Pending"))
-#     mystudent = len(ParentMystudent.objects.filter(status="Pending"))
-#     pay = len(Payment.objects.all()) - len(Paymentor.objects.all())
-#     soa = len(Student.objects.all()) - len(File.objects.all())
-#     sum = prereg + student + parent + mystudent + pay + soa
-#     item = Payment.objects.all()
-#     return render(request, 'home/dashboard.html', {'count': count, 'event': event, 'parent': parent,
-#                                                    'date': date, 'entry': entry, 'prereg': prereg, 'student': student,
-#                                                    'mystudent': mystudent, 'pay': pay, 'soa': soa, 'sum': sum,
-#                                                    'item': item})
-
-
 def clocking(request):
     if request.method == 'GET':
+        try:
+            request.session['login_info']
+        except Exception as e:
+            print(e)
+            return redirect('/amsai/login/')
+
         query = EntryMonitoring.objects.filter(student=request.session.get('login_info')["registerid"]).order_by('-id')
         if query:
             data = {"query": query}
@@ -318,6 +341,11 @@ def clocking(request):
 
 
 def check_attendance(request, nid):
+    try:
+        request.session['login_info']
+    except Exception as e:
+        print(e)
+        return redirect('/amsai/login/')
     query = EntryMonitoring.objects.filter(student=nid).order_by('-date')
     if query:
         for obj in query:
@@ -328,6 +356,11 @@ def check_attendance(request, nid):
 
 def monitor(request):
     if request.method == 'GET':
+        try:
+            request.session['login_info']
+        except Exception as e:
+            print(e)
+            return redirect('/amsai/login/')
         query = EntryMonitoring.objects.all().order_by('-date')
         return render(request, 'student/clocking.html', {'query': query})
 
@@ -360,9 +393,9 @@ def clocking_interface(request):
                 check.firstname = len(unmasked2[:-4]) * "*" + unmasked2[-2:]
             if len(EntryMonitoring.objects.filter(student=value, date=date)) == 1:
                 message = client.messages.create(
-                    from_='+19893680649',
+                    from_='+19382533493',
                     body=f'DATE: {date}, {clockin} \n {check.lrn} left school premises.',
-                    to='+639456678590'
+                    to='+639949912050'
                 )
                 print(message.body)
                 EntryMonitoring.objects.filter(student=value, date=date, clockout=None).update(clockout=clockout)
@@ -387,9 +420,9 @@ def clocking_interface(request):
             if len(EntryMonitoring.objects.filter(student=value, date=date)) == 0:
                 EntryMonitoring.objects.create(student_id=check.registerid, date=date, clockin=clockin, clockout=None)
                 message = client.messages.create(
-                    from_='+19893680649',
+                    from_='+19382533493',
                     body=f'DATE: {date}, {clockout} \n {check.lrn} entered school premises.',
-                    to='+639456678590'
+                    to='+639949912050'
                 )
                 print(message.body)
                 return render(request, 'student/clocking_interface.html', {'event': event, 'check': check})
@@ -549,30 +582,157 @@ def exportTeacherList(request):
     return response
 
 
+def exportPrereg(request):
+    gender = request.POST.get('gender')
+    date = request.POST.get('date')
+    student = StudentPrereg.objects.filter(gender=gender, dateregistered__year=date)
+    year = datetime.datetime.now().year
+    month = datetime.datetime.now().month
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = f'attachment; filename="Pre-registration({year}{month}).csv"'
+
+    writer = csv.writer(response)
+    if gender == "All":
+        student = StudentPrereg.objects.all()
+        writer.writerow(['LRN', 'Last Name', 'First Name', 'Middle Name', 'Suffix', 'Gender', 'Date of Birth', 'Address',
+                         'Ethnicity', 'Religion', 'Contact', 'Email'])  # header
+        for item in student:
+            writer.writerow([item.lrn, item.lastname, item.firstname, item.middlename, item.suffix, item.gender,
+                             item.birthdate, item.address, item.ethnicity, item.religion, item.contact, item.email])  # rows
+        return response
+    else:
+        writer.writerow(
+            ['LRN', 'Last Name', 'First Name', 'Middle Name', 'Suffix', 'Gender', 'Date of Birth', 'Address',
+             'Ethnicity', 'Religion', 'Contact', 'Email'])  # header
+        for item in student:
+            writer.writerow([item.lrn, item.lastname, item.firstname, item.middlename, item.suffix, item.gender,
+                             item.birthdate, item.address, item.ethnicity, item.religion, item.contact,
+                             item.email])  # rows
+        return response
+
+
+def exportPreregNew(request):
+    gender = request.POST.get('gender')
+    date = request.POST.get('date')
+    student = StudentPrereg.objects.filter(gender=gender, dateregistered__year=date, studenttype="New")
+    year = datetime.datetime.now().year
+    month = datetime.datetime.now().month
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = f'attachment; filename="Pre-registration({month}{year}).csv"'
+
+    writer = csv.writer(response)
+    if gender == "All":
+        student = StudentPrereg.objects.filter(dateregistered__year=date, studenttype="New")
+        writer.writerow(['LRN', 'Last Name', 'First Name', 'Middle Name', 'Suffix', 'Gender', 'Date of Birth', 'Address',
+                         'Ethnicity', 'Religion', 'Contact', 'Email'])  # header
+        for item in student:
+            writer.writerow([item.lrn, item.lastname, item.firstname, item.middlename, item.suffix, item.gender,
+                             item.birthdate, item.address, item.ethnicity, item.religion, item.contact, item.email])  # rows
+        return response
+    else:
+        writer.writerow(
+            ['LRN', 'Last Name', 'First Name', 'Middle Name', 'Suffix', 'Gender', 'Date of Birth', 'Address',
+             'Ethnicity', 'Religion', 'Contact', 'Email'])  # header
+        for item in student:
+            writer.writerow([item.lrn, item.lastname, item.firstname, item.middlename, item.suffix, item.gender,
+                             item.birthdate, item.address, item.ethnicity, item.religion, item.contact,
+                             item.email])  # rows
+        return response
+
+
+def exportPreregOld(request):
+    gender = request.POST.get('gender')
+    date = request.POST.get('date')
+    student = StudentPrereg.objects.filter(gender=gender, dateregistered__year=date, studenttype="Old")
+    year = datetime.datetime.now().year
+    month = datetime.datetime.now().month
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = f'attachment; filename="Pre-registration({month}{year}).csv"'
+
+    writer = csv.writer(response)
+    if gender == "All":
+        student = StudentPrereg.objects.filter(dateregistered__year=date, studenttype="Old")
+        writer.writerow(['LRN', 'Last Name', 'First Name', 'Middle Name', 'Suffix', 'Gender', 'Date of Birth', 'Address',
+                         'Ethnicity', 'Religion', 'Contact', 'Email'])  # header
+        for item in student:
+            writer.writerow([item.lrn, item.lastname, item.firstname, item.middlename, item.suffix, item.gender,
+                             item.birthdate, item.address, item.ethnicity, item.religion, item.contact, item.email])  # rows
+        return response
+    else:
+        writer.writerow(
+            ['LRN', 'Last Name', 'First Name', 'Middle Name', 'Suffix', 'Gender', 'Date of Birth', 'Address',
+             'Ethnicity', 'Religion', 'Contact', 'Email'])  # header
+        for item in student:
+            writer.writerow([item.lrn, item.lastname, item.firstname, item.middlename, item.suffix, item.gender,
+                             item.birthdate, item.address, item.ethnicity, item.religion, item.contact,
+                             item.email])  # rows
+        return response
+
+
 def exportClocking(request):
-    clock = Clocking.objects.all()
-    date = datetime.datetime.now().date()
+    month = request.POST.get('month')
+    year = request.POST.get('year')
+    student = request.POST.get('student')
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename="Entry Monitor.csv"'
 
-    writer = csv.writer(response)
-    writer.writerow(['', '', '', 'AM', '', 'PM', ''])
-    writer.writerow(['Last Name', 'First Name', 'Date', 'In', 'Out', 'In', 'Out'])  # header
-    for item in clock:
-        student = Student.objects.get(registerid=item.student_id)
-        item.student = student
-        writer.writerow([item.student.lastname, item.student.firstname, item.date, item.inam, item.outam, item.inpm, item.outpm ])  # rows
+    try:
+        request.session['login_info']
+    except Exception as e:
+        print(e)
+        return render(request, 'accounts/login.html')
 
-    return response
+    writer = csv.writer(response)
+    if request.session['login_info'].get('userrole'):
+        # date = request.POST.get('date')
+        # strpdate = datetime.datetime.strptime(str(date), "%Y-%m")
+
+        if student == "All":
+            writer.writerow(['Last Name', 'First Name', 'Date', 'In', 'Out'])  # header
+            clock = EntryMonitoring.objects.filter(date__year=year, date__month=month)
+            for item in clock:
+                user = Student.objects.get(registerid=item.student_id)
+                item.user = user
+                writer.writerow([item.user.lastname, item.user.firstname, item.date, item.clockin, item.clockout])  # rows
+            return response
+        else:
+            writer.writerow(['Last Name', 'First Name', 'Date', 'In', 'Out'])  # header
+            user = Student.objects.get(lrn=student)
+            clock = EntryMonitoring.objects.filter(student=user.registerid, date__year=year, date__month=month)
+            for item in clock:
+                user = Student.objects.get(registerid=item.student_id)
+                item.user = user
+                writer.writerow([item.user.lastname, item.user.firstname, item.date, item.clockin, item.clockout])  # rows
+            return response
+    elif request.session['login_info'].get('registerid'):
+        user = request.session['login_info'].get('registerid')
+        clock = EntryMonitoring.objects.filter(student=user, date__year=year, date__month=month)
+        writer.writerow(['Date', 'In', 'Out'])  # header
+        for item in clock:
+            student = Student.objects.get(registerid=item.student_id)
+            item.student = student
+            writer.writerow([item.student.lastname, item.student.firstname, item.date, item.clockin, item.clockout])  # rows
+        return response
 
 
 def studentReglist(request):
+    try:
+        request.session['login_info']
+    except Exception as e:
+        print(e)
+        return redirect('/amsai/login/')
+
     list = Student.objects.all()
     return render(request, 'admin/student_registration_list.html', {'list': list})
 
 
 def approveStudentreg(request, nid):
     if request.method == "GET":
+        try:
+            request.session['login_info']
+        except Exception as e:
+            print(e)
+            return redirect('/amsai/login/')
         query = Student.objects.get(registerid=nid)
         return render(request, 'admin/student_registration_approve.html', {'query': query})
     if request.method == "POST":
@@ -584,13 +744,59 @@ def approveStudentreg(request, nid):
 
 
 def preregList(request):
-    list = StudentPrereg.objects.all()
+    try:
+        request.session['login_info']
+    except Exception as e:
+        print(e)
+        return redirect('/amsai/login/')
+    list = StudentPrereg.objects.all().order_by('-studentid')
     return render(request, 'admin/pre-registration_list.html', {'list': list})
 
 
+def preregNew(request):
+    try:
+        request.session['login_info']
+    except Exception as e:
+        print(e)
+        return redirect('/amsai/login/')
+    list = StudentPrereg.objects.filter(studenttype="New")
+    return render(request, 'admin/pre-registration_new.html', {'list': list})
+
+
+# def preregNewExport(request):
+#     student = Student.objects.all()
+#     date = datetime.datetime.now().date()
+#     response = HttpResponse(content_type='text/csv')
+#     response['Content-Disposition'] = 'attachment; filename="Students.csv"'
+#
+#     writer = csv.writer(response)
+#     writer.writerow(['LRN', 'Last Name', 'First Name', 'Middle Name', 'Suffix', 'Gender', 'Date of Birth', 'Address',
+#                      'Ethnicity', 'Religion', 'Contact', 'Email'])  # header
+#     for item in student:
+#         writer.writerow([item.lrn, item.lastname, item.firstname, item.middlename, item.suffix, item.gender,
+#                          item.birthdate, item.address, item.ethnicity, item.religion, item.contact, item.email])  # rows
+#
+#     return response
+
+
+def preregOld(request):
+    try:
+        request.session['login_info']
+    except Exception as e:
+        print(e)
+        return redirect('/amsai/login/')
+    list = StudentPrereg.objects.filter(studenttype="Old")
+    return render(request, 'admin/pre-registration_old.html', {'list': list})
+
+
 def approvePrereg(request, nid):
+    query = StudentPrereg.objects.get(registerid=nid)
     if request.method == "GET":
-        query = StudentPrereg.objects.get(registerid=nid)
+        try:
+            request.session['login_info']
+        except Exception as e:
+            print(e)
+            return redirect('/amsai/login/')
         return render(request, 'admin/pre-registration_approve.html', {'query': query})
     if request.method == "POST":
         lrn = request.POST.get('lrn')
@@ -634,26 +840,34 @@ def approvePrereg(request, nid):
         esc = request.POST.get('esc')
         psa = request.POST.get('psa')
         number_2x2 = request.POST.get('number_2x2')
-        password = request.POST.get('password')
         refno = request.POST.get('refno')
         reg_status = request.POST.get('reg_status')
         password = request.POST.get('password')
         if reg_status == 'Approve':
             StudentPrereg.objects.filter(registerid=nid).update(reg_status=reg_status)
-            Student.objects.create(refno=refno, lrn=lrn, firstname=firstname, lastname=lastname, middlename=middlename,
-                                 suffix=suffix, gender=gender, birthdate=birthdate, birthplace=birthplace,
-                                 religion=religion, ethnicity=ethnicity, strand=strand, email=email, level=level,
-                                 curriculum=curriculum, contact=contact, dateregistered=dateregistered,  address=address,
-                                 mothersname=mothersname, mothersoccupation=mothersoccupation,
-                                 motherscontact=motherscontact, fathersname=fathersname, fatherscontact=fatherscontact,
-                                 fathersoccupation=fathersoccupation, guardiansname=guardiansname,
-                                 guardianscontact=guardianscontact, guardiansoccupation=guardiansoccupation,
-                                 civilstatus=civilstatus, juniorhigh=juniorhigh, junioraddress=junioraddress,
-                                 seniorhigh=seniorhigh, senioraddress=senioraddress, form137=form137, psa=psa,
-                                 techvoccourse=techvoccourse, culturalminoritygroup=culturalminoritygroup,
-                                 disabilities=disabilities, birthcert=birthcert, reportcard=reportcard,  esc=esc,
-                                 number_2x2=number_2x2, goodmoral=goodmoral, password=password, status=reg_status)
-            return redirect('/amsai/pre-registration/list/')
+            check = Student.objects.filter(refno=refno)
+            if len(check) == 0:
+                Student.objects.create(refno=refno, lrn=lrn, firstname=firstname, lastname=lastname, middlename=middlename,
+                                     suffix=suffix, gender=gender, birthdate=birthdate, birthplace=birthplace,
+                                     religion=religion, ethnicity=ethnicity, strand=strand, email=email, level=level,
+                                     curriculum=curriculum, contact=contact, dateregistered=dateregistered,  address=address,
+                                     mothersname=mothersname, mothersoccupation=mothersoccupation,
+                                     motherscontact=motherscontact, fathersname=fathersname, fatherscontact=fatherscontact,
+                                     fathersoccupation=fathersoccupation, guardiansname=guardiansname,
+                                     guardianscontact=guardianscontact, guardiansoccupation=guardiansoccupation,
+                                     civilstatus=civilstatus, juniorhigh=juniorhigh, junioraddress=junioraddress,
+                                     seniorhigh=seniorhigh, senioraddress=senioraddress, form137=form137, psa=psa,
+                                     techvoccourse=techvoccourse, culturalminoritygroup=culturalminoritygroup,
+                                     disabilities=disabilities, birthcert=birthcert, reportcard=reportcard,  esc=esc,
+                                     number_2x2=number_2x2, goodmoral=goodmoral, password=password, status=reg_status)
+                return redirect('/amsai/pre-registration/list/')
+            else:
+                warn = 'Student already exist.'
+                return render(request, 'admin/pre-registration_approve.html', {'warn': warn, 'query': query})
         else:
             StudentPrereg.objects.filter(registerid=nid).update(reg_status=reg_status)
             return redirect('/amsai/pre-registration/list/')
+
+
+def pageUnavailable(request):
+    return render(request, 'home/page-500.html')

@@ -2,13 +2,14 @@
 """
 Copyright (c) 2019 - present AppSeed.us
 """
-import datetime, random, string, pytz
+import datetime, random, string, pytz, secrets, re
 from time import sleep
 from django.shortcuts import render, redirect
 from .forms import MyForm
 from apps.home.models import Users, Student, Parent, StudentPrereg
 from django.contrib import messages
 from settings.models import *
+from twilio.rest import Client
 
 # Create your views here.
 def dateDiffInSeconds(date1, date2):
@@ -85,25 +86,32 @@ def preRegistration(request):
         esc = request.POST.get('esc')
         psa = request.POST.get('psa')
         number_2x2 = request.POST.get('number_2x2')
-        # password = request.POST.get('password')
+        alphabet = string.ascii_letters + string.digits
+        password = ''.join(secrets.choice(alphabet) for i in range(8))
         reg_status = "Pending"
         refno = request.POST.get('refno')
         if form.is_valid():
+            try:
+                len(StudentPrereg.objects.get(contact=contact)) >= 1
+            except Exception as e:
+                print(e)
+                warn = "Contact number already associated with another user."
+                return render(request, 'accounts/pre-registration.html', {"refno": refno, "form": form, "warn": warn})
             StudentPrereg.objects.create(firstname=firstname, middlename=middlename, lrn=lrn, studenttype=studenttype,
-                                                lastname=lastname, suffix=suffix, gender=gender, birthdate=birthdate,
-                                                birthplace=birthplace, religion=religion, ethnicity=ethnicity, strand=strand,
-                                                email=email, level=level, curriculum=curriculum, contact=contact,
-                                                dateregistered=dateregistered, address=address, mothersname=mothersname,
-                                                mothersoccupation=mothersoccupation, motherscontact=motherscontact,
-                                                fathersname=fathersname, fatherscontact=fatherscontact, goodmoral=goodmoral,
-                                                fathersoccupation=fathersoccupation, guardiansname=guardiansname,
-                                                guardianscontact=guardianscontact, guardiansoccupation=guardiansoccupation,
-                                                civilstatus=civilstatus, juniorhigh=juniorhigh, junioraddress=junioraddress,
-                                                seniorhigh=seniorhigh, senioraddress=senioraddress, form137=form137,
-                                                techvoccourse=techvoccourse, culturalminoritygroup=culturalminoritygroup,
-                                                disabilities=disabilities, birthcert=birthcert, reportcard=reportcard,
-                                                esc=esc, psa=psa, number_2x2=number_2x2,
-                                                reg_status=reg_status, refno=refno)
+                                            lastname=lastname, suffix=suffix, gender=gender, birthdate=birthdate,
+                                            birthplace=birthplace, religion=religion, ethnicity=ethnicity, strand=strand,
+                                            email=email, level=level, curriculum=curriculum, contact=contact,
+                                            dateregistered=dateregistered, address=address, mothersname=mothersname,
+                                            mothersoccupation=mothersoccupation, motherscontact=motherscontact,
+                                            fathersname=fathersname, fatherscontact=fatherscontact, goodmoral=goodmoral,
+                                            fathersoccupation=fathersoccupation, guardiansname=guardiansname,
+                                            guardianscontact=guardianscontact, guardiansoccupation=guardiansoccupation,
+                                            civilstatus=civilstatus, juniorhigh=juniorhigh, junioraddress=junioraddress,
+                                            seniorhigh=seniorhigh, senioraddress=senioraddress, form137=form137,
+                                            techvoccourse=techvoccourse, culturalminoritygroup=culturalminoritygroup,
+                                            disabilities=disabilities, birthcert=birthcert, reportcard=reportcard,
+                                            esc=esc, psa=psa, number_2x2=number_2x2, password=password,
+                                            reg_status=reg_status, refno=refno)
             messages.success(request, f'{refno}')
             return redirect('/amsai/pre-registration/')
         else:
@@ -202,6 +210,8 @@ def registerStudent(request):
         return render(request, 'home/dashboard.html', locals())
 
 
+# from django.contrib.auth.decorators import login_required
+# # @login_required(login_url="/amsai/login/")
 def login(request):
     if request.method == 'GET':
         return render(request, 'accounts/login.html', {'is_active': True})
@@ -217,14 +227,14 @@ def login(request):
             if len(users):
                 for user in users:
                     if password == user.password:
-                        request.session['login_info'] = {'lrn': user.username, 'userrole': user.userrole}
+                        request.session['login_info'] = {'lrn': user.username, 'userrole': user.userrole, 'name': user.name}
                         print(1)
-                        return redirect('/dashboard/')
+                        return redirect('/amsai/dashboard/')
                     else:
                         return render(request, "accounts/login.html",
                                       {'warn': 'You have entered an invalid username or password'})
             if users is None:
-                return redirect('/dashboard/')
+                return redirect('/amsai/dashboard/')
             else:
                 return render(request, "accounts/login.html",
                               {'warn': 'You have entered an invalid username or password'})
@@ -249,10 +259,12 @@ def login(request):
                                                          'culturalminoritygroup': user.culturalminoritygroup, 'disabilities': user.disabilities,
                                                          'birthcert': user.birthcert, 'goodmoral': user.goodmoral, 'form137': user.form137,
                                                          'reportcard': user.reportcard, 'esc': user.esc, 'psa': user.psa, 'number_2x2': user.number_2x2,
-                                                         }
-
+                                                         'last_login': user.last_login}
                         if request.session['login_info'].get('status') == "Approve":
-                            return redirect('/dashboard/')
+                            if request.session['login_info'].get('last_login') == 0:
+                                return redirect('/amsai/first_login/changepass/')
+                            else:
+                                return redirect('/amsai/dashboard/')
                         elif request.session['login_info'].get('status') == "Pending":
                             return redirect('/amsai/')
                         else:
@@ -260,7 +272,7 @@ def login(request):
                     else:
                         return render(request, "accounts/login.html", {'warn': 'You have entered an invalid username or password'})
             if users is None:
-                return redirect('/dashboard/')
+                return redirect('/amsai/dashboard/')
             else:
                 return render(request, "accounts/login.html",
                               {'warn': 'You have entered an invalid username or password'})
@@ -272,10 +284,10 @@ def login(request):
                         request.session['login_info'] = {'id': user.id, 'username': user.username, 'mystatus': user.mystatus,
                                                          'lastname': user.lastname, 'firstname': user.firstname,
                                                          'middlename': user.middlename, 'dateofbirth': user.dateofbirth,
-                                                         'dateregistered': user.dateregistered, 'email': user.email}
+                                                         'email': user.email}
                         print(1)
                         if request.session['login_info'].get('mystatus') == "Approve":
-                            return redirect('/dashboard/')
+                            return redirect('/amsai/dashboard/')
                         elif request.session['login_info'].get('mystatus') == "Decline":
                             return render(request, 'home/page-403.html')
                         else:
@@ -284,7 +296,7 @@ def login(request):
                         return render(request, "accounts/login.html",
                                       {'warn': 'You have entered an invalid username or password'})
             if users is None:
-                return redirect('/dashboard/')
+                return redirect('/amsai/dashboard/')
             else:
                 return render(request, "accounts/login.html",
                               {'warn': 'You have entered an invalid username or password'})
@@ -322,7 +334,7 @@ def login(request):
                         return render(request, "accounts/login.html",
                                       {'warn': 'You have entered an invalid username or password'})
             if users is None:
-                return redirect('/dashboard/')
+                return redirect('/amsai/dashboard/')
             else:
                 return render(request, "accounts/login.html",
                               {'warn': 'You have entered an invalid username or password'})
@@ -330,15 +342,115 @@ def login(request):
         return render(request, "home/dashboard.html")
 
 
+# force user to change password for first login
+def changePassword(request):
+    if request.method == 'GET':
+        return render(request, 'accounts/change_password.html')
+    if request.method == 'POST':
+        user = request.session['login_info'].get('registerid')
+        password = request.POST.get('pass2')
+        Student.objects.filter(registerid=user).update(last_login=1, password=password)
+        return redirect('/amsai/dashboard/')
+
+
+def reset_request(request):
+    account_sid = 'AC4e437002042e19f5ec0ee34ab255dfa8'
+    auth_token = '5591067702d42e5ca20946c5a50e93d8'
+
+    random_no = ''.join(random.choices(string.digits, k=6))
+    client = Client(account_sid, auth_token)
+    if request.method == 'GET':
+        code = f"{random_no}"
+        return render(request, 'accounts/reset_request.html', {'code': code})
+    if request.method == 'POST':
+        code = random_no
+        email = request.POST.get('email')
+        try:
+            student = Student.objects.get(contact=email)
+        except Exception as e:
+            print(e)
+            warn = "User does not exist."
+            return render(request, 'accounts/reset_request.html', {'warn': warn})
+
+        # contact number format
+        inp = student.contact
+        pattern = r"0"
+        mat = re.search(pattern, inp)
+        if mat and mat.start() == 0:  # <-- change is here!
+            contact = re.sub(pattern, '+63', inp, 1)
+        else:
+            contact = inp
+
+        # send sms verification code
+        message = client.messages.create(
+            from_='+19382533493',
+            body=f'Your verification code is: {code}',
+            to=contact
+        )
+        print(message.body)
+
+        messages.success(request, f'{code}')
+        messages.warning(request, f'{email}')
+        return redirect('/amsai/reset_password/code/')
+
+
+def input_code(request):
+    if request.method == 'GET':
+        return render(request, 'accounts/reset_password_code.html')
+    if request.method == 'POST':
+        code = request.POST.get('code')
+        code1 = request.POST.get('input')
+        email = request.POST.get('email')
+        if code1 == code:
+            messages.success(request, f'{email}')
+            return redirect('/amsai/forgot_password/')
+        else:
+            warn = "Invalid code."
+            return render(request, 'accounts/reset_password_code.html', {'warn': warn})
+
+
+def forgotPassword(request):
+    if request.method == 'GET':
+        return render(request, 'accounts/forgot_password.html')
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        user = Student.objects.get(contact=email)
+        password = request.POST.get('pass2')
+        try:
+            Student.objects.get(contact=email)
+        except Exception as e:
+            print(e)
+            warn = "User does not exist."
+            return render(request, 'accounts/forgot_password.html', {'warn': warn})
+
+        Student.objects.filter(contact=user.contact).update(password=password)
+        return redirect('/amsai/login/')
+
+
 def viewResult(request):
+    try:
+        request.session['login_info']
+    except Exception as e:
+        print(e)
+        return redirect('/amsai/login/')
     return render(request, 'accounts/view_result.html')
 
 
 def parentResult(request):
+    try:
+        request.session['login_info']
+    except Exception as e:
+        print(e)
+        return redirect('/amsai/login/')
     return render(request, 'parent/registration_result.html')
 
 
 def studentResult(request):
+    try:
+        request.session['login_info']
+    except Exception as e:
+        print(e)
+        return redirect('/amsai/login/')
     return render(request, 'student/registration_result.html')
 
 

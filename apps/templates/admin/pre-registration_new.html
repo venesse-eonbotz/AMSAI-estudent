@@ -18,15 +18,16 @@
                       </a>
                   </li>
                   <li class="breadcrumb-item"><a href="#">AMSAI</a></li>
-                  <li class="breadcrumb-item active" aria-current="page">Pre Registration</li>
+                  <li class="breadcrumb-item">Pre Registration</li>
+                  <li class="breadcrumb-item active" aria-current="page">New Students</li>
               </ol>
           </nav>
-          <h2 class="h4">Pre-registration List</h2>
+          <h2 class="h4">Pre Registration</h2>
           <p><a class="hover:underline" href="/amsai/pre-registration/list/">All Students</a>, <a class="hover:underline" href="/amsai/pre-registration/new/">New Students</a>, <a class="hover:underline" href="/amsai/pre-registration/old/">Old Students</a>.</p>
       </div>
       <div class="btn-toolbar mb-2 mb-md-0">
           <div class="btn-group ms-2 ms-lg-3">
-              <a type="button" class="btn btn-primary btn-outline-gray" data-bs-toggle="modal" data-bs-target="#modal-form">
+              <a type="button" class="btn btn-primary btn-outline-gray" data-bs-toggle="modal" data-bs-target="#modal-form1">
               <svg class="icon icon-xs me-2" fill="none" stroke="" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M12 5L11.2929 4.29289L12 3.58579L12.7071 4.29289L12 5ZM13 14C13 14.5523 12.5523 15 12 15C11.4477 15 11 14.5523 11 14L13 14ZM6.29289 9.29289L11.2929 4.29289L12.7071 5.70711L7.70711 10.7071L6.29289 9.29289ZM12.7071 4.29289L17.7071 9.29289L16.2929 10.7071L11.2929 5.70711L12.7071 4.29289ZM13 5L13 14L11 14L11 5L13 5Z" fill="#F5F5F5"></path> <path d="M5 16L5 17C5 18.1046 5.89543 19 7 19L17 19C18.1046 19 19 18.1046 19 17V16" stroke="#F5F5F5" stroke-width="2"></path> </g>
               </svg>
@@ -40,7 +41,6 @@
       <table class="table table-hover" id="userTable" data-filter-control="true" data-show-search-clear-button="true">
           <thead>
               <tr>
-<!--                  <th class="border-gray-200">#</th>-->
                   <th class="border-gray-200 no-sort">RefNo</th>
                   <th class="border-gray-200">Name</th>
                   <th class="border-gray-200 no-sort">Student Type</th>
@@ -113,7 +113,7 @@
 <!--      </div>-->
 <!--  </div>-->
 
-    <div class="modal fade" id="modal-form" tabindex="-1" role="dialog" aria-labelledby="modal-form" aria-hidden="true">
+    <div class="modal fade" id="modal-form1" tabindex="-1" role="dialog" aria-labelledby="modal-form1" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered" role="document">
               <div class="modal-content">
                   <div class="modal-body p-0">
@@ -122,7 +122,7 @@
                           <div class="text-center text-md-center mb-4 mt-md-0">
                               <h1 class="mb-0 h4">Export Settings</h1>
                           </div>
-                          <form action="/amsai/pre-registration/list/export/" method="POST">
+                          <form action="/amsai/pre-registration/new/export/" method="POST">
                               {% csrf_token %}
                               <!-- Form -->
                               <div class="form-group mb-4">

@@ -52,7 +52,9 @@
 <!--                                USA-->
                             </small> 
                             <div class="small d-flex mt-1">                               
-                                <div>Since last year <svg class="icon icon-xs text-success" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clip-rule="evenodd"></path></svg><span class="text-success fw-bolder">22%</span></div>
+                                <div>M <span class="text-success">{{ mcount }}</span>
+                                     F <span class="text-success">{{ fcount }}</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -87,7 +89,12 @@
 <!--                                GER-->
                             </small> 
                             <div class="small d-flex mt-1">                               
-                                <div><a href="/amsai/events/" style="color: #f0bc74">See events...</a></div>
+                                <div><a href="/amsai/events/" style="color: #f0bc74">See All
+<!--                                    <svg class="icon icon-xs me-2" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">-->
+<!--                                        <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path>-->
+<!--                                        <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"></path>-->
+<!--                                    </svg>-->
+                                    </a></div>
                             </div>
                         </div>
                     </div>
@@ -116,7 +123,7 @@
                                 {{ date }}
                             </small> 
                             <div class="small d-flex mt-1">                               
-                                <div>From yesterday <svg class="icon icon-xs text-success" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clip-rule="evenodd"></path></svg><span class="text-success fw-bolder">4%</span></div>
+                                <div>Yesterday <span class="text-success fw-bolder">{{ entry_yesterday }}</span></div>
                             </div>
                         </div>
                     </div>
@@ -194,8 +201,9 @@
                                     Pre-Registration
                                 </div>
                                 <div class="small card-stats">
-                                    New Applicants
-                                    <svg class="icon icon-xs text-success" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clip-rule="evenodd"></path></svg>
+                                    Male <span class="text-success">{{ male }}</span>
+                                    Female <span class="text-success">{{ female }}</span>
+<!--                                    <svg class="icon icon-xs text-success" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clip-rule="evenodd"></path></svg>-->
                                 </div>
                             </div>
                             <div>
@@ -291,10 +299,10 @@
                     </div>
                     <div class="card-body">
                         {% for obj in event_list %}
-                        {% if forloop.counter0 == 0 %}
+                        {% if forloop.counter0 <= 1 %}
                         <div class="row align-items-center d-block d-sm-flex border-bottom pb-4 mb-4">
                         {% endif %}
-                        {% if forloop.counter0 == 1 %}
+                        {% if forloop.counter0 == 2 %}
                         <div class="row d-block d-sm-flex align-items-center">
                         {% endif %}
                             <div class="col-auto mb-3 mb-sm-0">
