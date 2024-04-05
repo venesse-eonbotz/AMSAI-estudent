@@ -7,6 +7,11 @@ def preregSettings(request):
     settings = PreregSettings.objects.all()
     count = len(settings)
     if request.method == "GET":
+        try:
+            request.session['login_info']
+        except Exception as e:
+            print(e)
+            return redirect('/amsai/login/')
         return render(request, "settings/prereg_settings.html", {'settings': settings, 'count': count})
     if request.method == "POST":
         date_open = request.POST.get("date_open")
