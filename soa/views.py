@@ -7,17 +7,28 @@ from apps.home.models import Student
 # Create your views here.
 def Soa(request):
     item = File.objects.all()
+
+    try:
+        request.session['login_info']
+    except Exception as e:
+        print(e)
+        return redirect('/amsai/login/')
+
     if item:
         for obj in item:
             student = Student.objects.get(registerid=obj.studentid_id)
             obj.student = student
     context = {'item': item}
-    # return render(request, 'payment/payment_list.html', context)
     return render(request, 'admin/soa.html', context)
 
 
 def uploadSoa(request, nid):
     if request.method == 'GET':
+        try:
+            request.session['login_info']
+        except Exception as e:
+            print(e)
+            return redirect('/amsai/login/')
         query = Student.objects.filter(registerid=nid)
         return render(request, 'admin/soa_upload.html', {'query': query})
     if request.method == "POST":
