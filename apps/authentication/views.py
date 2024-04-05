@@ -1,7 +1,3 @@
-# -*- encoding: utf-8 -*-
-"""
-Copyright (c) 2019 - present AppSeed.us
-"""
 import datetime, random, string, pytz, secrets, re
 from time import sleep
 from django.shortcuts import render, redirect
