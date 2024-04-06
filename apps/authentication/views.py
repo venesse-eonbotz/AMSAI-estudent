@@ -1,3 +1,7 @@
+# -*- encoding: utf-8 -*-
+"""
+Copyright (c) 2019 - present AppSeed.us
+"""
 import datetime, random, string, pytz, secrets, re
 from time import sleep
 from django.shortcuts import render, redirect
@@ -93,6 +97,14 @@ def preRegistration(request):
                 print(e)
                 warn = "Contact number already associated with another user."
                 return render(request, 'accounts/pre-registration.html', {"refno": refno, "form": form, "warn": warn})
+
+            try:
+                len(StudentPrereg.objects.get(email=email)) >= 1
+            except Exception as e:
+                print(e)
+                warn = "Email already associated with another user."
+                return render(request, 'accounts/pre-registration.html', {"refno": refno, "form": form, "warn": warn})
+
             StudentPrereg.objects.create(firstname=firstname, middlename=middlename, lrn=lrn, studenttype=studenttype,
                                             lastname=lastname, suffix=suffix, gender=gender, birthdate=birthdate,
                                             birthplace=birthplace, religion=religion, ethnicity=ethnicity, strand=strand,
