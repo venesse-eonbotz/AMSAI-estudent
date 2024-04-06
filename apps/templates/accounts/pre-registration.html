@@ -504,16 +504,13 @@
               <div class="modal-content">
                   <div class="modal-header">
                       <h2 class="h6 modal-title">Warning!</h2>
-                      <button type="button" class="btn-close" href="/amsai/pre-registration/" data-bs-dismiss="modal" aria-label="Close"></button>
+                      <a type="button" class="btn-close" href="/amsai/pre-registration/" data-bs-dismiss="notif" aria-label="Close"></a>
                   </div>
                   <div class="modal-body">
                       <p>{{ warn }}</p>
                   </div>
                   <div class="modal-footer">
-                      {% if message.tags == 'success' %}
-                      <a type="button" class="btn btn-secondary" href="/amsai/login/">Sign IN</a>
-                      {% endif %}
-                      <button type="button" class="btn btn-link text-gray-600 ms-auto" href="/amsai/pre-registration/" data-bs-dismiss="modal">Close</button>
+                      <a type="button" class="btn btn-link text-gray-600 ms-auto" href="/amsai/pre-registration/" data-bs-dismiss="notif">Close</a>
                   </div>
               </div>
           </div>
