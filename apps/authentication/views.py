@@ -1,7 +1,3 @@
-# -*- encoding: utf-8 -*-
-"""
-Copyright (c) 2019 - present AppSeed.us
-"""
 import datetime, random, string, pytz, secrets, re
 from time import sleep
 from django.shortcuts import render, redirect
@@ -11,7 +7,7 @@ from django.contrib import messages
 from settings.models import *
 from twilio.rest import Client
 
-# Create your views here.
+
 def dateDiffInSeconds(date1, date2):
     timedelta = date2 - date1
     return timedelta.days * 24 * 3600 + timedelta.seconds
@@ -42,7 +38,6 @@ def preRegistration(request):
                 return render(request, 'accounts/prereg_pending.html', {'countdown': countdown, 'now': now, 'open': item.date_open})
         notify = "Registration is not currently available."
         return render(request, 'accounts/prereg_pending.html', {'notify': notify})
-
     if request.method == 'POST':
         studenttype = request.POST.get('studenttype')
         lrn = request.POST.get('lrn')
@@ -92,20 +87,18 @@ def preRegistration(request):
         refno = request.POST.get('refno')
         if form.is_valid():
             try:
-                len(StudentPrereg.objects.get(contact=contact)) >= 1
+                len(StudentPrereg.objects.get(contact=contact)) == 0
             except Exception as e:
                 print(e)
                 warn = "Contact number already associated with another user."
                 return render(request, 'accounts/pre-registration.html', {"refno": refno, "form": form, "warn": warn})
 
             try:
-                len(StudentPrereg.objects.get(email=email)) >= 1
+                len(StudentPrereg.objects.get(email=email)) == 0
             except Exception as e:
                 print(e)
                 warn = "Email already associated with another user."
-                return render(request, 'accounts/pre-registration.html', {"refno": refno, "form": form, "warn": warn})
-
-            StudentPrereg.objects.create(firstname=firstname, middlename=middlename, lrn=lrn, studenttype=studenttype,
+                return render(request, 'accounts/pre-registration.html', {"refno": refno, "form": form, "warn": warn})nttype,
                                             lastname=lastname, suffix=suffix, gender=gender, birthdate=birthdate,
                                             birthplace=birthplace, religion=religion, ethnicity=ethnicity, strand=strand,
                                             email=email, level=level, curriculum=curriculum, contact=contact,
