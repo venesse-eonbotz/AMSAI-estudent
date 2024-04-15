@@ -29,9 +29,9 @@ def preRegistration(request):
         now = datetime.datetime.today()
         now = now.astimezone(timezone('UTC'))
         for item in access:
-            if item.date_close >= now >= item.date_open:
+            if item.date_close.astimezone(timezone('UTC')) >= now >= item.date_open.astimezone(timezone('UTC')):
                 return render(request, 'accounts/pre-registration.html', {"refno": refno, "form": form})
-            elif item.date_close < now:
+            elif item.date_close.astimezone(timezone('UTC')) < now:
                 return render(request, 'accounts/prereg_pending.html', {'alert': 'Registration has ended, please consult the registrar.'})
             else:
                 countdown = "%dd %dh %dm %ds" % daysHoursMinutesSecondsFromSeconds(dateDiffInSeconds(now, item.date_open))
