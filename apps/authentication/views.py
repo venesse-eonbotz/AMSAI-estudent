@@ -26,7 +26,8 @@ def preRegistration(request):
     if request.method == 'GET':
         random_chars = ''.join(random.choices(string.ascii_uppercase + string.digits, k=8))
         refno = f"{random_chars}"
-        now = datetime.datetime.today().replace(tzinfo=pytz.UTC)
+        now = datetime.datetime.today()
+        now = now.astimezone(timezone('UTC'))
         for item in access:
             if item.date_close >= now >= item.date_open:
                 return render(request, 'accounts/pre-registration.html', {"refno": refno, "form": form})
