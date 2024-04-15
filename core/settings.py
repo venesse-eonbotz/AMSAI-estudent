@@ -119,10 +119,6 @@ LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
 
-USE_I18N = True
-
-USE_TZ = True
-
 TIME_INPUT_FORMATS = ['%I:%M %p',]
 SESSION_COOKIE_AGE = 60 * 60 # 60 minutes
 
