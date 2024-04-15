@@ -1,3 +1,7 @@
+# -*- encoding: utf-8 -*-
+"""
+Copyright (c) 2019 - present AppSeed.us
+"""
 import datetime, random, string, pytz, secrets, re
 from time import sleep
 from pytz import timezone
@@ -8,7 +12,7 @@ from django.contrib import messages
 from settings.models import *
 from twilio.rest import Client
 
-
+# Create your views here.
 def dateDiffInSeconds(date1, date2):
     timedelta = date2 - date1
     return timedelta.days * 24 * 3600 + timedelta.seconds
@@ -27,6 +31,7 @@ def preRegistration(request):
     if request.method == 'GET':
         random_chars = ''.join(random.choices(string.ascii_uppercase + string.digits, k=8))
         refno = f"{random_chars}"
+        # now = datetime.datetime.today().replace(tzinfo=pytz.UTC)
         now = datetime.datetime.today()
         now = now.astimezone(timezone('UTC'))
         for item in access:
@@ -42,6 +47,7 @@ def preRegistration(request):
                 return render(request, 'accounts/prereg_pending.html', {'countdown': countdown, 'now': now, 'open': date_open})
         notify = "Registration is not currently available."
         return render(request, 'accounts/prereg_pending.html', {'notify': notify})
+
     if request.method == 'POST':
         studenttype = request.POST.get('studenttype')
         lrn = request.POST.get('lrn')
@@ -97,22 +103,22 @@ def preRegistration(request):
             if StudentPrereg.objects.filter(email=email).exists():
                 warn = "Email already associated with another user."
                 return render(request, 'accounts/pre-registration.html', {"refno": refno, "form": form, "warn": warn})
-            
+
             StudentPrereg.objects.create(firstname=firstname, middlename=middlename, lrn=lrn, studenttype=studenttype,
-                                        lastname=lastname, suffix=suffix, gender=gender, birthdate=birthdate,
-                                        birthplace=birthplace, religion=religion, ethnicity=ethnicity, strand=strand,
-                                        email=email, level=level, curriculum=curriculum, contact=contact,
-                                        dateregistered=dateregistered, address=address, mothersname=mothersname,
-                                        mothersoccupation=mothersoccupation, motherscontact=motherscontact,
-                                        fathersname=fathersname, fatherscontact=fatherscontact, goodmoral=goodmoral,
-                                        fathersoccupation=fathersoccupation, guardiansname=guardiansname,
-                                        guardianscontact=guardianscontact, guardiansoccupation=guardiansoccupation,
-                                        civilstatus=civilstatus, juniorhigh=juniorhigh, junioraddress=junioraddress,
-                                        seniorhigh=seniorhigh, senioraddress=senioraddress, form137=form137,
-                                        techvoccourse=techvoccourse, culturalminoritygroup=culturalminoritygroup,
-                                        disabilities=disabilities, birthcert=birthcert, reportcard=reportcard,
-                                        esc=esc, psa=psa, number_2x2=number_2x2, password=password,
-                                        reg_status=reg_status, refno=refno)
+                                            lastname=lastname, suffix=suffix, gender=gender, birthdate=birthdate,
+                                            birthplace=birthplace, religion=religion, ethnicity=ethnicity, strand=strand,
+                                            email=email, level=level, curriculum=curriculum, contact=contact,
+                                            dateregistered=dateregistered, address=address, mothersname=mothersname,
+                                            mothersoccupation=mothersoccupation, motherscontact=motherscontact,
+                                            fathersname=fathersname, fatherscontact=fatherscontact, goodmoral=goodmoral,
+                                            fathersoccupation=fathersoccupation, guardiansname=guardiansname,
+                                            guardianscontact=guardianscontact, guardiansoccupation=guardiansoccupation,
+                                            civilstatus=civilstatus, juniorhigh=juniorhigh, junioraddress=junioraddress,
+                                            seniorhigh=seniorhigh, senioraddress=senioraddress, form137=form137,
+                                            techvoccourse=techvoccourse, culturalminoritygroup=culturalminoritygroup,
+                                            disabilities=disabilities, birthcert=birthcert, reportcard=reportcard,
+                                            esc=esc, psa=psa, number_2x2=number_2x2, password=password,
+                                            reg_status=reg_status, refno=refno)
             messages.success(request, f'{refno}')
             return redirect('/amsai/pre-registration/')
         else:
@@ -383,12 +389,12 @@ def reset_request(request):
             contact = inp
 
         # send sms verification code
-        message = client.messages.create(
-            from_='+19382533493',
-            body=f'Your verification code is: {code}',
-            to=contact
-        )
-        print(message.body)
+        # message = client.messages.create(
+        #     from_='+19382533493',
+        #     body=f'Your verification code is: {code}',
+        #     to=contact
+        # )
+        # print(message.body)
 
         messages.success(request, f'{code}')
         messages.warning(request, f'{email}')
@@ -464,4 +470,3 @@ def empty(request):
 def logout(request):
     request.session.clear()
     return redirect('/amsai/login/')
-
