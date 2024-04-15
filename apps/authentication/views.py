@@ -86,34 +86,29 @@ def preRegistration(request):
         reg_status = "Pending"
         refno = request.POST.get('refno')
         if form.is_valid():
-            try:
-                len(StudentPrereg.objects.get(contact=contact)) == 0
-            except Exception as e:
-                print(e)
+            if StudentPrereg.objects.filter(contact=contact).exists():
                 warn = "Contact number already associated with another user."
                 return render(request, 'accounts/pre-registration.html', {"refno": refno, "form": form, "warn": warn})
 
-            try:
-                len(StudentPrereg.objects.get(email=email)) == 0
-            except Exception as e:
-                print(e)
+            if StudentPrereg.objects.filter(email=email).exists():
                 warn = "Email already associated with another user."
                 return render(request, 'accounts/pre-registration.html', {"refno": refno, "form": form, "warn": warn})
-                StudentPrereg.objects.create(firstname=firstname, middlename=middlename, lrn=lrn, studenttype=studenttype,
-                                            lastname=lastname, suffix=suffix, gender=gender, birthdate=birthdate,
-                                            birthplace=birthplace, religion=religion, ethnicity=ethnicity, strand=strand,
-                                            email=email, level=level, curriculum=curriculum, contact=contact,
-                                            dateregistered=dateregistered, address=address, mothersname=mothersname,
-                                            mothersoccupation=mothersoccupation, motherscontact=motherscontact,
-                                            fathersname=fathersname, fatherscontact=fatherscontact, goodmoral=goodmoral,
-                                            fathersoccupation=fathersoccupation, guardiansname=guardiansname,
-                                            guardianscontact=guardianscontact, guardiansoccupation=guardiansoccupation,
-                                            civilstatus=civilstatus, juniorhigh=juniorhigh, junioraddress=junioraddress,
-                                            seniorhigh=seniorhigh, senioraddress=senioraddress, form137=form137,
-                                            techvoccourse=techvoccourse, culturalminoritygroup=culturalminoritygroup,
-                                            disabilities=disabilities, birthcert=birthcert, reportcard=reportcard,
-                                            esc=esc, psa=psa, number_2x2=number_2x2, password=password,
-                                            reg_status=reg_status, refno=refno)
+            
+            StudentPrereg.objects.create(firstname=firstname, middlename=middlename, lrn=lrn, studenttype=studenttype,
+                                        lastname=lastname, suffix=suffix, gender=gender, birthdate=birthdate,
+                                        birthplace=birthplace, religion=religion, ethnicity=ethnicity, strand=strand,
+                                        email=email, level=level, curriculum=curriculum, contact=contact,
+                                        dateregistered=dateregistered, address=address, mothersname=mothersname,
+                                        mothersoccupation=mothersoccupation, motherscontact=motherscontact,
+                                        fathersname=fathersname, fatherscontact=fatherscontact, goodmoral=goodmoral,
+                                        fathersoccupation=fathersoccupation, guardiansname=guardiansname,
+                                        guardianscontact=guardianscontact, guardiansoccupation=guardiansoccupation,
+                                        civilstatus=civilstatus, juniorhigh=juniorhigh, junioraddress=junioraddress,
+                                        seniorhigh=seniorhigh, senioraddress=senioraddress, form137=form137,
+                                        techvoccourse=techvoccourse, culturalminoritygroup=culturalminoritygroup,
+                                        disabilities=disabilities, birthcert=birthcert, reportcard=reportcard,
+                                        esc=esc, psa=psa, number_2x2=number_2x2, password=password,
+                                        reg_status=reg_status, refno=refno)
             messages.success(request, f'{refno}')
             return redirect('/amsai/pre-registration/')
         else:
