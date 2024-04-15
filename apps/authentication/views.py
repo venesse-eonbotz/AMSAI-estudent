@@ -30,14 +30,16 @@ def preRegistration(request):
         now = datetime.datetime.today()
         now = now.astimezone(timezone('UTC'))
         for item in access:
-            if item.date_close.astimezone(timezone('UTC')) >= now >= item.date_open.astimezone(timezone('UTC')):
+            date_close = item.date_close.astimezone(timezone('UTC'))
+            date_open = item.date_open.astimezone(timezone('UTC'))
+            if date_close >= now >= date_open:
                 return render(request, 'accounts/pre-registration.html', {"refno": refno, "form": form})
-            elif item.date_close.astimezone(timezone('UTC')) < now:
+            elif date_close < now:
                 return render(request, 'accounts/prereg_pending.html', {'alert': 'Registration has ended, please consult the registrar.'})
             else:
-                countdown = "%dd %dh %dm %ds" % daysHoursMinutesSecondsFromSeconds(dateDiffInSeconds(now, item.date_open))
+                countdown = "%dd %dh %dm %ds" % daysHoursMinutesSecondsFromSeconds(dateDiffInSeconds(now, date_open))
                 sleep(1)
-                return render(request, 'accounts/prereg_pending.html', {'countdown': countdown, 'now': now, 'open': item.date_open})
+                return render(request, 'accounts/prereg_pending.html', {'countdown': countdown, 'now': now, 'open': date_open})
         notify = "Registration is not currently available."
         return render(request, 'accounts/prereg_pending.html', {'notify': notify})
     if request.method == 'POST':
