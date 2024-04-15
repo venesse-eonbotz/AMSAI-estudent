@@ -154,7 +154,6 @@ def registerStudent(request):
         refno = f"{random_chars}"
         return render(request, 'accounts/student_register.html', {"refno": refno})
     if request.method == 'POST':
-        studentid = request.POST.get('studentid')
         studenttype = request.POST.get('studenttype')
         lrn = request.POST.get('lrn')
         firstname = request.POST.get('firstname')
@@ -314,7 +313,7 @@ def login(request):
                 for user in applicant:
                     if password == user.password:
                         request.session['login_info'] = {'registerid': user.registerid, 'refno': user.refno, 'reg_status': user.reg_status,
-                                                         'studentid': user.studentid, 'studenttype': user.studenttype, 'lrn': user.lrn,
+                                                         'studenttype': user.studenttype, 'lrn': user.lrn,
                                                          'firstname': user.firstname, 'lastname': user.lastname, 'middlename': user.middlename,
                                                          'suffix': user.suffix, 'gender': user.gender, 'birthdate': user.birthdate,
                                                          'birthplace': user.birthplace, 'address': user.address, 'ethnicity': user.ethnicity,
@@ -465,8 +464,10 @@ def studentResult(request):
 def index(request):
     return render(request,'home/dashboard.html')
 
+
 def empty(request):
     return render(request, 'home/empty.html')
+
 
 def logout(request):
     request.session.clear()
