@@ -991,7 +991,6 @@ class StudentPrereg(models.Model):
     registerid = models.AutoField(db_column='RegisterID', primary_key=True)  # Field name made lowercase.
     refno = models.CharField(db_column='RefNo', max_length=50, blank=True, null=True)  # Field name made lowercase.
     qrcode = models.TextField(blank=True, null=True)
-    studentid = models.CharField(db_column='StudentID', max_length=50, blank=True, null=True)  # Field name made lowercase.
     studenttype = models.CharField(db_column='StudentType', max_length=10, blank=True, null=True)  # Field name made lowercase.
     lrn = models.CharField(db_column='LRN', max_length=50, blank=True, null=True)  # Field name made lowercase.
     lastname = models.CharField(db_column='LastName', max_length=50, blank=True, null=True)  # Field name made lowercase.
