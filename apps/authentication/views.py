@@ -1,5 +1,6 @@
 import datetime, random, string, pytz, secrets, re
 from time import sleep
+from pytz import timezone
 from django.shortcuts import render, redirect
 from .forms import MyForm
 from apps.home.models import Users, Student, Parent, StudentPrereg
