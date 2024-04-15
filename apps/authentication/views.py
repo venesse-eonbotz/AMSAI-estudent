@@ -35,8 +35,8 @@ def preRegistration(request):
         now = datetime.datetime.today()
         now = now.astimezone(timezone('UTC'))
         for item in access:
-            date_close = item.date_close.astimezone(timezone('UTC'))
-            date_open = item.date_open.astimezone(timezone('UTC'))
+            date_close = item.date_close.astimezone(timezone('UTC')) + timedelta(hours=8)
+            date_open = item.date_open.astimezone(timezone('UTC')) + timedelta(hours=8)
             if date_close >= now >= date_open:
                 return render(request, 'accounts/pre-registration.html', {"refno": refno, "form": form})
             elif date_close < now:
