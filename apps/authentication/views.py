@@ -3,6 +3,7 @@
 Copyright (c) 2019 - present AppSeed.us
 """
 import datetime, random, string, pytz, secrets, re
+from datetime import timedelta
 from time import sleep
 from pytz import timezone
 from django.shortcuts import render, redirect
