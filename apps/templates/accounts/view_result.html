@@ -65,12 +65,14 @@
                                <input type="text" readonly class="form-control" value="{{ request.session.login_info.studenttype }}">
                           </div>
                       </div>
+                      {% if request.session.login_info.lrn %}
                       <div class="col-lg-4 col-sm-6">
                           <div class="mb-3">
                               <label>LRN</label>
                               <input type="text" readonly class="form-control" value="{{ request.session.login_info.lrn }}">
                           </div>
                       </div>
+                      {% endif %}
                       <div class="col-lg-4 col-sm-6">
                           <div class="mb-4">
                               <label class="form-label">First Name</label>

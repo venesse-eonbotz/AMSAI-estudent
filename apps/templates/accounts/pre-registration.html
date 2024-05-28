@@ -302,7 +302,7 @@
                            <div class="mb-4">
                               <label class="required">JHS School Year</label>
                               <div class="input-group">
-                                  <input class="form-control" type="number" name="juniorhigh" placeholder="example: 2023" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==4) return false;" required>
+                                  <input class="form-control" type="number" name="juniorhigh" min="2000" max="{{ year }}" placeholder="example: 2023" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==4) return false;" required>
                               </div>
                           </div>
                       </div>
@@ -317,7 +317,7 @@
                       <div class="col-lg-4 col-sm-6">
                           <div class="mb-3">
                               <label class="required">SHS School Year</label>
-                              <input type="number" class="form-control" name="seniorhigh" placeholder="example: 2023" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==4) return false;" >
+                              <input type="number" class="form-control" name="seniorhigh" min="2000" max="{{ year }}" placeholder="example: 2023" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==4) return false;" >
                           </div>
                       </div>
                       <div class="col-lg-4 col-sm-6">
@@ -476,7 +476,7 @@
                       {% if message.tags == 'error' %}
                       <h2 class="h6 modal-title text-danger">Warning!</h2>
                       {% endif %}
-                      <button type="button" class="btn-close" data-bs-dismiss="modal-default" href="/amsai/pre-registration/" aria-label="Close"></button>
+                      <a type="button" class="btn-close" data-bs-dismiss="modal-default" href="/amsai/pre-registration/" aria-label="Close"></a>
                   </div>
                   <div class="modal-body">
                       {% if message.tags == 'success' %}
@@ -484,7 +484,7 @@
                       <p>Please show this to Registrar during registration.</p>
                       {% endif %}
                       {% if message.tags == 'error' %}
-                      <p>{{ message }} Return to the previous page, review your information and validate the captcha filled.</p>
+                      <p>{{ message }}. Return to the previous page, review your information and validate the captcha filled.</p>
                       {% endif %}
                   </div>
                   <div class="modal-footer">
@@ -507,7 +507,7 @@
                       <a type="button" class="btn-close" href="/amsai/pre-registration/" data-bs-dismiss="notif" aria-label="Close"></a>
                   </div>
                   <div class="modal-body">
-                      <p>{{ warn }} Return to the previous page, review your information and validate the captcha filled.</p>
+                      <p>{{ warn }}. Return to the previous page, review your information and validate the captcha filled.</p>
                   </div>
                   <div class="modal-footer">
                       <a type="button" class="btn btn-link text-gray-600 ms-auto" href="/amsai/pre-registration/" data-bs-dismiss="notif">Close</a>
