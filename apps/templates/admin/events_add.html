@@ -80,7 +80,8 @@
 
                       <div class="my">
                           <label>Description</label>
-                          <textarea class="form-control" placeholder="Describe the event..." name="description" rows="4"></textarea>
+                          <textarea class="form-control" placeholder="Describe the event..." name="description" id="textarea" rows="4" maxlength="500" required></textarea>
+                          <span class="small pull-right label label-default count" id="count"></span>
                       </div>
                       <div class="mt-3">
                         <button type="submit" name="submit" class="btn btn-primary mt-2 animate-up-2">Submit</button>
@@ -88,11 +89,22 @@
                   </div>
                   </form>
               </div>
-
+          </div>
       </div>
   </div>
 
+<style>
+    textarea {
+    resize: none;
+}
+</style>
 {% endblock content %}
 
 <!-- Specific Page JS goes HERE  -->
-{% block javascripts %}{% endblock javascripts %}
+{% block javascripts %}
+<script>
+    document.getElementById('textarea').onkeyup = function () {
+      document.getElementById('count').innerHTML = (this.value.length) + "/500"
+    };
+</script>
+{% endblock javascripts %}

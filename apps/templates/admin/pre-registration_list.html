@@ -26,6 +26,9 @@
       </div>
       <div class="btn-toolbar mb-2 mb-md-0">
           <div class="btn-group ms-2 ms-lg-3">
+
+          </div>
+          <div class="btn-group ms-2 ms-lg-3">
               <a type="button" class="btn btn-primary btn-outline-gray" data-bs-toggle="modal" data-bs-target="#modal-form">
               <svg class="icon icon-xs me-2" fill="none" stroke="" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M12 5L11.2929 4.29289L12 3.58579L12.7071 4.29289L12 5ZM13 14C13 14.5523 12.5523 15 12 15C11.4477 15 11 14.5523 11 14L13 14ZM6.29289 9.29289L11.2929 4.29289L12.7071 5.70711L7.70711 10.7071L6.29289 9.29289ZM12.7071 4.29289L17.7071 9.29289L16.2929 10.7071L11.2929 5.70711L12.7071 4.29289ZM13 5L13 14L11 14L11 5L13 5Z" fill="#F5F5F5"></path> <path d="M5 16L5 17C5 18.1046 5.89543 19 7 19L17 19C18.1046 19 19 18.1046 19 17V16" stroke="#F5F5F5" stroke-width="2"></path> </g>
@@ -35,7 +38,6 @@
       </div>
       </div>
   </div>
-
   <div class="card card-body border-0 shadow table-wrapper table-responsive">
       <table class="table table-hover" id="userTable" data-filter-control="true" data-show-search-clear-button="true">
           <thead>
@@ -44,7 +46,6 @@
                   <th class="border-gray-200 no-sort">RefNo</th>
                   <th class="border-gray-200">Name</th>
                   <th class="border-gray-200 no-sort">Student Type</th>
-                  <th class="border-gray-200 no-sort">Student ID</th>
                   <th class="border-gray-200 no-sort">LRN</th>
                   <th class="border-gray-200 no-sort">Gender</th>
                   <th class="border-gray-200 no-sort">Contact</th>
@@ -60,7 +61,6 @@
                   <td><span class="fw-normal">{{ obj.refno }}</span></td>
                   <td><span class="fw-normal">{{ obj.lastname }}, {{ obj.firstname }}</span></td>
                   <td><span class="fw-normal">{{ obj.studenttype }}</span></td>
-                  <td><span class="fw-normal">{{ obj.studentid }}</span></td>
                   <td><span class="fw-bold">{{ obj.lrn }}</span></td>
                   <td><span class="fw-bold">{{ obj.gender }}</span></td>
                   <td><span class="fw-bold">{{ obj.contact }}</span></td>
@@ -176,7 +176,41 @@
     select-form-sm {
         width: 500px;
     }
+    div.notif{position: fixed; z-index: 1; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgb(24, 24, 24); background-color: rgba(0,0,0,0.4)}
+    input:invalid + span {
+        color: red;
+        font-weight: bold;
+    }
 </style>
+
+
+{% if messages %}
+     {% for message in messages %}
+        <div class="notif" id="modal-default" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      {% if message.tags == 'success' %}
+                      <h2 class="h6 modal-title">Student Approved!</h2>
+                      {% endif %}
+                      <a type="button" class="btn-close" data-bs-dismiss="modal-default" href="/amsai/pre-registration/list/" aria-label="Close"></a>
+                  </div>
+                  <div class="modal-body">
+                      {% if message.tags == 'success' %}
+                      <p>{{ message | linebreaksbr }}</p>
+                      {% endif %}
+                  </div>
+                  <div class="modal-footer">
+                      {% if message.tags == 'success' %}
+                      <a type="button" class="btn btn-secondary" href="/amsai/pre-registration/list/" data-bs-dismiss="modal-default">OKAY</a>
+                      {% endif %}
+                      <a type="button" class="btn btn-link text-gray-600 ms-auto" href="/amsai/pre-registration/list/" data-bs-dismiss="modal-default">Close</a>
+                  </div>
+              </div>
+          </div>
+        </div>
+     {% endfor %}
+{% endif %}
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>

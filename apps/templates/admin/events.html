@@ -25,15 +25,15 @@
       {% if request.session.login_info.userrole == "Admin" %}
           <div class="btn-toolbar mb-2 mb-md-0">
               <div class="btn-group ms-2 ms-lg-3">
+                  <span>{{ warn }}</span>
                   <a href="/amsai/events/add/" class="btn btn-outline-primary">
                       <svg class="icon icon-xs me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                       </svg>
                       Add Events</a>
-                  <a href="/amsai/events/refresh/" class="btn btn-outline-primary">
-                      Refresh</a>
+                  <a href="/amsai/events/refresh/" class="btn btn-outline-primary">Refresh</a>
               </div>
-        </div>
+          </div>
       {% endif %}
     </div>
 
@@ -48,17 +48,12 @@
                     {% if request.session.login_info.userrole %}
                     <a href="/amsai/events/{{ obj.id }}/edit/"
                         class="d-inline-flex align-items-center">
-                        <svg class="icon icon-xxs me-2" fill="currentColor" viewBox="0 0 20 20"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd"
-                                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z"
-                                clip-rule="evenodd"></path>
-                        </svg>
+                        <svg class="icon icon-xs text-gray-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"></path><path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd"></path></svg>
                     </a>
                     {% endif %}
                 </div>
                 <div class="card-body">
-                    <div><img src="{{ obj.image.url }}" style="height:300px; width: 100%; object-fit: cover; opacity: 0.8" alt=""></div>
+                    <div><img src="{{ obj.image.url }}" style="height:300px; width: 600px; object-fit: cover; opacity: 0.8" alt=""></div>
                     <div><i style="float: right; font-size: small" >Date Posted: {{ obj.date_posted | date }}</i></br></div>
                     <div><span class="fw-bolder">WHEN:</span> Date: {{ obj.date }}</div>
                     <div><span class="fw-bolder">WHERE:</span> {{ obj.venue }}</div>
