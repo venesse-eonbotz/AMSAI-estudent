@@ -79,8 +79,8 @@ WSGI_APPLICATION = 'core.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'amsaismsdbv1',
-            'USER':  'root',
+            'NAME': 'your-database-name',
+            'USER':  'your-user',
             'HOST': 'localhost',
             'PORT': 3307,
             "OPTIONS": {
